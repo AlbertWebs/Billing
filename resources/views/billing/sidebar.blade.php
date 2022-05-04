@@ -23,12 +23,12 @@
 
 
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-copy"></i> <span>All Courses</span></a>
+            <a href="{{url('/')}}/billings/courses" class="nav-link"><i class="icon-copy"></i> <span>All Courses</span></a>
 
 
         </li>
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Course</span></a>
+            <a href="{{url('/')}}/billings/add-course" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Course</span></a>
         </li>
 
 
@@ -39,10 +39,10 @@
 
 
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-copy"></i> <span>All Tutors</span></a>
+            <a href="{{url('/')}}/billings/tutors" class="nav-link"><i class="icon-copy"></i> <span>All Tutors</span></a>
         </li>
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Tutor</span></a>
+            <a href="{{url('/')}}/billings/add-tutors" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Tutor</span></a>
         </li>
 
 

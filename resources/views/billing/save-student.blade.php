@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="{{url('/')}}/billings/enroll-student" method="POST" id="Enroll-Form" enctype="multipart/form-data">
+                            <form action="{{url('/')}}/billings/save-student-post/{{$Student->id}}" method="POST" id="Enroll-Form" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="row">
                                     <div class="col-lg-4">
@@ -76,7 +76,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Name:</label>
                                             <div class="col-lg-9">
-                                                <input type="text" class="form-control" name="SName" id="student-name-1265" placeholder="Full Name" autocomplete="student-name">
+                                                <input type="text" class="form-control" name="SName" id="student-name-1265" value="{{$Student->name}}" placeholder="Full Name" autocomplete="student-name">
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Email:</label>
                                             <div class="col-lg-9">
-                                                <input type="email" name="SEmail" autocomplete="off" class="form-control" placeholder="name@domain.com">
+                                                <input type="email" name="SEmail" autocomplete="off" class="form-control" value="{{$Student->email}}"  placeholder="name@domain.com">
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +94,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Mobile:</label>
                                             <div class="col-lg-9">
-                                                <input type="text" name="SMobile" autocomplete="off" value="+254 7" class="form-control" placeholder="+723014032">
+                                                <input type="text" name="SMobile" autocomplete="off" value="{{$Student->mobile}}" class="form-control"  placeholder="+723014032">
                                             </div>
                                         </div>
                                     </div>
@@ -109,15 +109,25 @@
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Gender:</label>
                                             <div class="col-lg-8">
+                                                @if($Student->gender == 'Male')
                                                 <label class="custom-control custom-radio custom-control-inline">
                                                     <input type="radio" class="custom-control-input" value="Male" name="gender" checked>
                                                     <span class="custom-control-label">Male</span>
                                                 </label>
-
                                                 <label class="custom-control custom-radio custom-control-inline">
                                                     <input type="radio" class="custom-control-input" value="Female" name="gender">
                                                     <span class="custom-control-label">Female</span>
                                                 </label>
+                                                @else
+                                                <label class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" class="custom-control-input" value="Male" name="gender" >
+                                                    <span class="custom-control-label">Male</span>
+                                                </label>
+                                                <label class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" class="custom-control-input" value="Female" name="gender" checked>
+                                                    <span class="custom-control-label">Female</span>
+                                                </label>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -127,25 +137,13 @@
                                             <label class="col-lg-3 col-form-label">Address</label>
                                             <div class="col-lg-9">
 
-                                                        <input type="text" name="SAddress" autocomplete="off" class="form-control" placeholder="Your Physical Address">
+                                                        <input value="{{$Student->address}}" type="text" name="SAddress" autocomplete="off" class="form-control" placeholder="Your Physical Address">
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <hr>
-
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label">Your avatar:</label>
-                                    <div class="col-lg-9">
-                                        <label class="custom-file">
-                                            <input type="file" name="avatar" class="custom-file-input">
-                                            <span class="custom-file-label">Choose file</span>
-                                        </label>
-                                        <span class="form-text text-muted">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
-                                    </div>
-                                </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -156,6 +154,7 @@
 
                                                     <select name="course" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
                                                         <optgroup label="Courses" data-select2-id="208">
+                                                            <option value="{{$Student->course}}" data-select2-id="68" selected>{{$Student->course}}</option>
                                                             <option value="Nuclear Science" data-select2-id="68">Nuclear Science</option>
                                                             <option value="Computer Technology" data-select2-id="209">Computer Technology</option>
                                                             <option value="Quantum Physics" data-select2-id="210">Quantum Physics</option>
@@ -180,6 +179,7 @@
 
                                                     <select name="shift" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
                                                         <optgroup label="Delivery Methods" data-select2-id="208">
+                                                            <option value="{{$Student->shift}}" data-select2-id="68" selected>{{$Student->shift}}</option>
                                                             <option value="Day" data-select2-id="68">Day</option>
                                                             <option value="Night" data-select2-id="209">Night</option>
                                                             <option value="Evening" data-select2-id="210">Evening</option>
@@ -200,14 +200,15 @@
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label">Extra Info:</label>
                                     <div class="col-lg-8">
-                                        <textarea rows="5" name="extra" cols="5" class="form-control" placeholder="Enter your message here"></textarea>
+                                        <textarea rows="5" name="extra" cols="5" class="form-control" placeholder="Enter your message here">{{$Student->extra}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-primary">
-                                        Create Admission <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                                        Save Changes <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
+                                    <p id="Success" style="padding:10px" class="alert-success">Student Has Been Enrolled Successfully</p>
                                 </div>
                             </form>
                         </div>

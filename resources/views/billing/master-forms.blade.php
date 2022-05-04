@@ -115,6 +115,8 @@
                     console.log(data);
                     $('#Loading').hide();
                     $('#Success').show();
+                    // Refresh
+                    location.reload();
                     // Success
                 }
             });

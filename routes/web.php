@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +23,21 @@ Route::get('/', function () {
 Route::group(['prefix'=>'billings'], function(){
     Route::get('/', [App\Http\Controllers\BillingController::class, 'all'])->name('all');
     Route::get('/students', [App\Http\Controllers\BillingController::class, 'students'])->name('all-students');
+    Route::get('/student/{id}', [App\Http\Controllers\BillingController::class, 'student'])->name('student');
     Route::get('/students-enroll', [App\Http\Controllers\BillingController::class, 'enroll'])->name('enroll');
+    Route::get('/courses', [App\Http\Controllers\BillingController::class, 'courses'])->name('courses');
 
+
+    Route::get('/tutors', [App\Http\Controllers\BillingController::class, 'tutors'])->name('tutors');
+    Route::get('/course/{id}', [App\Http\Controllers\BillingController::class, 'course'])->name('course');
+    Route::get('/add-course', [App\Http\Controllers\BillingController::class, 'add_course'])->name('add-course');
+    Route::get('/courses', [App\Http\Controllers\BillingController::class, 'courses'])->name('courses-list');
+    Route::get('/course-delete/{id}', [App\Http\Controllers\BillingController::class, 'course_delete'])->name('course-delete');
+    Route::POST('/save-course-post/{id}', [App\Http\Controllers\BillingController::class, 'save_course_post'])->name('save-course-post');
     Route::POST('/enroll-student', [App\Http\Controllers\BillingController::class, 'enroll_student'])->name('enroll-post');
+    Route::POST('/save-student-post/{id}', [App\Http\Controllers\BillingController::class, 'save_student'])->name('save-student');
+    Route::POST('/add-course-post', [App\Http\Controllers\BillingController::class, 'add_course_post'])->name('add-course-post');
+
 });
 
 

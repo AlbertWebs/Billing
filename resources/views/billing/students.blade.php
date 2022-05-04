@@ -72,9 +72,10 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to Payments Receipts</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to Results</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to User Details</a>
+                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to Payments Receipts</a>
+                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to Results</a>
+                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to User Details</a>
+                                            <a href="{{url('/')}}/billings/student/{{$item->id}}" class="dropdown-item"><i class="fas fa-pencil-alt"></i> Edit Student</a>
                                             <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export Anything Else</a>
                                         </div>
                                     </div>
