@@ -207,5 +207,9 @@ class BillingController extends Controller
         return Redirect::back();
    }
 
+   public function create_bill(){
+
+   }
+
 
 }
