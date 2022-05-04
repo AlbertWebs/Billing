@@ -271,6 +271,7 @@ var AlpacaBasic = function() {
             }
         });
 
+        var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/alpaca/selects.json";
         // External data source
         $('#alpaca-select-external').alpaca({
             options: {
@@ -278,7 +279,7 @@ var AlpacaBasic = function() {
                 helper: 'Guess my favorite ice cream?',
                 type: 'select',
                 focus: false,
-                dataSource: '../../../../global_assets/demo_data/alpaca/selects.json'
+                dataSource: newURL
             }
         });
     };
@@ -357,6 +358,8 @@ var AlpacaBasic = function() {
             }
         });
 
+        var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/alpaca/selects.json";
+
         // Multiselect with remote data
         $('#alpaca-multiselect-remote').alpaca({
             options: {
@@ -367,7 +370,7 @@ var AlpacaBasic = function() {
                 size: 3,
                 focus: false,
                 id: 'multiselect-remote',
-                dataSource: '../../../../global_assets/demo_data/alpaca/selects.json'
+                dataSource: newURL
             }
         });
     };

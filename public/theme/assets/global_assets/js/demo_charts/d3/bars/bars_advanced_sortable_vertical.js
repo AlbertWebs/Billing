@@ -95,7 +95,8 @@ var D3BarSortableVertical = function() {
             // Load data
             // ------------------------------
 
-            d3.tsv("../../../../global_assets/demo_data/d3/bars/bars_basic.tsv", function(error, data) {
+            var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/d3/bars/bars_basic.tsv";
+            d3.tsv(newURL, function(error, data) {
 
                 // Pull out values
                 data.forEach(function(d) {

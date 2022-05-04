@@ -17,4 +17,20 @@ class BillingController extends Controller
     public function enroll(){
        return view('billing.enrol');
     }
+
+    public function enroll_student(Request $request){
+         $name = $request->SName;
+         $email = $request->SEmail;
+         $mobile = $request->SMobile;
+         $gender = $request->gender;
+         $address = $request->SAddress;
+         $extra = $request->extra;
+         $course = $request->course;
+         $shift = $request->shift;
+
+
+
+         die();
+
+    }
 }
