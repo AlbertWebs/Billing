@@ -208,8 +208,19 @@ class BillingController extends Controller
    }
 
    public function create_bill(){
-
+    return view('billing.create-bill');
    }
+
+   public function my_payments(){
+        // DB::table('billings')->get();
+        return view('billing.payments');
+   }
+
+   public function editable_invoice(){
+    // DB::table('billings')->get();
+    return view('billing.editable-invoice');
+}
+
 
 
 }

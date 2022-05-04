@@ -57,7 +57,10 @@
             <a href="#" class="nav-link"><i class="icon-pencil3"></i> <span>Approve Payments</span></a>
         </li>
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-pencil3"></i> <span>All Payments</span></a>
+            <a href="{{url('/')}}/billings/my-payments" class="nav-link"><i class="icon-pencil3"></i> <span>All Payments</span></a>
+        </li>
+        <li class="nav-item nav-item-submenu">
+            <a href="{{url('/')}}/billings/editable-invoice" class="nav-link"><i class="icon-pencil3"></i> <span>Editable Invoice</span></a>
         </li>
         <!-- /forms -->
 
