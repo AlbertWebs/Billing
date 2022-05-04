@@ -45,10 +45,12 @@ Route::group(['prefix'=>'billings'], function(){
     Route::POST('/save-tutor-post/{id}', [App\Http\Controllers\BillingController::class, 'save_tutor_post'])->name('save-tutor-post');
 
     Route::get('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill'])->name('create-bill');
+    Route::post('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill_post'])->name('create-bill-post');
     Route::get('/my-payments', [App\Http\Controllers\BillingController::class, 'my_payments'])->name('my-payments');
     Route::get('/editable-invoice', [App\Http\Controllers\BillingController::class, 'editable_invoice'])->name('editable-invoice');
 
-
+    // Route::get('/infos/{id}', 'InfoController@getInfo');
+    Route::get('/infos/{id}', [App\Http\Controllers\BillingController::class, 'getInfo'])->name('get-info');
 
 });
 

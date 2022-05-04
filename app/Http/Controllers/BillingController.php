@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Tutor;
+use App\Models\Billing;
+
 use DB;
 use Redirect;
 
@@ -212,8 +214,8 @@ class BillingController extends Controller
    }
 
    public function my_payments(){
-        // DB::table('billings')->get();
-        return view('billing.payments');
+        $Billings = DB::table('billings')->get();
+        return view('billing.payments',compact('Billings'));
    }
 
    public function editable_invoice(){
@@ -221,6 +223,39 @@ class BillingController extends Controller
     return view('billing.editable-invoice');
 }
 
+public function create_bill_post(Request $request){
+    $user = $request->user;
+    $price = $request->price;
+    $qty = $request->qty;
+    $tax = $request->tax;
+    $description = $request->description;
+    $note = $request->note;
+    $title = $request->title;
+    $total = $qty*$price;
+    $rate = 1;
+
+    $Billing = new Billing;
+    $Billing->student = $user;
+    $Billing->note = $note;
+    $Billing->tax = $tax;
+    $Billing->qty = $qty;
+    $Billing->price = $price;
+    
+    
+    $Billing->description = $description;
+    $Billing->title = $title;
+    $Billing->total = $total;
+    $Billing->save();
+
+}
+
+
+public function getInfo($id)
+{
+  $fill = DB::table('courses')->where('id', $id)->pluck('price');
+
+  return Response::json(['success'=>true, 'info'=>$fill]);
+}
 
 
 }

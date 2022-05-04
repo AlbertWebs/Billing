@@ -16,13 +16,14 @@ class CreateBillingsTable extends Migration
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
             $table->string('student');
-            $table->text('note')->default('Thank you for using Limitless. This invoice can be paid via PayPal, Bank transfer, Skrill or Payoneer. Payment is due within 30 days from the date of delivery. Late payment is possible, but with with a fee of 10% per month. Company registered in Kenya and Wales #6893003, registered office: 7th Floor 4rth Street, Nairobi E1 8BF, Kenya Africa. Phone number: 0723014032');
+            $table->text('note');
             $table->integer('tax');
+            $table->integer('price');
             $table->integer('qty');
-            $table->integer('rate');
-            $table->text('description');
-            $table->string('due');
-            $table->text('payment');
+            $table->integer('rate')->default('1');
+            $table->text('description')->nullable();
+            $table->string('due')->nullable();
+            $table->text('title')->nullable();
             $table->integer('total');
             $table->timestamps();
         });
