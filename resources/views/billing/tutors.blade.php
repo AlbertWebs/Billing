@@ -14,8 +14,8 @@
                 <div class="d-flex">
                     <div class="breadcrumb">
                         <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                        <a href="{{url('/')}}/billings/courses" class="breadcrumb-item">Courses</a>
-                        <span class="breadcrumb-item active">All Courses</span>
+                        <a href="{{url('/')}}/billings/courses" class="breadcrumb-item">Tutors</a>
+                        <span class="breadcrumb-item active">All Tutors</span>
                     </div>
 
                     <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
@@ -39,26 +39,19 @@
                 <table class="table datatable-basic">
                     <thead>
                         <tr><th>#</th>
-                            <th>Course Title</th>
-                            <th>Tutor</th>
+                            <th>Tutor Name</th>
+
 
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($Courses as $item)
+                        @foreach ($Tutors as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->title}}</td>
+                            <td>{{$item->name}}</td>
 
-                            <td>
-                                <?php
-                                   $Tutor = DB::table('tutors')->where('id',$item->tutor)->get();
-                                ?>
-                                @foreach ($Tutor as $tutor)
-                                  {{$tutor->name}}
-                                @endforeach
-                            </td>
+
 
                             <td class="text-center">
                                 <div class="list-icons">
@@ -68,8 +61,8 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{url('/')}}/billings/course/{{$item->id}}" class="dropdown-item"><i class="fas fa-pencil-alt"></i> Edit Course</a>
-                                            <a href="{{url('/')}}/billings/course-delete/{{$item->id}}" class="dropdown-item"><i class="fas fa-trash-alt"></i> Delete</a>
+                                            <a href="{{url('/')}}/billings/tutor/{{$item->id}}" class="dropdown-item"><i class="fas fa-pencil-alt"></i> Edit Tutor</a>
+                                            <a href="{{url('/')}}/billings/tutor-delete/{{$item->id}}" class="dropdown-item"><i class="fas fa-trash-alt"></i> Delete</a>
                                             <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Any Other Actions</a>
                                         </div>
                                     </div>

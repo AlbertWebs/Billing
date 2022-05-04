@@ -79,7 +79,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{--  --}}
                                 <hr>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {{--  --}}
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Course Price:</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="price" id="student-name-1265"  placeholder="" autocomplete="student-name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                {{--  --}}
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group row">

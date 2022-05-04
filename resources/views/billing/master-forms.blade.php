@@ -116,7 +116,9 @@
                     $('#Loading').hide();
                     $('#Success').show();
                     // Refresh
-                    location.reload();
+                    setTimeout(function() {
+                        location.reload();
+                    }, 5000);
                     // Success
                 }
             });

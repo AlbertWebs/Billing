@@ -51,7 +51,7 @@
         <!-- Forms -->
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-money-bill mr-3"></span> Billing</div> <i class="icon-menu" title="Forms"></i></li>
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-pencil3"></i> <span>Create a Bill</span></a>
+            <a href="{{url('/')}}/billing/create-bill" class="nav-link"><i class="icon-pencil3"></i> <span>Create a Bill</span></a>
         </li>
         <li class="nav-item nav-item-submenu">
             <a href="#" class="nav-link"><i class="icon-pencil3"></i> <span>Approve Payments</span></a>

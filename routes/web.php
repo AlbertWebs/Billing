@@ -29,14 +29,20 @@ Route::group(['prefix'=>'billings'], function(){
 
 
     Route::get('/tutors', [App\Http\Controllers\BillingController::class, 'tutors'])->name('tutors');
+    Route::get('/tutor/{id}', [App\Http\Controllers\BillingController::class, 'tutor'])->name('tutor');
     Route::get('/course/{id}', [App\Http\Controllers\BillingController::class, 'course'])->name('course');
     Route::get('/add-course', [App\Http\Controllers\BillingController::class, 'add_course'])->name('add-course');
+    Route::get('/add-tutors', [App\Http\Controllers\BillingController::class, 'add_tutors'])->name('add-tutors');
+
     Route::get('/courses', [App\Http\Controllers\BillingController::class, 'courses'])->name('courses-list');
     Route::get('/course-delete/{id}', [App\Http\Controllers\BillingController::class, 'course_delete'])->name('course-delete');
+    Route::get('/tutor-delete/{id}', [App\Http\Controllers\BillingController::class, 'tutor_delete'])->name('tutor-delete');
     Route::POST('/save-course-post/{id}', [App\Http\Controllers\BillingController::class, 'save_course_post'])->name('save-course-post');
     Route::POST('/enroll-student', [App\Http\Controllers\BillingController::class, 'enroll_student'])->name('enroll-post');
     Route::POST('/save-student-post/{id}', [App\Http\Controllers\BillingController::class, 'save_student'])->name('save-student');
     Route::POST('/add-course-post', [App\Http\Controllers\BillingController::class, 'add_course_post'])->name('add-course-post');
+    Route::POST('/add-tutor-post', [App\Http\Controllers\BillingController::class, 'add_tutor_post'])->name('add-tutor-post');
+    Route::POST('/save-tutor-post/{id}', [App\Http\Controllers\BillingController::class, 'save_tutor_post'])->name('save-tutor-post');
 
 });
 

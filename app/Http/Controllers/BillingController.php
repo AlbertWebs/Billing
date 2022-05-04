@@ -108,11 +108,13 @@ class BillingController extends Controller
 
         $title = $request->title;
         $tutor = $request->tutor;
+        $price = $request->price;
 
 
         $updateDetails =  array(
            'tutor' => $tutor,
            'title' => $title,
+           'price' => $price,
         );
 
         DB::table('courses')->where('id',$id)->update($updateDetails);
@@ -128,6 +130,9 @@ class BillingController extends Controller
         $Tutor = Tutor::all();
         return view('billing.add-course', compact('Tutor'));
     }
+    public function add_tutors(){
+        return view('billing.add-tutor');
+    }
 
     public function course($id){
         $Tutor = Tutor::all();
@@ -136,14 +141,15 @@ class BillingController extends Controller
     }
 
     public function tutors(){
-        $Tutor = Tutor::all();
-        return view('billing.tutors', compact('Tutor'));
+        $Tutors = Tutor::all();
+        return view('billing.tutors', compact('Tutors'));
     }
 
     public function tutor($id){
         $Tutor = Tutor::find($id);
-        return view('billing.tutors', compact('Tutor'));
+        return view('billing.tutor', compact('Tutor'));
     }
+
 
 
     public function add_course_post(Request $request){
@@ -153,13 +159,53 @@ class BillingController extends Controller
         $Course = new Course;
         $Course->title = $request->title;
         $Course->tutor = $request->tutor;
+        $Course->price = $request->price;
+
         $Course->save();
         return Redirect::back();
     }
+
+    public function add_tutor_post(Request $request){
+        $title = $request->name;
+        $Tutor = new Tutor;
+        $Tutor->name = $request->name;
+        $Tutor->email = $request->email;
+        $Tutor->mobile = $request->mobile;
+        $Tutor->address = $request->address;
+        $Tutor->gender = $request->gender;
+        $Tutor->save();
+        return Redirect::back();
+    }
+
 
     public function course_delete($id){
         DB::table('courses')->where('id',$id)->delete();
         return Redirect::back();
     }
+
+    public function tutor_delete($id){
+        DB::table('tutors')->where('id',$id)->delete();
+        return Redirect::back();
+    }
+
+    public function save_tutor_post(Request $request ,$id){
+        $name = $request->name;
+        $email = $request->email;
+        $address = $request->address;
+        $mobile = $request->mobile;
+        $gender = $request->gender;
+
+        $updateDetails =  array(
+           'name' => $name,
+           'email' => $email,
+           'address' => $address,
+           'mobile' => $mobile,
+           'gender' => $gender,
+        );
+
+        DB::table('tutors')->where('id',$id)->update($updateDetails);
+        return Redirect::back();
+   }
+
 
 }

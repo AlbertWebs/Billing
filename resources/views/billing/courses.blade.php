@@ -40,6 +40,7 @@
                     <thead>
                         <tr><th>#</th>
                             <th>Course Title</th>
+                            <th>Price</th>
                             <th>Tutor</th>
 
                             <th class="text-center">Actions</th>
@@ -50,7 +51,7 @@
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->title}}</td>
-
+                            <td>{{$item->price}}</td>
                             <td>
                                 <?php
                                    $Tutor = DB::table('tutors')->where('id',$item->tutor)->get();
