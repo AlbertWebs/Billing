@@ -132,7 +132,7 @@
                                             <a href="{{url('/')}}/billings/download/{{$Billing->id}}" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
                                             <a href="{{url('/')}}/billings/download/{{$Billing->id}}" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="{{url('/')}}/billings/edit-bill" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
+                                            <a href="{{url('/')}}/billings/edit-bill/{{$Billing->id}}" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
                                             {{-- <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a> --}}
                                         </div>
                                     </div>

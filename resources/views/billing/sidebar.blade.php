@@ -53,7 +53,7 @@
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/create-bill" class="nav-link"><i class="icon-pencil3"></i> <span>Record Payment</span></a>
         </li>
-        
+
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/my-payments" class="nav-link"><i class="icon-pencil3"></i> <span>All Payments</span></a>
         </li>
@@ -65,7 +65,7 @@
         <!-- Components -->
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-book-open mr-3"></span> Reports</div> <i class="icon-menu" title="Reports"></i></li>
         <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-grid"></i> <span>Students Reports</span></a>
+            <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span>Students Reports</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="components_modals.html" class="nav-link">Students By Course</a></li>
                 <li class="nav-item"><a href="components_dropdowns.html" class="nav-link">Student By Year</a></li>

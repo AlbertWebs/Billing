@@ -271,6 +271,21 @@ public function download($id) {
 
 }
 
+public function edit_bill($id) {
+    $Billing = Billing::find($id);
+    return view('billing.edit_bill', compact('Billing'));
+
+}
+
+public function reports() {
+    // $Billing = Billing::find($id);
+    return view('billing.reports');
+
+}
+
+
+
+
 
 
 }
