@@ -51,6 +51,12 @@ Route::group(['prefix'=>'billings'], function(){
 
     // Route::get('/infos/{id}', 'InfoController@getInfo');
     Route::get('/infos/{id}', [App\Http\Controllers\BillingController::class, 'getInfo'])->name('get-info');
+    Route::get('/employee/pdf', [BillingController::class, 'createPDF']);
+    Route::get('/download/{id}', [BillingController::class, 'download']);
+
+    Route::get('/edit-bill/{id}', [App\Http\Controllers\BillingController::class, 'edit_bill'])->name('edit-bill');
+    Route::post('/edit-bill', [App\Http\Controllers\BillingController::class, 'edit_bill_post'])->name('edit-bill-post');
+
 
 });
 

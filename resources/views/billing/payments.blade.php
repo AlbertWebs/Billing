@@ -81,7 +81,7 @@
                     <tbody>
 
                         @foreach ($Billings as $Billing)
-                        <?php 
+                        <?php
                             $RawDate = $Billing->created_at;
                             $FormatDate = strtotime($RawDate);
                             $Month = date('M',$FormatDate);
@@ -94,7 +94,12 @@
                             <td>{{$Month}} {{$Year}}</td>
                             <td>
                                 <h6 class="mb-0">
-                                    <a href="#">Rebecca Manes</a>
+                                    <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
+                                    @foreach ($Student as $student)
+                                    <a target="new" href="{{url('/')}}/billings/student/{{$student->id}}">
+                                        {{$student->name}}
+                                    </a>
+                                    @endforeach
                                     <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span>
                                 </h6>
                             </td>
@@ -124,11 +129,11 @@
                                     <div class="dropdown">
                                         <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fas fa-cogs mr-3 fa-2x"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
+                                            <a href="{{url('/')}}/billings/download/{{$Billing->id}}" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
+                                            <a href="{{url('/')}}/billings/download/{{$Billing->id}}" class="dropdown-item"><i class="icon-printer"></i> Print</a>
                                             <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            <a href="{{url('/')}}/billings/edit-bill" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
+                                            {{-- <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a> --}}
                                         </div>
                                     </div>
                                 </div>

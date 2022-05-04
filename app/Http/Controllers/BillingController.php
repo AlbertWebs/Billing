@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Billing;
+use PDF;
 
 use DB;
 use Redirect;
@@ -240,8 +241,8 @@ public function create_bill_post(Request $request){
     $Billing->tax = $tax;
     $Billing->qty = $qty;
     $Billing->price = $price;
-    
-    
+
+
     $Billing->description = $description;
     $Billing->title = $title;
     $Billing->total = $total;
@@ -256,6 +257,20 @@ public function getInfo($id)
 
   return Response::json(['success'=>true, 'info'=>$fill]);
 }
+
+public function createPDF() {
+    $Billing = Billing::all();
+    $pdf = PDF::loadView('myPDF', compact('Billing'));
+    return $pdf->stream('invoice.pdf');
+}
+
+public function download($id) {
+    $Billing = Billing::find($id);
+
+    return view('billing.download', compact('Billing'));
+
+}
+
 
 
 }
