@@ -63,7 +63,9 @@
                 <div class="col-lg-12">
                     <!-- Basic layout-->
                     <div class="card">
-
+                        <div class="card-header">
+                            <h5 class="card-title">Basic layout</h5>
+                        </div>
 
                         <div class="card-body">
                             <form action="{{url('/')}}/billings/enroll-student" method="POST" id="Enroll-Form" enctype="multipart/form-data">
@@ -132,7 +134,18 @@
                                     </div>
                                 </div>
 
+                                <hr>
 
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">Your avatar:</label>
+                                    <div class="col-lg-9">
+                                        <label class="custom-file">
+                                            <input type="file" name="avatar" class="custom-file-input">
+                                            <span class="custom-file-label">Choose file</span>
+                                        </label>
+                                        <span class="form-text text-muted">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+                                    </div>
+                                </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -195,9 +208,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Create Admission <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
-                                    <p id="Success" style="padding:10px" class="alert-success">Student Has Been Enrolled Successfully</p>
                                 </div>
-
                             </form>
                         </div>
                     </div>

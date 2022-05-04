@@ -48,13 +48,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($Student as $item)
                         <tr>
                             <td><img src="{{asset('theme/assets/global_assets/images/demo/users/face3.jpg')}}" class="rounded-circle" width="32" height="32" alt=""></td>
-                            <td>Marth</td>
-                            <td><a href="#">Enright</a></td>
-                            <td>Traffic Court Referee</td>
+                            <td>{{$item->name}}</td>
+                            <td>Mobile: <a href="tel:{{$item->mobile}}">{{$item->mobile}}</a><br><hr>
+                                Email:  <a href="mailto:{{$item->email}}">{{$item->email}}</a></td>
+                            <td>
+                                {{$item->course}} &nbsp;, {{$item->shift}}
+
+                            </td>
                             <td>22 Jun 1972</td>
+                            @if($item->status == 1)
                             <td><span class="badge badge-success">Active</span></td>
+                            @else
+                            <td><span class="badge badge-secondary">Active</span></td>
+                            @endif
                             <td class="text-center">
                                 <div class="list-icons">
                                     <div class="dropdown">
@@ -63,14 +72,17 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to .pdf</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to .csv</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to .doc</a>
+                                            <a href="#" class="dropdown-item"><i class="icon-file-pdf"></i> Export to Payments Receipts</a>
+                                            <a href="#" class="dropdown-item"><i class="icon-file-excel"></i> Export to Results</a>
+                                            <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export to User Details</a>
+                                            <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export Anything Else</a>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        @endforeach
+
                         <tr>
                             <td><img src="{{asset('theme/assets/global_assets/images/demo/users/face3.jpg')}}" class="rounded-circle" width="32" height="32" alt=""></td>
                             <td>Jackelyn</td>

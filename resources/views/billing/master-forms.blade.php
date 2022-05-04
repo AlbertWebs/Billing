@@ -99,6 +99,8 @@
     <script>
         $( document ).ready(function() {
             $('#Loading').hide();
+            $('#Success').hide();
+
         });
         $("#Enroll-Form").submit(function(e) {
             e.preventDefault(); // prevent actual form submit
@@ -111,7 +113,9 @@
                 data: form.serialize(), // serializes form input
                 success: function(data){
                     console.log(data);
-                    // $('#Loading').hide();
+                    $('#Loading').hide();
+                    $('#Success').show();
+                    // Success
                 }
             });
         });
