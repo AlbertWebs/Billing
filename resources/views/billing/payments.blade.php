@@ -27,7 +27,7 @@
                 <div class="d-flex">
                     <div class="breadcrumb">
                         <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                        <a href="#" class="breadcrumb-item">Invoices</a>
+                        {{-- <a href="#" class="breadcrumb-item">Invoices</a> --}}
                         <span class="breadcrumb-item active">Payments</span>
                     </div>
 
@@ -72,7 +72,7 @@
                             <th>Period</th>
                             <th>Issued to</th>
                             <th>Status</th>
-                            <th>Issue date</th>
+                            <th>Payment date</th>
                             <th>Due date</th>
                             <th>Amount</th>
                             <th class="text-center">Actions</th>
@@ -81,13 +81,21 @@
                     <tbody>
 
                         @foreach ($Billings as $Billing)
+                        <?php 
+                            $RawDate = $Billing->created_at;
+                            $FormatDate = strtotime($RawDate);
+                            $Month = date('M',$FormatDate);
+                            $Date = date('D',$FormatDate);
+                            $Year = date('Y',$FormatDate);
+                            $date = date('d',$FormatDate);
+                        ?>
                         <tr>
                             <td>#00{{$Billing->id}}</td>
-                            <td>February 2015</td>
+                            <td>{{$Month}} {{$Year}}</td>
                             <td>
                                 <h6 class="mb-0">
                                     <a href="#">Rebecca Manes</a>
-                                    <span class="d-block font-size-sm text-muted">Payment method: Skrill</span>
+                                    <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span>
                                 </h6>
                             </td>
                             <td>
@@ -101,19 +109,20 @@
                                 </select>
                             </td>
                             <td>
-                                April 18, 2015
+                                {{$Month}} {{$Date}}, {{$Year}}
                             </td>
                             <td>
-                                <span class="badge badge-success">Paid on Mar 16, 2015</span>
+                                <span class="badge badge-success">Paid on {{$Month}} {{$date}}, {{$Year}}</span>
                             </td>
                             <td>
-                                <h6 class="mb-0 font-weight-bold">$17,890 <span class="d-block font-size-sm text-muted font-weight-normal">VAT $4,890</span></h6>
+                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->total}} <span class="d-block font-size-sm text-muted font-weight-normal">VAT KES {{$Billing->tax}}</span></h6>
                             </td>
                             <td class="text-center">
                                 <div class="list-icons list-icons-extended">
-                                    <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
+                                    {{-- <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a> --}}
+                                    <a href="#" title="Download" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="fas fa-download mr-3 fa-2x"></i></a>
                                     <div class="dropdown">
-                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
+                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fas fa-cogs mr-3 fa-2x"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
                                             <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
@@ -126,98 +135,6 @@
                             </td>
                         </tr>
                         @endforeach
-
-                        <tr>
-                            <td>#0024</td>
-                            <td>February 2015</td>
-                            <td>
-                                <h6 class="mb-0">
-                                    <a href="#">James Alexander</a>
-                                    <span class="d-block font-size-sm text-muted">Payment method: Wire transfer</span>
-                                </h6>
-                            </td>
-                            <td>
-                                <select name="status" class="custom-select">
-                                    <option value="overdue">Overdue</option>
-                                    <option value="hold">On hold</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="paid" selected>Paid</option>
-                                    <option value="invalid">Invalid</option>
-                                    <option value="cancel">Canceled</option>
-                                </select>
-                            </td>
-                            <td>
-                                April 17, 2015
-                            </td>
-                            <td>
-                                <span class="badge badge-warning">5 days</span>
-                            </td>
-                            <td>
-                                <h6 class="mb-0 font-weight-bold">$2,769 <span class="d-block font-size-sm text-muted font-weight-normal">VAT $2,839</span></h6>
-                            </td>
-                            <td class="text-center">
-                                <div class="list-icons list-icons-extended">
-                                    <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>#0023</td>
-                            <td>February 2015</td>
-                            <td>
-                                <h6 class="mb-0">
-                                    <a href="#">Jeremy Victorino</a>
-                                    <span class="d-block font-size-sm text-muted">Payment method: Payoneer</span>
-                                </h6>
-                            </td>
-                            <td>
-                                <select name="status" class="custom-select">
-                                    <option value="overdue">Overdue</option>
-                                    <option value="hold">On hold</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="paid" selected>Paid</option>
-                                    <option value="invalid">Invalid</option>
-                                    <option value="cancel">Canceled</option>
-                                </select>
-                            </td>
-                            <td>
-                                April 17, 2015
-                            </td>
-                            <td>
-                                <span class="badge badge-primary">27 days</span>
-                            </td>
-                            <td>
-                                <h6 class="mb-0 font-weight-bold">$1,500 <span class="d-block font-size-sm text-muted font-weight-normal">VAT $1,984</span></h6>
-                            </td>
-                            <td class="text-center">
-                                <div class="list-icons list-icons-extended">
-                                    <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a>
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-file-text2"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-
                     </tbody>
                 </table>
             </div>
@@ -228,26 +145,7 @@
 
 
         <!-- Footer -->
-        <div class="navbar navbar-expand-lg navbar-light border-bottom-0 border-top">
-            <div class="text-center d-lg-none w-100">
-                <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
-                    <i class="icon-unfold mr-2"></i>
-                    Footer
-                </button>
-            </div>
-
-            <div class="navbar-collapse collapse" id="navbar-footer">
-                <span class="navbar-text">
-                    &copy; 2015 - 2018. <a href="#">Limitless Web App Kit</a> by <a href="https://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-                </span>
-
-                <ul class="navbar-nav ml-lg-auto">
-                    <li class="nav-item"><a href="https://kopyov.ticksy.com/" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
-                    <li class="nav-item"><a href="https://demo.interface.club/limitless/docs/" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
-                    <li class="nav-item"><a href="https://themeforest.net/item/limitless-responsive-web-application-kit/13080328?ref=kopyov" class="navbar-nav-link font-weight-semibold"><span class="text-pink"><i class="icon-cart2 mr-2"></i> Purchase</span></a></li>
-                </ul>
-            </div>
-        </div>
+        @include('billing.footer')
         <!-- /footer -->
 
     </div>
