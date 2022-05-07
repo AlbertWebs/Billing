@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\MpesaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,10 @@ use App\Http\Controllers\BillingController;
 |
 */
 
-Route::get('/', function () {
-    return view('billing.index');
-});
+// Route::get('/', function () {
+//     return view('billing.index');
+// });
+Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('all-students');
 
 //Group
 // Products
@@ -58,6 +60,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::post('/edit-bill', [App\Http\Controllers\BillingController::class, 'edit_bill_post'])->name('edit-bill-post');
 
     Route::get('/reports', [App\Http\Controllers\BillingController::class, 'reports'])->name('reports');
+    Route::get('/m-pesa', [App\Http\Controllers\MpesaController::class, 'm_pesa'])->name('m-pesa');
 
 
 
