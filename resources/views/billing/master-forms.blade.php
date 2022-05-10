@@ -101,6 +101,8 @@
         $( document ).ready(function() {
             $('#Loading').hide();
             $('#Success').hide();
+            $('#exists').hide();
+
 
         });
         $("#Enroll-Form").submit(function(e) {
@@ -124,6 +126,28 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        function duplicateEmail(element){
+            var email = $(element).val();
+            $.ajax({
+                type: "GET",
+                url: '{{url('billings/checkemail')}}',
+                data: {email:email},
+                dataType: "json",
+                success: function(res) {
+                    if(res.exists){
+                        $('#exists').show();
+                    }else{
+                        // Do nothing
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                }
+            });
+        }
     </script>
 
 </body>

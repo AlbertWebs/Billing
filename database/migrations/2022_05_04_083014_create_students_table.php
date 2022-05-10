@@ -18,11 +18,7 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('mobile');
-            $table->string('address');
             $table->string('gender');
-            $table->string('course');
-            $table->string('shift');
-            $table->text('extra');
             $table->string('avatar');
             $table->string('status');
             $table->timestamps();

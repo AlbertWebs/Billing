@@ -69,17 +69,36 @@
                             <form action="{{url('/')}}/billings/create-bill" method="POST" id="Enroll-Form" enctype="multipart/form-data">
                                 {{csrf_field()}}
 
+                                <div class="col-lg-12">
+                                    <div class="form-group" data-select2-id="207">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Reference:</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="reference"  placeholder="Computer Technology" value="AEC-01" autocomplete="student-name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Student:</label>
                                             <div class="col-lg-10">
                                                 <div class="form-group" data-select2-id="207">
-                                                    <select name="user" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
+                                                    <select name="user" class="form-control select-minimum select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true" required>
                                                         <optgroup label="Students" data-select2-id="208">
+                                                            @if(Session::has('user'))
+                                                               <?php $u = Session::get('user'); $Studs = DB::table('students')->where('email',$u)->get(); ?>
+                                                               @foreach ($Studs as $studs)
+                                                                  <option selected value="{{$studs->id}}" data-select2-id="681"> {{$studs->name}} </option>
+                                                               @endforeach
+
+                                                            @endif
                                                             <?php $Students = DB::table('students')->get(); ?>
                                                             @foreach($Students as $Stude)
-                                                            <option value="{{$Stude->id}}" data-select2-id="68{{$Stude->id}}">{{$Stude->name}} - {{$Stude->course}}</option>
+                                                            <option value="{{$Stude->id}}" data-select2-id="68{{$Stude->id}}">{{$Stude->name}} </option>
                                                             @endforeach
                                                         </optgroup>
                                                     </select>
@@ -96,60 +115,52 @@
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Title:</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="title"  placeholder="Computer Technology" autocomplete="student-name">
+                                                <input type="text" class="form-control" name="title"  placeholder="Computer Technology" autocomplete="student-name" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-
+                                <div class="col-lg-12">
+                                    <div class="form-group" data-select2-id="207">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Amount:</label>
+                                            <div class="col-lg-10">
+                                                <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Price:</label>
-                                            <div class="col-lg-3">
+                                            <label class="col-lg-2 col-form-label">Course:</label>
+                                            <div class="col-lg-10">
                                                 <div class="form-group" data-select2-id="207">
-                                                    <select name="price" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
+                                                    <select name="course" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true" required>
                                                         <optgroup label="Students" data-select2-id="208">
                                                             <?php $Students = DB::table('courses')->get(); ?>
                                                             @foreach($Students as $Stude)
-                                                            <option value="{{$Stude->price}}" data-select2-id="68{{$Stude->id}}">{{$Stude->title}} - {{$Stude->price}}</option>
+                                                            <option value="{{$Stude->id}}" data-select2-id="68{{$Stude->id}}">{{$Stude->title}} - {{$Stude->price}}</option>
                                                             @endforeach
                                                         </optgroup>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-group" data-select2-id="207">
-                                                    <div class="form-group row">
-                                                        <label class="col-lg-2 col-form-label">QTY:</label>
-                                                        <div class="col-lg-10">
-                                                            <input type="number" class="form-control" name="qty"  value="1" autocomplete="student-name">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-group" data-select2-id="207">
-                                                    <div class="form-group row">
-                                                        <label class="col-lg-2 col-form-label">Tax:</label>
-                                                        <div class="col-lg-10">
-                                                            <input type="number" class="form-control" name="tax"  value="0" autocomplete="student-name">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
+
+
+
                                         </div>
                                     </div>
 
                                 </div>
-                                
+
                                 <hr>
                                 <div class="form-group row">
                                     <label class="col-form-label col-lg-2">Description</label>
                                     <div class="col-lg-10">
-                                        <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="description"></textarea>
+                                        <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="description" required></textarea>
                                     </div>
                                 </div>
                                 <hr>
@@ -157,17 +168,22 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-lg-2">Note</label>
                                     <div class="col-lg-10">
-                                        <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="note">Thank you for using Limitless. This invoice can be paid via PayPal, Bank transfer, Skrill or Payoneer. Payment is due within 30 days from the date of delivery. Late payment is possible, but with with a fee of 10% per month. Company registered in Kenya and Wales #6893003, registered office: 7th Floor 4rth Street, Nairobi E1 8BF, Kenya Africa. Phone number: 0723014032</textarea>
+                                        <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="note" required>Thank you for choosing Atlas Educational Center</textarea>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="text-right">
+                                    @if(Session::has('billing'))
+                                    <a href="{{url('/')}}/billings/download/{{Session::get('billing')}}" class="btn btn-success">
+                                        <span class="fas fa-print mr-3"></span> Print Receipt <i class="icon-paperplane ml-2"></i>
+                                    </a>
+                                    @endif
                                     <button type="submit" class="btn btn-primary">
-                                        Submit Payment <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                                        <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
                                     <p id="Success" style="padding:10px" class="alert-success">Payment Has Been Recorded Successfully</p>
                                 </div>
-                                
+
 
                             </form>
                         </div>

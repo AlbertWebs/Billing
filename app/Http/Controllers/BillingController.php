@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Billing;
+use Session;
 use PDF;
 
 use DB;
@@ -28,28 +29,21 @@ class BillingController extends Controller
     }
 
     public function enroll_student(Request $request){
-
          $name = $request->SName;
          $email = $request->SEmail;
          $mobile = $request->SMobile;
          $gender = $request->gender;
-         $address = $request->SAddress;
-         $extra = $request->extra;
-         $course = $request->course;
-         $shift = $request->shift;
 
          $Student = new Student;
          $Student->name = $name;
          $Student->email = $email;
          $Student->mobile = $mobile;
-         $Student->address = $address;
          $Student->gender = $gender;
-         $Student->course = $course;
-         $Student->shift = $shift;
-         $Student->extra = $extra;
-         $Student->save();
 
-
+         $User = Student::where('email',$email)->get();
+         if($Student->save()){
+            Session::put('user', $email);
+         }
     }
 
     public function student($id){
@@ -214,6 +208,10 @@ class BillingController extends Controller
     return view('billing.create-bill');
    }
 
+   public function create_bill_fetch($email){
+    return view('billing.create-bill', compact('email'));
+   }
+
    public function my_payments(){
         $Billings = DB::table('billings')->get();
         return view('billing.payments',compact('Billings'));
@@ -227,27 +225,44 @@ class BillingController extends Controller
 public function create_bill_post(Request $request){
     $user = $request->user;
     $price = $request->price;
-    $qty = $request->qty;
-    $tax = $request->tax;
+    $amount = $request->amount;
     $description = $request->description;
     $note = $request->note;
     $title = $request->title;
-    $total = $qty*$price;
-    $rate = 1;
+    $course_id = $request->course;
+    $reference = $request->reference;
 
+    $Course = Course::find($course_id);
+    $Course_price = $Course->price;
+    $Amount_paid = $amount;
+    if($Amount_paid == $Course_price){
+       $Balance = 0;
+       $paid = "Paid";
+    }else{
+        $Balance = $Course_price-$Amount_paid;
+        $paid = "Partially Paid";
+    }
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->note = $note;
-    $Billing->tax = $tax;
-    $Billing->qty = $qty;
-    $Billing->price = $price;
-
-
+    $Billing->reference = $reference;
+    $Billing->balance = $Balance;
+    $Billing->course_id = $course_id;
+    $Billing->amount = $amount;
     $Billing->description = $description;
     $Billing->title = $title;
-    $Billing->total = $total;
-    $Billing->save();
+    $Billing->paid = $paid;
 
+
+
+    if($Billing->save()){
+        //Get Latest
+        $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
+        foreach($Billing as $bill){
+            Session::put('billing', $Billing->id);
+        }
+
+    }
 }
 
 
@@ -271,6 +286,12 @@ public function download($id) {
 
 }
 
+public function system_settings() {
+    return view('billing.system-settings');
+}
+
+
+
 public function edit_bill($id) {
     $Billing = Billing::find($id);
     return view('billing.edit_bill', compact('Billing'));
@@ -284,7 +305,15 @@ public function reports() {
 }
 
 
-
+public function checkEmail(Request $request){
+    $email = $request->input('email');
+    $isExists = Student::where('email',$email)->first();
+    if($isExists){
+        return response()->json(array("exists" => true));
+    }else{
+        return response()->json(array("exists" => false));
+    }
+}
 
 
 

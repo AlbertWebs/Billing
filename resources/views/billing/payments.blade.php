@@ -120,7 +120,7 @@
                                 <span class="badge badge-success">Paid on {{$Month}} {{$date}}, {{$Year}}</span>
                             </td>
                             <td>
-                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->total}} <span class="d-block font-size-sm text-muted font-weight-normal">VAT KES {{$Billing->tax}}</span></h6>
+                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} <span class="d-block font-size-sm text-muted font-weight-normal">VAT KES 0</span></h6>
                             </td>
                             <td class="text-center">
                                 <div class="list-icons list-icons-extended">

@@ -11,7 +11,7 @@
             <div class="page-header page-header-light">
                 <div class="page-header-content header-elements-lg-inline">
                     <div class="page-title d-flex">
-                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Editable</span> - Templates</h4>
+                        <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">{{$Billing->title}}</span> </h4>
                         <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
                     </div>
 
@@ -35,8 +35,8 @@
                     <div class="card-header bg-transparent header-elements-inline py-0">
                         <h6 class="card-title py-3">Editable invoice/Receipt</h6>
                         <div class="header-elements">
-                            <button type="button" class="btn btn-light btn-sm"><i class="icon-file-check mr-2"></i> Save</button>
-                            <button type="button" class="btn btn-light btn-sm ml-3" onclick = "window.print()"><i class="icon-printer mr-2"></i> Print</button>
+                            {{-- <button type="button" class="btn btn-light btn-sm"><i class="icon-file-check mr-2"></i> Save</button> --}}
+                            <button type="button" class="btn btn-success btn-sm ml-3" onclick = "window.print()"><i class="icon-printer mr-2"></i><span class="fas fa-print mr-3"></span> Print</button>
                         </div>
                     </div>
                     <?php $Students = DB::table('students')->where('id',$Billing->student)->get(); ?>
@@ -59,10 +59,23 @@
                                     <div class="col-sm-6">
                                         <div class="mb-4">
                                             <div class="text-sm-right">
-                                                <h4 class="text-primary mb-2 mt-lg-2">Receipt Number #1525</h4>
+                                                <h4 class="text-primary mb-2 mt-lg-2">Receipt Number #{{$Billing->reference}}</h4>
                                                 <ul class="list list-unstyled mb-0">
-                                                    <li>Date: <span class="font-weight-semibold">May 1, 2022</span></li>
-                                                    <li>Due date: <span class="font-weight-semibold">May 4, 2022</span></li>
+                                                    <?php
+                                                        $RawDate = $Billing->created_at;
+                                                        $FormatDate = strtotime($RawDate);
+                                                        $Month = date('M',$FormatDate);
+                                                        $Date = date('d',$FormatDate);
+                                                        $Year = date('Y',$FormatDate);
+
+                                                        $RawDates = $Billing->due;
+                                                        $FormatDates = strtotime($RawDates);
+                                                        $month = date('M',$FormatDates);
+                                                        $date = date('d',$FormatDates);
+                                                        $year = date('Y',$FormatDates);
+                                                    ?>
+                                                    <li>Date: <span class="font-weight-semibold">{{$Month}} {{$Date}}, {{$Year}}</span></li>
+                                                    <li>Due date: <span class="font-weight-semibold">{{$month}} {{$date}}, {{$year}}</span></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -71,13 +84,13 @@
 
                                 <div class="d-lg-flex flex-lg-wrap">
                                     <div class="mb-4 mb-lg-2">
-                                        <span class="text-muted">Invoice To:</span>
+                                        <span class="text-muted">Billed To:</span>
                                          <ul class="list list-unstyled mb-0">
                                             <li><h5 class="my-2">{{$user->name}}</h5></li>
-                                            <li><span class="font-weight-semibold">Normand axis LTD</span></li>
-                                            <li>3 Goodman Street</li>
+                                            <li><span class="font-weight-semibold">{{$Billing->title}}</span></li>
+                                            {{-- <li>3 Goodman Street</li>
                                             <li>Kabete E1 8BF</li>
-                                            <li>Nairobi, Kenya</li>
+                                            <li>Nairobi, Kenya</li> --}}
                                             <li>{{$user->mobile}}</li>
                                             <li><a href="#">{{$user->email}}</a></li>
                                         </ul>
@@ -87,23 +100,24 @@
                                         <span class="text-muted">Payment Details:</span>
                                         <div class="d-flex flex-wrap wmin-lg-400">
                                             <ul class="list list-unstyled mb-0">
-                                                <li><h5 class="my-2">Total Due:</h5></li>
-                                                <li>Bank name:</li>
+                                                <li><h5 class="my-2">Amount Paid:</h5></li>
+                                                <li><h5 class="my-2">Amount Due:</h5></li>
+                                                {{-- <li>Bank name:</li> --}}
                                                 <li>Country:</li>
                                                 <li>City:</li>
                                                 <li>Address:</li>
-                                                <li>IBAN:</li>
-                                                <li>SWIFT code:</li>
+
                                             </ul>
 
                                             <ul class="list list-unstyled text-right mb-0 ml-auto">
-                                                <li><h5 class="font-weight-semibold my-2">KES 8,750</h5></li>
-                                                <li><span class="font-weight-semibold">Profit Bank Europe</span></li>
-                                                <li>United Kingdom</li>
-                                                <li>London E1 8BF</li>
-                                                <li>3 Goodman Street</li>
-                                                <li><span class="font-weight-semibold">KFH37784028476740</span></li>
-                                                <li><span class="font-weight-semibold">BPT4E</span></li>
+                                                <li><h5 class="font-weight-semibold my-2">KES {{$Billing->amount}}</h5></li>
+                                                <li><h5 class="font-weight-semibold my-2">KES {{$Billing->balance}}</h5></li>
+                                                {{-- <li><span class="font-weight-semibold">Profit Bank Europe</span></li> --}}
+
+                                                <li>Kenya</li>
+                                                <li>Nairobi</li>
+                                                <li><span class="font-weight-semibold">Al Habibi Building, 4th Street, Eastleigh</span></li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -116,7 +130,7 @@
                                         <tr>
                                             <th>Description</th>
                                             <th>Rate</th>
-                                            <th>Hours</th>
+
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -126,9 +140,9 @@
                                                 <h6 class="mb-0">{{$Billing->title}}</h6>
                                                 <span class="text-muted">{{$Billing->description}}</span>
                                             </td>
-                                            <td>KES 70</td>
-                                            <td>57</td>
-                                            <td><span class="font-weight-semibold">KES {{$Billing->total}}</span></td>
+                                            <td>1</td>
+
+                                            <td><span class="font-weight-semibold">KES {{$Billing->amount}}</span></td>
                                         </tr>
 
                                     </tbody>
@@ -158,15 +172,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <th>Subtotal:</th>
-                                                        <td class="text-right">KES 399000</td>
+                                                        <td class="text-right">KES {{$Billing->amount}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Tax: <span class="font-weight-normal">(25%)</span></th>
-                                                        <td class="text-right">$1,750</td>
+                                                        <th>Balance Due: <span class="font-weight-normal"></span></th>
+                                                        <td class="text-right"><u>KES {{$Billing->balance}}</u></td>
                                                     </tr>
                                                     <tr>
-                                                        <th>Total:</th>
-                                                        <td class="text-right text-primary"><h5 class="font-weight-semibold">405125</h5></td>
+                                                        <th>Total Paid:</th>
+                                                        <td class="text-right text-primary"><h5 class="font-weight-semibold">KES {{$Billing->amount}}</h5></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -177,8 +191,8 @@
                                 </div>
                             </div>
 
-                            <div class="card-footer">
-                                <span class="text-muted">Thank you for using Limitless. This invoice can be paid via PayPal, Bank transfer, Skrill or Payoneer. Payment is due within 30 days from the date of delivery. Late payment is possible, but with with a fee of 10% per month. Company registered in Kenya and Wales #6893003, registered office: 7th Floor 4rth Street, Nairobi E1 8BF, Kenya Africa. Phone number: 0723014032</span>
+                            <div class="card-footer text-center">
+                                <span class="text-muted text-center">{{$Billing->note}}</span>
                             </div>
                         </div>
                     </div>

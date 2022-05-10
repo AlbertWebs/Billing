@@ -17,14 +17,14 @@ class CreateBillingsTable extends Migration
             $table->id();
             $table->string('student');
             $table->text('note');
-            $table->integer('tax');
-            $table->integer('price');
-            $table->integer('qty');
-            $table->integer('rate')->default('1');
+            $table->integer('balance');
+            $table->integer('amount');
+            $table->integer('course_id');
             $table->text('description')->nullable();
             $table->string('due')->nullable();
             $table->text('title')->nullable();
-            $table->integer('total');
+            $table->string('reference')->nullable();
+            $table->integer('paid');
             $table->timestamps();
         });
     }

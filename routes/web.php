@@ -47,6 +47,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::POST('/save-tutor-post/{id}', [App\Http\Controllers\BillingController::class, 'save_tutor_post'])->name('save-tutor-post');
 
     Route::get('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill'])->name('create-bill');
+    Route::get('/create-bill/{email}', [App\Http\Controllers\BillingController::class, 'create_bill_fetch'])->name('create-bill-fetch');
     Route::post('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill_post'])->name('create-bill-post');
     Route::get('/my-payments', [App\Http\Controllers\BillingController::class, 'my_payments'])->name('my-payments');
     Route::get('/editable-invoice', [App\Http\Controllers\BillingController::class, 'editable_invoice'])->name('editable-invoice');
@@ -61,6 +62,11 @@ Route::group(['prefix'=>'billings'], function(){
 
     Route::get('/reports', [App\Http\Controllers\BillingController::class, 'reports'])->name('reports');
     Route::get('/m-pesa', [App\Http\Controllers\MpesaController::class, 'm_pesa'])->name('m-pesa');
+
+    Route::get('/checkemail', [App\Http\Controllers\BillingController::class, 'checkEmail'])->name('checkEmail');
+    Route::get('/system-settings', [App\Http\Controllers\BillingController::class, 'system_settings'])->name('system-settings');
+
+    Route::post('/save-settings', [App\Http\Controllers\BillingController::class, 'save_settings'])->name('save-settings');
 
 
 

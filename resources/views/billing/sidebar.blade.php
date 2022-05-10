@@ -87,6 +87,11 @@
         </li>
 
         <!-- /page kits -->
+         <!-- Forms -->
+         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-cog mr-3"></span> System Settings</div> <i class="icon-menu" title="Forms"></i></li>
+         <li class="nav-item nav-item-submenu">
+             <a href="{{url('/')}}/billings/system-settings" class="nav-link"><i class="icon-pencil3"></i> <span>System Settings</span></a>
+         </li>
 
     </ul>
 </div>
