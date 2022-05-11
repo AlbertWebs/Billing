@@ -346,6 +346,15 @@ public function save_settings(Request $request){
 }
 
 
+public function switch_status($id,$status){
+    $updateDetails = array(
+        'status' => $status,
+    );
+    DB::table('students')->where('id',$id)->update($updateDetails);
+    Session::flash('message', "Status Updated!");
+    return Redirect::back();
+}
+
 
 
 }

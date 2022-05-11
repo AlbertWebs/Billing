@@ -71,6 +71,10 @@ Route::group(['prefix'=>'billings'], function(){
 
     Route::get('/session-destroy', [App\Http\Controllers\BillingController::class, 'destroy'])->name('system-destroy');
 
+    Route::get('/switch-status/{id}/{status}', [App\Http\Controllers\BillingController::class, 'switch_status'])->name('switch-status');
+
+
+
 
 
 

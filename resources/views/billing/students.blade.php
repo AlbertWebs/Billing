@@ -16,9 +16,11 @@
                         <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
                         <a href="{{url('/')}}/billings/students" class="breadcrumb-item">Students</a>
                         <span class="breadcrumb-item active">All Students</span>
+
                     </div>
 
                     <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
+
                 </div>
 
 
@@ -29,6 +31,9 @@
 
         <!-- Content area -->
         <div class="content">
+            @if(Session::has('message'))
+                <center><div class="alert alert-success">{{ Session::get('message') }}</div></center>
+            @endif
 
             <!-- Basic datatable -->
             <div class="card">
@@ -41,7 +46,7 @@
                         <tr><th>#</th>
                             <th>Full Name</th>
                             <th>Contacts</th>
-                            <th>Enroll Date</th>
+                            <th>Switch Status</th>
                             <th>Status</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -55,11 +60,17 @@
                                 Email:  <a href="mailto:{{$item->email}}">{{$item->email}}</a>
                             </td>
 
-                            <td>22 Jun 1972</td>
+                            <td>
+                                @if($item->status == 1)
+                                <a href="{{url('/')}}/billings/switch-status/{{$item->id}}/0" class="btn btn-outline-danger">Set Graduated</button>
+                                @else
+                                <a href="{{url('/')}}/billings/switch-status/{{$item->id}}/1" class="btn btn-outline-success">Set Active</button>
+                                @endif
+                            </td>
                             @if($item->status == 1)
                             <td><span class="badge badge-success">Active</span></td>
                             @else
-                            <td><span class="badge badge-secondary">Active</span></td>
+                            <td><span class="badge badge-secondary">Graduated</span></td>
                             @endif
                             <td class="text-center">
                                 <div class="list-icons">
