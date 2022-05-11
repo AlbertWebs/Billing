@@ -141,6 +141,23 @@
                                 </div>
 
                                 <hr>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Graduated</label>
+                                    <div class="col-lg-10">
+                                        <select name="status" class="form-control">
+                                            @if($Student->status == 1)
+                                            <option selected="selected" value="1">Active</option>
+                                            <option value="0">Graduated</option>
+                                            @else
+                                            <option  value="1">Active</option>
+                                            <option selected="selected" value="0">Graduated</option>
+                                            @endif
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
 
 
 

@@ -91,6 +91,7 @@ class BillingController extends Controller
             'email' => $email,
             'mobile' => $mobile,
             'gender' => $gender,
+            'status' => $request->status
          );
 
          DB::table('students')->where('id',$id)->update($updateDetails);
