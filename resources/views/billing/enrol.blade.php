@@ -41,7 +41,7 @@
                         </a>
 
                         <div class="breadcrumb-elements-item dropdown p-0">
-                            <a href="{{url('/')}}/system-settings" class="breadcrumb-elements-item">
+                            <a href="{{url('/')}}/billings/system-settings" class="breadcrumb-elements-item">
                                 <i class="icon-gear mr-2"></i>
                                 Settings
                             </a>
@@ -72,8 +72,8 @@
                                     <div class="col-lg-12">
                                         {{--  --}}
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Name:</label>
-                                            <div class="col-lg-9">
+                                            <label class="col-lg-2 col-form-label">Name:</label>
+                                            <div class="col-lg-10">
                                                 <input type="text" class="form-control" name="SName" id="student-name-1265" placeholder="Full Name" autocomplete="student-name">
                                             </div>
                                         </div>
@@ -81,8 +81,8 @@
 
                                     <div class="col-lg-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Email:</label>
-                                            <div class="col-lg-9">
+                                            <label class="col-lg-2 col-form-label">Email:</label>
+                                            <div class="col-lg-10">
                                                 <input type="email" onblur="duplicateEmail(this)" name="SEmail" autocomplete="off" class="form-control" placeholder="name@domain.com">
                                                 <p id="exists" style="padding:10px" class="alert-danger">The User Already Exists</p>
                                             </div>
@@ -91,8 +91,8 @@
 
                                     <div class="col-lg-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Mobile:</label>
-                                            <div class="col-lg-9">
+                                            <label class="col-lg-2 col-form-label">Mobile:</label>
+                                            <div class="col-lg-10">
                                                 <input type="text" name="SMobile" autocomplete="off" value="+254 7" class="form-control" placeholder="+723014032">
                                             </div>
                                         </div>

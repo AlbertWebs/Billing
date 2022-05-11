@@ -27,7 +27,7 @@
                     <div class="breadcrumb">
                         <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
                         <a href="{{url('/')}}/billings/students" class="breadcrumb-item">Billings</a>
-                        <span class="breadcrumb-item active">Add New Student</span>
+                        <span class="breadcrumb-item active">Edit {{$Student->name}}</span>
                     </div>
 
                     <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
@@ -74,8 +74,8 @@
                                     <div class="col-lg-12">
                                         {{--  --}}
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Name:</label>
-                                            <div class="col-lg-9">
+                                            <label class="col-lg-2 col-form-label">Name:</label>
+                                            <div class="col-lg-10">
                                                 <input type="text" class="form-control" name="SName" id="student-name-1265" value="{{$Student->name}}" placeholder="Full Name" autocomplete="student-name">
                                             </div>
                                         </div>
@@ -85,8 +85,8 @@
 
                                     <div class="col-lg-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Email:</label>
-                                            <div class="col-lg-9">
+                                            <label class="col-lg-2 col-form-label">Email:</label>
+                                            <div class="col-lg-10">
                                                 <input type="email" name="SEmail" autocomplete="off" class="form-control" value="{{$Student->email}}"  placeholder="name@domain.com">
                                             </div>
                                         </div>
@@ -96,8 +96,8 @@
 
                                     <div class="col-lg-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Mobile:</label>
-                                            <div class="col-lg-9">
+                                            <label class="col-lg-2 col-form-label">Mobile:</label>
+                                            <div class="col-lg-10">
                                                 <input type="text" name="SMobile" autocomplete="off" value="{{$Student->mobile}}" class="form-control"  placeholder="+723014032">
                                             </div>
                                         </div>

@@ -12,11 +12,6 @@
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/students-enroll" class="nav-link"><i class="icon-color-sampler"></i> <span>Enroll Student</span></a>
         </li>
-
-        <li class="nav-item nav-item-submenu">
-            <a href="#" class="nav-link"><i class="icon-color-sampler"></i> <span>Alumni</span></a>
-        </li>
-
         <!-- /main -->
 
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-book-open mr-3"></span> Courses </div> <i class="icon-menu " title="Main"></i></li>
@@ -30,21 +25,6 @@
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/add-course" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Course</span></a>
         </li>
-
-
-
-        {{--  --}}
-
-        <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-user-tie mr-3"></span> Tutors </div> <i class="icon-menu " title="Main"></i></li>
-
-
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/tutors" class="nav-link"><i class="icon-copy"></i> <span>All Tutors</span></a>
-        </li>
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/add-tutors" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Tutor</span></a>
-        </li>
-
 
         <!-- /main -->
 
