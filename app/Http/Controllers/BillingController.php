@@ -91,10 +91,6 @@ class BillingController extends Controller
             'email' => $email,
             'mobile' => $mobile,
             'gender' => $gender,
-            'address' => $address,
-            'extra' => $extra,
-            'course' => $course,
-            'shift' => $shift
          );
 
          DB::table('students')->where('id',$id)->update($updateDetails);
@@ -347,6 +343,8 @@ public function save_settings(Request $request){
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 }
+
+
 
 
 }

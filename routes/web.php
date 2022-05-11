@@ -62,6 +62,7 @@ Route::group(['prefix'=>'billings'], function(){
 
     Route::get('/reports', [App\Http\Controllers\BillingController::class, 'reports'])->name('reports');
     Route::get('/m-pesa', [App\Http\Controllers\MpesaController::class, 'm_pesa'])->name('m-pesa');
+    Route::get('/m-pesa/{email}', [App\Http\Controllers\MpesaController::class, 'm_pesa_email'])->name('m-pesa');
 
     Route::get('/checkemail', [App\Http\Controllers\BillingController::class, 'checkEmail'])->name('checkEmail');
     Route::get('/system-settings', [App\Http\Controllers\BillingController::class, 'system_settings'])->name('system-settings');

@@ -14,7 +14,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use App\Models\Student;
 use DB;
+use Session;
 use Auth;
 
 
@@ -877,10 +879,13 @@ class MpesaController extends Controller
 
     }
 
-    public function m_pesa() {
-        // $Billing = Billing::find($id);
+    public function m_pesa(){
         return view('billing.m_pesa');
-
     }
 
+    public function m_pesa_email($email){
+        $Student = Student::where('email',$email)->get();
+        Session::put('user', $email);
+        return view('billing.m_pesa');
+    }
 }

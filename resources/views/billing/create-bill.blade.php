@@ -69,12 +69,26 @@
                             <form action="{{url('/')}}/billings/create-bill" method="POST" id="Enroll-Form" enctype="multipart/form-data">
                                 {{csrf_field()}}
 
+                                <?php
+                                    $Billing = DB::table('billings')->orderBy('id','DESC')->first();
+
+                                        if($Billing == null){
+                                           $newOrder = 1;
+                                        }else{
+                                            $order = 1;
+                                            $Current = $Billing->id;
+                                            $newOrder = $order+$Current;
+
+                                        }
+
+                                ?>
+
                                 <div class="col-lg-12">
                                     <div class="form-group" data-select2-id="207">
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Reference:</label>
                                             <div class="col-lg-10">
-                                                <input type="text" class="form-control" name="reference"  placeholder="Computer Technology" value="AEC-01" autocomplete="student-name" required>
+                                                <input type="text" class="form-control" name="reference"  placeholder="Computer Technology" value="AEC-0{{$newOrder}}" autocomplete="student-name" required>
                                             </div>
                                         </div>
                                     </div>
@@ -177,10 +191,11 @@
                                     <a href="{{url('/')}}/billings/download/{{Session::get('billing')}}" class="btn btn-success">
                                         <span class="fas fa-print mr-3"></span> Print Receipt <i class="icon-paperplane ml-2"></i>
                                     </a>
-                                    @endif
+                                    @else
                                     <button type="submit" class="btn btn-primary">
                                         <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
+                                    @endif
                                     <p id="Success" style="padding:10px" class="alert-success">Payment Has Been Recorded Successfully</p>
                                 </div>
 

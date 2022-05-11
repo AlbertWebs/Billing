@@ -51,7 +51,7 @@
                         <tr>
                             <td><img src="{{asset('theme/assets/global_assets/images/demo/users/face3.jpg')}}" class="rounded-circle" width="32" height="32" alt=""></td>
                             <td>{{$item->name}}</td>
-                            <td>Mobile: <a href="tel:{{$item->mobile}}">{{$item->mobile}}</a><br><hr>
+                            <td>Mobile: <a href="tel:{{$item->mobile}}">{{$item->mobile}}</a><br>
                                 Email:  <a href="mailto:{{$item->email}}">{{$item->email}}</a>
                             </td>
 
@@ -69,11 +69,9 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to Payments Receipts</a>
-                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to Results</a>
+                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to Payment Statements</a>
                                             <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to User Details</a>
                                             <a href="{{url('/')}}/billings/student/{{$item->id}}" class="dropdown-item"><i class="fas fa-pencil-alt"></i> Edit Student</a>
-                                            <a href="#" class="dropdown-item"><i class="icon-file-word"></i> Export Anything Else</a>
                                         </div>
                                     </div>
                                 </div>

@@ -10,7 +10,7 @@
         <div class="page-header page-header-light">
             <div class="page-header-content header-elements-lg-inline">
                 <div class="page-title d-flex">
-                    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Add New Student</span></h4>
+                    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Edit {{$Student->name}}</span></h4>
                     <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
                 </div>
 
@@ -71,7 +71,7 @@
                             <form action="{{url('/')}}/billings/save-student-post/{{$Student->id}}" method="POST" id="Enroll-Form" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-12">
                                         {{--  --}}
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Name:</label>
@@ -81,7 +81,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <hr>
+
+                                    <div class="col-lg-12">
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Email:</label>
                                             <div class="col-lg-9">
@@ -90,7 +92,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <hr>
+
+                                    <div class="col-lg-12">
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label">Mobile:</label>
                                             <div class="col-lg-9">
@@ -99,13 +103,14 @@
                                         </div>
                                     </div>
                                     {{--  --}}
+                                    <hr>
 
                                 </div>
 
                                 <hr>
 
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Gender:</label>
                                             <div class="col-lg-8">
@@ -132,81 +137,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Address</label>
-                                            <div class="col-lg-9">
 
-                                                        <input value="{{$Student->address}}" type="text" name="SAddress" autocomplete="off" class="form-control" placeholder="Your Physical Address">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Course:</label>
-                                            <div class="col-lg-9">
-                                                <div class="form-group" data-select2-id="207">
-
-                                                    <select name="course" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
-                                                        <optgroup label="Courses" data-select2-id="208">
-                                                            <option value="{{$Student->course}}" data-select2-id="68" selected>{{$Student->course}}</option>
-                                                            <option value="Nuclear Science" data-select2-id="68">Nuclear Science</option>
-                                                            <option value="Computer Technology" data-select2-id="209">Computer Technology</option>
-                                                            <option value="Quantum Physics" data-select2-id="210">Quantum Physics</option>
-                                                            <option value="Special Relativity" data-select2-id="211">Special Relativity</option>
-                                                        </optgroup>
-
-                                                    </select>
-
-                                                    {{-- <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="67" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-my9q-container"><span class="select2-selection__rendered" id="select2-my9q-container" role="textbox" aria-readonly="true" title="Arizona">Arizona</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-lg-6">
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Shift:</label>
-                                            <div class="col-lg-9">
-                                                <div class="form-group" data-select2-id="207">
-
-                                                    <select name="shift" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
-                                                        <optgroup label="Delivery Methods" data-select2-id="208">
-                                                            <option value="{{$Student->shift}}" data-select2-id="68" selected>{{$Student->shift}}</option>
-                                                            <option value="Day" data-select2-id="68">Day</option>
-                                                            <option value="Night" data-select2-id="209">Night</option>
-                                                            <option value="Evening" data-select2-id="210">Evening</option>
-                                                            <option value="Online" data-select2-id="211">Online</option>
-                                                        </optgroup>
-
-                                                    </select>
-
-                                                    {{-- <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="67" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-my9q-container"><span class="select2-selection__rendered" id="select2-my9q-container" role="textbox" aria-readonly="true" title="Arizona">Arizona</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <hr>
 
-                                <div class="form-group row">
-                                    <label class="col-lg-4 col-form-label">Extra Info:</label>
-                                    <div class="col-lg-8">
-                                        <textarea rows="5" name="extra" cols="5" class="form-control" placeholder="Enter your message here">{{$Student->extra}}</textarea>
-                                    </div>
-                                </div>
+
 
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-primary">
-                                        Save Changes <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                                        <span class="fas fa-save mr-3"></span>Save Changes <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
                                     <p id="Success" style="padding:10px" class="alert-success">Student Has Been Enrolled Successfully</p>
                                 </div>

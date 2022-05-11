@@ -92,6 +92,9 @@
          <li class="nav-item nav-item-submenu">
              <a href="{{url('/')}}/billings/system-settings" class="nav-link"><i class="icon-pencil3"></i> <span>System Settings</span></a>
          </li>
+         <li class="nav-item nav-item-submenu">
+            <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span>Reset Forms</span></a>
+        </li>
 
     </ul>
 </div>
