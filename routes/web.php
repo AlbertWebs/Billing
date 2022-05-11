@@ -18,7 +18,8 @@ use App\Http\Controllers\MpesaController;
 // Route::get('/', function () {
 //     return view('billing.index');
 // });
-Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('all-students');
+Auth::routes();
+Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('admin.home')->middleware('is_admin');
 
 //Group
 // Products
@@ -81,3 +82,9 @@ Route::group(['prefix'=>'billings'], function(){
 });
 
 
+// Route::get('admin/home', [BillingController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
