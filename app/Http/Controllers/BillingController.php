@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Billing;
+use App\Models\Setting;
 use Session;
 use PDF;
 
@@ -265,7 +266,6 @@ public function create_bill_post(Request $request){
     }
 }
 
-
 public function getInfo($id)
 {
   $fill = DB::table('courses')->where('id', $id)->pluck('price');
@@ -285,13 +285,6 @@ public function download($id) {
     return view('billing.download', compact('Billing'));
 
 }
-
-public function system_settings() {
-    return view('billing.system-settings');
-}
-
-
-
 public function edit_bill($id) {
     $Billing = Billing::find($id);
     return view('billing.edit_bill', compact('Billing'));
@@ -315,6 +308,45 @@ public function checkEmail(Request $request){
     }
 }
 
+public function destroy(){
+    Session::forget('billing');
+    Session::forget('user');
+    return Redirect::back();
+}
+
+public function system_settings() {
+    $Settings = Setting::all();
+    return view('billing.system-settings', compact('Settings'));
+}
+
+public function save_settings(Request $request){
+
+    $path = 'uploads/logo';
+    if(isset($request->logo)){
+        $file = $request->file('logo');
+        $filename = $file->getClientOriginalName();
+        $file->move($path, $filename);
+        $avatarlogo = $filename;
+    }else{
+        $avatarlogo = "avatar.png";
+    }
+    $name = $request->name;
+    $email = $request->email;
+    $mobile = $request->mobile;
+    $location = $request->location;
+
+    $updateDetails = array(
+       'name' => $name,
+       'email' => $email,
+       'mobile' => $mobile,
+       'location' => $location,
+       'logo' => $avatarlogo,
+    );
+
+    DB::table('settings')->update($updateDetails);
+    Session::flash('message', "Changes have Been Saved");
+    return Redirect::back();
+}
 
 
 }
