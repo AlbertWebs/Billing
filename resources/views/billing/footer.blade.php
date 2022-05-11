@@ -11,10 +11,10 @@
             &copy; 2015 - <?php echo date('Y'); ?>. <a href="#">Limitless Web App Kit</a> by <a href="https://designekta.com" target="_blank">Designekta Studios</a>
         </span>
 
-        <ul class="navbar-nav ml-lg-auto">
+        {{-- <ul class="navbar-nav ml-lg-auto">
             <li class="nav-item"><a href="https://designekta.com" class="navbar-nav-link" target="_blank"><i class="icon-lifebuoy mr-2"></i> Support</a></li>
             <li class="nav-item"><a href="https://designekta.com" class="navbar-nav-link" target="_blank"><i class="icon-file-text2 mr-2"></i> Docs</a></li>
             <li class="nav-item"><a href="https://designekta.com" class="navbar-nav-link font-weight-semibold"><span class="text-pink"><i class="icon-cart2 mr-2"></i> Purchase System</span></a></li>
-        </ul>
+        </ul> --}}
     </div>
 </div>

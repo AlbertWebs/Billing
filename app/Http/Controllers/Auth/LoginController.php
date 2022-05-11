@@ -53,12 +53,19 @@ class LoginController extends Controller
             if (auth()->user()->is_admin == 1) {
                 return redirect()->route('admin.home');
             }else{
-                return redirect()->route('home');
+                return redirect()->route('admin.home');
             }
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');
         }
 
+    }
+
+    public function userLogout()
+    {
+        Auth::guard('web')->logout();
+
+        return redirect('/');
     }
 }

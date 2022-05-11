@@ -88,3 +88,6 @@ Route::group(['prefix'=>'billings'], function(){
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/logout','Auth\LoginController@userLogout')->name('user.logout');
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'userLogout'])->name('user.logout');

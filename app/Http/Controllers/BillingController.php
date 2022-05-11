@@ -123,7 +123,6 @@ class BillingController extends Controller
 
 
         $updateDetails =  array(
-           'tutor' => $tutor,
            'title' => $title,
            'price' => $price,
         );
@@ -165,11 +164,10 @@ class BillingController extends Controller
 
     public function add_course_post(Request $request){
         $title = $request->title;
-        $tutor = $request->tutor;
 
         $Course = new Course;
         $Course->title = $request->title;
-        $Course->tutor = $request->tutor;
+        // $Course->tutor = $request->tutor;
         $Course->price = $request->price;
 
         $Course->save();
@@ -341,7 +339,7 @@ public function save_settings(Request $request){
         $file->move($path, $filename);
         $avatarlogo = $filename;
     }else{
-        $avatarlogo = "avatar.png";
+        $avatarlogo = $request->retained;
     }
     $name = $request->name;
     $email = $request->email;

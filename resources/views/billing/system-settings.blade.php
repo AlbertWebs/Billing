@@ -109,7 +109,7 @@
                                 </div>
                                 @endforeach
 
-
+                                <input type="hidden" name="retained" value="{{$Setting->logo}}">
                             </form>
                         </div>
                     </div>

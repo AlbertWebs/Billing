@@ -93,34 +93,7 @@
                                 </div>
                                 <hr>
 
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Tutor:</label>
-                                            <div class="col-lg-10">
-                                                <div class="form-group" data-select2-id="207">
 
-                                                    <select name="tutor" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
-                                                        <optgroup label="Tutors" data-select2-id="208">
-                                                            <option selected value="{{$Courses->tutor}}" data-select2-id="66{{$Courses->id}}">
-                                                                <?php $Tutors = DB::table('tutors')->where('id',$Courses->tutor)->get(); ?>
-                                                                @foreach ($Tutors as $items)
-                                                                {{$items->name}}
-                                                                @endforeach
-                                                            </option>
-                                                            @foreach ($Tutor as $tutor)
-                                                               <option value="{{$tutor->id}}" data-select2-id="68{{$tutor->id}}">{{$tutor->name}}</option>
-                                                            @endforeach
-                                                        </optgroup>
-
-                                                    </select>
-
-                                                    {{-- <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="67" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-my9q-container"><span class="select2-selection__rendered" id="select2-my9q-container" role="textbox" aria-readonly="true" title="Arizona">Arizona</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <hr>
 
@@ -128,7 +101,7 @@
 
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-primary">
-                                        Save Changes <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                                        <span class="fas fa-save mr-3"></span> Save Changes <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
                                     <p id="Success" style="padding:10px" class="alert-success">Course Has Been Enrolled Successfully</p>
                                 </div>

@@ -90,7 +90,7 @@
                             $date = date('d',$FormatDate);
                         ?>
                         <tr>
-                            <td>#00{{$Billing->id}}</td>
+                            <td>#{{$Billing->reference}}</td>
                             <td>{{$Month}} {{$Year}}</td>
                             <td>
                                 <h6 class="mb-0">
@@ -104,28 +104,35 @@
                                 </h6>
                             </td>
                             <td>
-                                <select name="status" class="custom-select">
-                                    <option value="overdue">Overdue</option>
-                                    <option value="hold" selected>On hold</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="paid">Paid</option>
-                                    <option value="invalid">Invalid</option>
-                                    <option value="cancel">Canceled</option>
+                                @if($Billing->balance == 0)
+                                <select name="status" class="custom-select alert-success" >
+                                    @else
+                                <select name="status" class="custom-select alert-info" >
+                                    @endif
+                                    @if($Billing->balance == 0)
+                                    <option value="overdue">Partially Paid</option>
+                                    <option value="hold" selected>Paid</option>
+                                    @else
+                                    <option value="overdue" selected>Partially Paid</option>
+                                    <option value="hold">Paid</option>
+                                    @endif
+
+
                                 </select>
                             </td>
                             <td>
-                                {{$Month}} {{$Date}}, {{$Year}}
+                                {{$Month}} {{$date}}, {{$Year}}
                             </td>
                             <td>
                                 <span class="badge badge-success">Paid on {{$Month}} {{$date}}, {{$Year}}</span>
                             </td>
                             <td>
-                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} <span class="d-block font-size-sm text-muted font-weight-normal">VAT KES 0</span></h6>
+                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} <span class="d-block font-size-sm text-muted font-weight-normal">Balance KES {{$Billing->balance}}</span></h6>
                             </td>
                             <td class="text-center">
                                 <div class="list-icons list-icons-extended">
                                     {{-- <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a> --}}
-                                    <a href="#" title="Download" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="fas fa-download mr-3 fa-2x"></i></a>
+                                    <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item" ><i class="fas fa-download mr-3 fa-2x"></i></a>
                                     <div class="dropdown">
                                         <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fas fa-cogs mr-3 fa-2x"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right">

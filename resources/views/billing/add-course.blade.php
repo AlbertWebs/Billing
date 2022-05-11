@@ -94,7 +94,7 @@
                                 </div>
                                 <hr>
                                 {{--  --}}
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Tutor:</label>
@@ -110,12 +110,11 @@
 
                                                     </select>
 
-                                                    {{-- <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="67" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-my9q-container"><span class="select2-selection__rendered" id="select2-my9q-container" role="textbox" aria-readonly="true" title="Arizona">Arizona</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
-                                                </div>
+                                                   </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <hr>
 

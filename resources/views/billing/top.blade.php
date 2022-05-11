@@ -68,8 +68,13 @@
 
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="{{url('/')}}/billings/system-settings" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
-                <a href="{{url('/')}}/logout" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+                <a href="{{url('/')}}/logout" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
             </div>
+            <form id="logout-form" action="{{url('/')}}/logout" method="POST" class="d-none">
+                @csrf
+                {{-- <input type="hidden" name="_token" value="O4YT7SpL0Jv6Mnz2xgjl8933WE6JX9kszhcCf3AD"> --}}
+            </form>
         </li>
     </ul>
 </div>
