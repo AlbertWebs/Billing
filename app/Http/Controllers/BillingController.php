@@ -225,9 +225,16 @@ class BillingController extends Controller
    }
 
    public function my_payments(){
-        $Billings = DB::table('billings')->get();
+        $Billings = DB::table('billings')->where('group_id',null)->get();
         return view('billing.payments',compact('Billings'));
    }
+
+   public function my_payments_ref($ref){
+    $Billings = DB::table('billings')->where('group_id',$ref)->get();
+    return view('billing.payments_ref',compact('Billings'));
+  }
+
+
 
    public function editable_invoice(){
     // DB::table('billings')->get();
@@ -243,19 +250,43 @@ public function create_bill_post(Request $request){
     $title = $request->title;
     $course_id = $request->course;
     $reference = $request->reference;
+    $group_id = $request->group_id;
 
     $Course = Course::find($course_id);
     $Course_price = $Course->price;
     $Amount_paid = $amount;
-    if($Amount_paid == $Course_price){
-       $Balance = 0;
-       $paid = "Paid";
+    // Check if payment exists
+    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','DESC')->first();
+    if($Previous == null){
+        //
+        if($Amount_paid == $Course_price){
+        $Balance = 0;
+        $paid = "Paid";
+        }else{
+            $Balance = $Course_price-$Amount_paid;
+            $paid = "Partially Paid";
+        }
+        //
     }else{
-        $Balance = $Course_price-$Amount_paid;
-        $paid = "Partially Paid";
+        $Bal = $Previous->balance;
+        $NewBalance =$Bal-$amount;
+        if($NewBalance<1){
+            $Balance = $NewBalance;
+            $paid = "Paid";
+            $group_role = "parent";
+            $group_id = $reference;
+            // Update the children
+        }else{
+            $Balance = $Bal-$Amount_paid;
+            $paid = "Partially Paid";
+            $group_role = "child";
+            $group_id = $reference;
+        }
     }
     $Billing = new Billing;
     $Billing->student = $user;
+    $Billing->group_id = $group_id;
+    $Billing->group_role = $request->group_role;
     $Billing->note = $note;
     $Billing->reference = $reference;
     $Billing->balance = $Balance;
@@ -265,16 +296,18 @@ public function create_bill_post(Request $request){
     $Billing->title = $title;
     $Billing->paid = $paid;
 
-
-
     if($Billing->save()){
         //Get Latest
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
         foreach($Billing as $bill){
             Session::put('billing', $Billing->id);
         }
-
     }
+}
+public function create_bill_partial($id){
+    $Billing = Billing::find($id);
+    Session::put('partials', $Billing->id);
+    return view('billing.create-bill',compact('Billing'));
 }
 
 public function getInfo($id)
@@ -322,6 +355,8 @@ public function checkEmail(Request $request){
 public function destroy(){
     Session::forget('billing');
     Session::forget('user');
+    Session::forget('partials');
+
     return Redirect::back();
 }
 
@@ -367,6 +402,10 @@ public function switch_status($id,$status){
     DB::table('students')->where('id',$id)->update($updateDetails);
     Session::flash('message', "Status Updated!");
     return Redirect::back();
+}
+
+public function process_payment($Re){
+
 }
 
 

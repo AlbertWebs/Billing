@@ -50,7 +50,10 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill'])->name('create-bill');
     Route::get('/create-bill/{email}', [App\Http\Controllers\BillingController::class, 'create_bill_fetch'])->name('create-bill-fetch');
     Route::post('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill_post'])->name('create-bill-post');
+    Route::get('/create-bill-partial/{id}', [App\Http\Controllers\BillingController::class, 'create_bill_partial'])->name('create-bill-partial');
+
     Route::get('/my-payments', [App\Http\Controllers\BillingController::class, 'my_payments'])->name('my-payments');
+    Route::get('/my-payments/{ref}', [App\Http\Controllers\BillingController::class, 'my_payments_ref'])->name('my-payments-ref');
     Route::get('/editable-invoice', [App\Http\Controllers\BillingController::class, 'editable_invoice'])->name('editable-invoice');
 
     // Route::get('/infos/{id}', 'InfoController@getInfo');
