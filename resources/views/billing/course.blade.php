@@ -92,6 +92,37 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">School:</label>
+                                            <div class="col-lg-10">
+                                                <div class="form-group" data-select2-id="207">
+
+                                                    <select name="school" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
+                                                        <optgroup label="Schools" data-select2-id="208">
+                                                            <option selected="selected" value="{{$Courses->school}}" data-select2-id="68{{$Courses->id}}">
+                                                               <?php
+                                                                    $Shule = DB::table('schools')->where('id',$Courses->school)->get();
+                                                                    foreach ($Shule as $shule)
+                                                                    {
+                                                                     echo $shule->title;
+                                                                    }
+                                                                ?>
+                                                            </option>
+                                                            @foreach ($School as $school)
+                                                               <option value="{{$school->id}}" data-select2-id="68{{$school->id}}">{{$school->title}}</option>
+                                                            @endforeach
+                                                        </optgroup>
+
+                                                    </select>
+
+                                                   </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
 
 

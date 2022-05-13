@@ -121,11 +121,13 @@ class BillingController extends Controller
         $title = $request->title;
         $tutor = $request->tutor;
         $price = $request->price;
+        $school = $request->school;
 
 
         $updateDetails =  array(
            'title' => $title,
            'price' => $price,
+           'school' => $school,
         );
 
         DB::table('courses')->where('id',$id)->update($updateDetails);
@@ -143,7 +145,8 @@ class BillingController extends Controller
 
     public function add_course(){
         $Tutor = Tutor::all();
-        return view('billing.add-course', compact('Tutor'));
+        $School = School::all();
+        return view('billing.add-course', compact('Tutor','School'));
     }
 
 
@@ -159,7 +162,8 @@ class BillingController extends Controller
     public function course($id){
         $Tutor = Tutor::all();
         $Courses = Course::find($id);
-        return view('billing.course', compact('Courses','Tutor'));
+        $School = School::all();
+        return view('billing.course', compact('Courses','Tutor','School'));
     }
 
     public function tutors(){
@@ -179,7 +183,7 @@ class BillingController extends Controller
 
         $Course = new Course;
         $Course->title = $request->title;
-        // $Course->tutor = $request->tutor;
+        $Course->school = $request->school;
         $Course->price = $request->price;
 
         $Course->save();

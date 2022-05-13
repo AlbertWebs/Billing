@@ -94,17 +94,17 @@
                                 </div>
                                 <hr>
                                 {{--  --}}
-                                {{-- <div class="row">
+                                <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Tutor:</label>
+                                            <label class="col-lg-2 col-form-label">School:</label>
                                             <div class="col-lg-10">
                                                 <div class="form-group" data-select2-id="207">
 
-                                                    <select name="tutor" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
+                                                    <select name="school" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
                                                         <optgroup label="Tutors" data-select2-id="208">
-                                                            @foreach ($Tutor as $tutor)
-                                                               <option value="{{$tutor->id}}" data-select2-id="68{{$tutor->id}}">{{$tutor->name}}</option>
+                                                            @foreach ($School as $school)
+                                                               <option value="{{$school->id}}" data-select2-id="68{{$school->id}}">{{$school->title}}</option>
                                                             @endforeach
                                                         </optgroup>
 
@@ -114,7 +114,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
                                 <hr>
 
