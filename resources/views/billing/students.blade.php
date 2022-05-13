@@ -7,25 +7,7 @@
     <div class="content-inner">
 
         <!-- Page header -->
-        <div class="page-header page-header-light">
 
-
-            <div class="breadcrumb-line breadcrumb-line-light header-elements-lg-inline">
-                <div class="d-flex">
-                    <div class="breadcrumb">
-                        <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                        <a href="{{url('/')}}/billings/students" class="breadcrumb-item">Students</a>
-                        <span class="breadcrumb-item active">All Students</span>
-
-                    </div>
-
-                    <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
-
-                </div>
-
-
-            </div>
-        </div>
         <!-- /page header -->
 
 
@@ -37,10 +19,6 @@
 
             <!-- Basic datatable -->
             <div class="card">
-
-
-
-
                 <table class="table datatable-basic">
                     <thead>
                         <tr><th>#</th>

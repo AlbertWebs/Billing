@@ -6,55 +6,6 @@
     <!-- Inner content -->
     <div class="content-inner">
 
-        <!-- Page header -->
-        <div class="page-header page-header-light">
-            <div class="page-header-content header-elements-lg-inline">
-                <div class="page-title d-flex">
-                    <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Edit {{$Student->name}}</span></h4>
-                    <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
-                </div>
-
-                <div class="header-elements d-none">
-                    <div class="d-flex justify-content-center">
-                        <a href="{{url('/')}}/billings/students" class="btn btn-link btn-float text-body"><i class="icon-bars-alt text-primary"></i><span>All Students</span></a>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="breadcrumb-line breadcrumb-line-light header-elements-lg-inline">
-                <div class="d-flex">
-                    <div class="breadcrumb">
-                        <a href="{{url('/')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                        <a href="{{url('/')}}/billings/students" class="breadcrumb-item">Billings</a>
-                        <span class="breadcrumb-item active">Edit {{$Student->name}}</span>
-                    </div>
-
-                    <a href="#" class="header-elements-toggle text-body d-lg-none"><i class="icon-more"></i></a>
-                </div>
-
-                <div class="header-elements d-none">
-                    <div class="breadcrumb justify-content-center">
-                        <a href="tel:254723014032" class="breadcrumb-elements-item">
-                            <i class="icon-comment-discussion mr-2"></i>
-                            Support
-                        </a>
-
-                        <div class="breadcrumb-elements-item dropdown p-0">
-                            <a href="{{url('/')}}/system-settings" class="breadcrumb-elements-item">
-                                <i class="icon-gear mr-2"></i>
-                                Settings
-                            </a>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /page header -->
-
-
         <!-- Content area -->
         <div class="content">
 
@@ -64,7 +15,7 @@
                     <!-- Basic layout-->
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Basic layout</h5>
+                            <h5 class="card-title">Edit {{$Student->name}}</h5>
                         </div>
 
                         <div class="card-body">
