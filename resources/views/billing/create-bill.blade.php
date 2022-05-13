@@ -84,7 +84,7 @@
 
                                     ?>
 
-                                    <input type="hidden" name="group_id" name="{{$Billing->reference}}">
+                                    <input type="hidden" name="group_id" value="{{$Billing->reference}}">
                                     <div class="col-lg-12">
                                         <div class="form-group" data-select2-id="207">
                                             <div class="form-group row">

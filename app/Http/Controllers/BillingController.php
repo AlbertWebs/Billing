@@ -260,33 +260,44 @@ public function create_bill_post(Request $request){
     if($Previous == null){
         //
         if($Amount_paid == $Course_price){
-        $Balance = 0;
-        $paid = "Paid";
+            $Balance = 0;
+            $group_role = "parent";
+            $group_id = $reference;
+            $paid = "Paid";
         }else{
             $Balance = $Course_price-$Amount_paid;
+            $group_role = "child";
+            $group_id = null;
             $paid = "Partially Paid";
         }
         //
     }else{
         $Bal = $Previous->balance;
-        $NewBalance =$Bal-$amount;
+        $NewBalance =$Bal-$Amount_paid;
         if($NewBalance<1){
             $Balance = $NewBalance;
             $paid = "Paid";
             $group_role = "parent";
             $group_id = $reference;
             // Update the children
+            $UpdateDetails = array(
+                'group_role' => 'child',
+                'group_id' => $group_id,
+            );
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+            $group_id = null;
         }else{
             $Balance = $Bal-$Amount_paid;
             $paid = "Partially Paid";
             $group_role = "child";
-            $group_id = $reference;
+            $group_id = null;
         }
     }
+
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->group_id = $group_id;
-    $Billing->group_role = $request->group_role;
+    $Billing->group_role = $group_role;
     $Billing->note = $note;
     $Billing->reference = $reference;
     $Billing->balance = $Balance;

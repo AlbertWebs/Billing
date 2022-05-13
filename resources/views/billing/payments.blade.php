@@ -41,6 +41,9 @@
                             $Date = date('D',$FormatDate);
                             $Year = date('Y',$FormatDate);
                             $date = date('d',$FormatDate);
+                            $Hour = date('h',$FormatDate);
+                            $min = date('i',$FormatDate);
+                            $Sec = date('s',$FormatDate);
                         ?>
                         <tr>
                             <td>#{{$Billing->reference}}</td>
@@ -72,13 +75,13 @@
                                 </select>
                             </td>
                             <td>
-                                {{$Month}} {{$date}}, {{$Year}}
+                                {{$Month}} {{$date}}, {{$Year}} {{$Hour}}:{{$min}}:{{$Sec}}
                             </td>
                             <td>
                                 @if($Billing->balance < 1)
                                   <span>
                                     <a href="http://localhost:8000/billings/my-payments/{{$Billing->reference}}" class="btn btn-outline-success">
-                                        <?php $Instalments = DB::table('billings')->where('group_id',$Billing->reference)->get(); echo count($Instalments); ?> Instalments
+                                        <?php $Instalments = DB::table('billings')->where('group_id',$Billing->reference)->get(); echo count($Instalments); ?> Instalment(s)
                                     </a>
                                   </span>
 
