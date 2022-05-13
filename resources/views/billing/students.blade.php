@@ -62,9 +62,9 @@
 
                             <td>
                                 @if($item->status == 1)
-                                <a href="{{url('/')}}/billings/switch-status/{{$item->id}}/0" class="btn btn-outline-danger">Set Graduated</button>
+                                <a onclick="return confirm('Would you wish to change this status to Not Graduated?')" href="{{url('/')}}/billings/switch-status/{{$item->id}}/0" class="btn btn-outline-danger">Set Graduated</button>
                                 @else
-                                <a href="{{url('/')}}/billings/switch-status/{{$item->id}}/1" class="btn btn-outline-success">Set Active</button>
+                                <a onclick="return confirm('Would you wish to change this status Graduated?')" href="{{url('/')}}/billings/switch-status/{{$item->id}}/1" class="btn btn-outline-success">Set Active</button>
                                 @endif
                             </td>
                             @if($item->status == 1)

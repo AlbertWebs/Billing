@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\School;
 use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Billing;
@@ -131,6 +132,10 @@ class BillingController extends Controller
         return Redirect::back();
    }
 
+
+
+
+
     public function courses(){
         $Courses = Course::all();
         return view('billing.courses', compact('Courses'));
@@ -140,6 +145,13 @@ class BillingController extends Controller
         $Tutor = Tutor::all();
         return view('billing.add-course', compact('Tutor'));
     }
+
+
+    public function add_school(){
+        return view('billing.add_school');
+    }
+
+
     public function add_tutors(){
         return view('billing.add-tutor');
     }
@@ -173,6 +185,17 @@ class BillingController extends Controller
         $Course->save();
         return Redirect::back();
     }
+
+    public function add_school_post(Request $request){
+        $title = $request->title;
+        $School = new School;
+        $School->title = $request->title;
+        $School->save();
+        Session::flash('message', "School Has Been Added");
+        return Redirect::back();
+    }
+
+
 
     public function add_tutor_post(Request $request){
         $title = $request->name;
@@ -419,6 +442,31 @@ public function process_payment($Re){
 
 }
 
+public function profile($id){
+   $User = Student::find($id);
+   $Billing = Billing::where('student',$id)->get();
+   return view('billing.profile', compact('Billing','User'));
+}
 
+public function schools(){
+    $School = School::all();
+    return view('billing.schools', compact('School'));
+}
 
+public function school($id){
+    $School = School::find($id);
+    return view('billing.school', compact('School'));
+}
+
+public function save_school_post(Request $request ,$id){
+
+    $title = $request->title;
+    $updateDetails =  array(
+    'title' => $title,
+    );
+
+    DB::table('schools')->where('id',$id)->update($updateDetails);
+    Session::flash('message', "Updated!");
+    return Redirect::back();
+}
 }

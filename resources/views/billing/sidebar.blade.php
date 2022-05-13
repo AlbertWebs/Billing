@@ -22,8 +22,23 @@
 
 
         </li>
+
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/add-course" class="nav-link"><i class="icon-color-sampler"></i> <span>Add Course</span></a>
+        </li>
+
+        {{--  --}}
+        <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-graduation-cap mr-3"></span> Schools </div> <i class="icon-menu " title="Main"></i></li>
+
+
+        <li class="nav-item nav-item-submenu">
+            <a href="{{url('/')}}/billings/schools" class="nav-link"><i class="icon-copy"></i> <span>All Schools</span></a>
+
+
+        </li>
+
+        <li class="nav-item nav-item-submenu">
+            <a href="{{url('/')}}/billings/add-school" class="nav-link"><i class="icon-color-sampler"></i> <span>Add School</span></a>
         </li>
 
         <!-- /main -->

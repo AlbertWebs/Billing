@@ -77,8 +77,14 @@ Route::group(['prefix'=>'billings'], function(){
 
     Route::get('/switch-status/{id}/{status}', [App\Http\Controllers\BillingController::class, 'switch_status'])->name('switch-status');
 
+    Route::get('/profile/{id}', [App\Http\Controllers\BillingController::class, 'profile'])->name('profile');
 
 
+    Route::POST('/add-school-post', [App\Http\Controllers\BillingController::class, 'add_school_post'])->name('add-school-post');
+    Route::get('/schools/{id}', [App\Http\Controllers\BillingController::class, 'school'])->name('school');
+    Route::get('/schools', [App\Http\Controllers\BillingController::class, 'schools'])->name('schools');
+    Route::get('/add-school', [App\Http\Controllers\BillingController::class, 'add_school'])->name('add-school');
+    Route::POST('/save-school-post/{id}', [App\Http\Controllers\BillingController::class, 'save_school_post'])->name('save-school-post');
 
 
 
