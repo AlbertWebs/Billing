@@ -44,21 +44,29 @@
                 <table class="table datatable-basic">
                     <thead>
                         <tr><th>#</th>
-                            <th>Full Name</th>
-                            <th>Contacts</th>
+                            <th>Info</th>
                             <th>Switch Status</th>
                             <th>Status</th>
-                            <th class="text-center">Actions</th>
+                            <th>Actions</th>
+                            <th class="text-centers"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($Student as $item)
                         <tr>
-                            <td><img src="{{asset('theme/assets/global_assets/images/demo/users/face3.jpg')}}" class="rounded-circle" width="32" height="32" alt=""></td>
-                            <td>{{$item->name}}</td>
-                            <td>Mobile: <a href="tel:{{$item->mobile}}">{{$item->mobile}}</a><br>
-                                Email:  <a href="mailto:{{$item->email}}">{{$item->email}}</a>
+                            <td>
+                                <a href="{{url('/')}}/billings/edit-pic/{{$item->id}}">
+                                    <img src="{{url('/')}}/uploads/students/{{$item->avatar}}" class="rounded-circle" width="42" height="42" alt=""><br>
+                                    <center>Edit</center>
+                                </a>
                             </td>
+                            <td>
+                                {{$item->name}}<br>
+                                Mobile: <a href="tel:{{$item->mobile}}">{{$item->mobile}}</a><br>
+                                Email:  <a href="mailto:{{$item->email}}">{{$item->email}}</a><br>
+                                Gender : {{$item->gender}}
+                            </td>
+
 
                             <td>
                                 @if($item->status == 1)
@@ -72,20 +80,25 @@
                             @else
                             <td><span class="badge badge-secondary">Graduated</span></td>
                             @endif
-                            <td class="text-center">
-                                <div class="list-icons">
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                            <i class="fas fa-th-list mr-3 fa-2x"></i>
-                                        </a>
+                            <td>
 
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to Payment Statements</a>
-                                            <a href="#" class="dropdown-item"><i class="fas fa-file-pdf"></i> Export to User Details</a>
-                                            <a href="{{url('/')}}/billings/student/{{$item->id}}" class="dropdown-item"><i class="fas fa-pencil-alt"></i> Edit Student</a>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <a href="{{url('/')}}/billings/schools/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> Statements
+                                </a>
+                                <a href="{{url('/')}}/billings/schools/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-graduation-cap"></i> Courses
+                                </a>
+                                <a href="{{url('/')}}/billings/student/{{$item->id}}" class="btn btn-outline-success">  <i class="fas fa-money-bill-wave"></i> Pay
+                                </a>
+                                <a title="Edit" href="{{url('/')}}/billings/student/{{$item->id}}" class="btn btn-outline-info">  <i class="fas fa-pen"></i>
+                                </a>
+                                <a title="Delete" onclick="return confirm('You wish to delete this user?')" href="{{url('/')}}/billings/delete-student/{{$item->id}}" class="btn btn-outline-danger">  <i class="fas fa-trash"></i>
+                                </a>
+
+
+                            </td>
+
+                            <td class="text-center">
+
                             </td>
                         </tr>
                         @endforeach

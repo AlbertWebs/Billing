@@ -215,6 +215,7 @@ class BillingController extends Controller
         return Redirect::back();
     }
 
+
     public function tutor_delete($id){
         DB::table('tutors')->where('id',$id)->delete();
         return Redirect::back();
@@ -469,4 +470,38 @@ public function save_school_post(Request $request ,$id){
     Session::flash('message', "Updated!");
     return Redirect::back();
 }
+
+public function delete_student($id){
+    DB::table('students')->where('id',$id)->delete();
+    Session::flash('message', "Deleted!");
+    return Redirect::back();
+}
+
+public function edit_pic($id){
+    $Student = Student::find($id);
+    return view('billing.edit_pic', compact('Student'));
+}
+public function save_pic(Request $request, $id){
+
+    $path = 'uploads/students';
+    if(isset($request->avatar)){
+        $file = $request->file('avatar');
+        $filename = $file->getClientOriginalName();
+        $file->move($path, $filename);
+        $avatarlogo = $filename;
+    }else{
+        $avatarlogo = $request->retained;
+    }
+
+
+    $updateDetails = array(
+       'avatar' => $avatarlogo,
+    );
+
+    DB::table('students')->where('id',$id)->update($updateDetails);
+    Session::flash('message', "Changes have Been Saved");
+    return Redirect::back();
+}
+
+
 }
