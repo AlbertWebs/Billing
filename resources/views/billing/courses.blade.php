@@ -5,19 +5,10 @@
 
     <!-- Inner content -->
     <div class="content-inner">
-
-
-
-
         <!-- Content area -->
         <div class="content">
-
             <!-- Basic datatable -->
             <div class="card">
-
-
-
-
                 <table class="table datatable-basic">
                     <thead>
                         <tr><th>#</th>
@@ -25,7 +16,6 @@
                             <th>School</th>
                             <th>Price</th>
                             {{-- <th>Tutor</th> --}}
-
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
