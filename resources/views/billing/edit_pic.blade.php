@@ -42,17 +42,17 @@
                             <form action="{{url('/')}}/billings/save-pic/{{$Student->id}}" method="POST" id="Enroll-Forms" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <hr>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                      <center><img width="300" src="{{url('/')}}/uploads/students/{{$Student->avatar}}"></center>
-                                    </div>
-                                </div>
-                                <hr>
+
                                 <div class="form-group row">
-									<label class="col-lg-2 col-form-label font-weight-semibold">Avatar:</label>
-									<div class="col-lg-10">
-										<input type="file" name="avatar" class="file-input" data-fouc>
-									</div>
+                                    <div class="col-lg-6">
+                                        <center><img style="border-radius:50%; border:10px solid #000000;" width="250" src="{{url('/')}}/uploads/students/{{$Student->avatar}}"></center>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="col-lg-2 col-form-label font-weight-semibold">Avatar:</label>
+                                        <div class="col-lg-10">
+                                            <input type="file" name="avatar" class="file-input" data-fouc>
+                                        </div>
+                                    </div>
 								</div>
                                 <hr>
 
