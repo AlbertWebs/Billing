@@ -1,6 +1,7 @@
 @extends('billing.master-invoice')
 @section('content')
-
+<?php $Settings = DB::table('settings')->get('logo') ?>
+@foreach ($Settings as $set)
 	<!-- Main content -->
     <div class="content-wrapper">
 
@@ -47,12 +48,8 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="mb-4">
-                                            <img src="{{asset('theme/assets/global_assets/images/logo_demo.png')}}" class="mb-3 mt-2" alt="" style="width: 120px;">
-                                             <ul class="list list-unstyled mb-0">
-                                                <li>2269 Kimathi Lane</li>
-                                                <li>Nairobi, France</li>
-                                                <li>{{$user->mobile}}</li>
-                                            </ul>
+                                            <img src="{{url('/')}}/uploads/logo/{{$set->logo}}" class="mb-3 mt-2" alt="" style="width: 300px;">
+
                                         </div>
                                     </div>
 
@@ -219,5 +216,6 @@
 
     </div>
     <!-- /main content -->
+@endforeach
 
 @endsection

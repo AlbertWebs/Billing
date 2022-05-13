@@ -8,12 +8,16 @@
         </button>
     </div>
 
+    <?php $Settings = DB::table('settings')->get('logo') ?>
+    @foreach ($Settings as $item)
     <div class="navbar-brand text-center text-lg-left">
-        <a href="index.html" class="d-inline-block">
-            <img src="{{asset('theme/assets/global_assets/images/logo_light.png')}}" class="d-none d-sm-block" alt="">
-            <img src="{{asset('theme/assets/global_assets/images/logo_icon_light.png')}}" class="d-sm-none" alt="">
+        <a href="{{url('/')}}" class="d-inline-block">
+            <img src="{{url('/')}}/uploads/logo/{{$item->logo}}" class="d-none d-sm-block" alt="">
+            <img src="{{url('/')}}/uploads/logo/{{$item->logo}}" class="d-sm-none" alt="">
         </a>
     </div>
+    @endforeach
+
 
     <div class="collapse navbar-collapse order-2 order-lg-1" id="navbar-mobile">
         <span class="badge badge-success my-3 my-lg-0 ml-lg-3">Online</span>
