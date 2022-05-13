@@ -503,5 +503,14 @@ public function save_pic(Request $request, $id){
     return Redirect::back();
 }
 
+public function my_statements($id){
+    $Student = Student::find($id);
+    $Billings = Billing::where('student',$id)->get();
+    return view('billing.statements', compact('Billings','Student'));
+}
+
+public function my_courses($id){
+
+}
 
 }

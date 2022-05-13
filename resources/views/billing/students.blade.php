@@ -76,29 +76,36 @@
                                 @endif
                             </td>
                             @if($item->status == 1)
-                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <span class="badge badge-success">Active</span>
+                            </td>
                             @else
-                            <td><span class="badge badge-secondary">Graduated</span></td>
+                            <td>
+                                <span class="badge badge-secondary">Graduated</span>
+                            </td>
                             @endif
                             <td>
 
 
-                                <a href="{{url('/')}}/billings/schools/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> Statements
+                                <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> Statements
                                 </a>
-                                <a href="{{url('/')}}/billings/schools/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-graduation-cap"></i> Courses
+                                <a href="{{url('/')}}/billings/my-courses/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-graduation-cap"></i> Courses
                                 </a>
-                                <a href="{{url('/')}}/billings/student/{{$item->id}}" class="btn btn-outline-success">  <i class="fas fa-money-bill-wave"></i> Pay
+                                <a title="Initiate Payment" href="{{url('/')}}/billings/m-pesa/{{$item->email}}" class="btn btn-outline-info">  <i class="fas fa-money-bill-wave"></i> Pay
                                 </a>
-                                <a title="Edit" href="{{url('/')}}/billings/student/{{$item->id}}" class="btn btn-outline-info">  <i class="fas fa-pen"></i>
-                                </a>
-                                <a title="Delete" onclick="return confirm('You wish to delete this user?')" href="{{url('/')}}/billings/delete-student/{{$item->id}}" class="btn btn-outline-danger">  <i class="fas fa-trash"></i>
+                                <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-info">  <i class="fas fa-pen-square"></i> Record
                                 </a>
 
 
                             </td>
 
                             <td class="text-center">
-
+                                <small>
+                                <a title="Edit" href="{{url('/')}}/billings/student/{{$item->id}}" class="btn btn-outline-info">  <i class="fas fa-pen"></i>
+                                </a>
+                                <a title="Delete" onclick="return confirm('You wish to delete this user?')" href="{{url('/')}}/billings/delete-student/{{$item->id}}" class="btn btn-outline-danger">  <i class="fas fa-trash"></i>
+                                </a>
+                                </small>
                             </td>
                         </tr>
                         @endforeach

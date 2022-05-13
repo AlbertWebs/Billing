@@ -90,6 +90,11 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/edit-pic/{id}', [App\Http\Controllers\BillingController::class, 'edit_pic'])->name('edit-pic');
     Route::post('/save-pic/{id}', [App\Http\Controllers\BillingController::class, 'save_pic'])->name('save-pic');
 
+    Route::get('/my-statements/{id}', [App\Http\Controllers\BillingController::class, 'my_statements'])->name('edit-pic');
+    Route::get('/my-courses/{id}', [App\Http\Controllers\BillingController::class, 'my_courses'])->name('my-courses');
+
+
+
 
 });
 
