@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Billing;
 use App\Models\Setting;
+use App\Models\User;
 use Session;
 use PDF;
 
@@ -443,6 +444,7 @@ public function switch_status($id,$status){
     return Redirect::back();
 }
 
+
 public function process_payment($Re){
 
 }
@@ -513,8 +515,97 @@ public function my_statements($id){
     return view('billing.statements', compact('Billings','Student'));
 }
 
-public function my_courses($id){
+public function user($id){
+    $User = User::find($id);
+    return view('billing.user', compact('User'));
 
 }
+public function users(){
+    $User = User::all();
+    return view('billing.users', compact('User'));
+}
+
+public function add_user(){
+    return view('billing.add_user');
+}
+
+public function delete_user($id){
+    DB::table('users')->where('id',$id)->delete();
+    Session::flash('message', "Changes have Been Saved");
+    return Redirect::back();
+}
+
+public function add_user_post(Request $request){
+    $path = 'uploads/users';
+    if(isset($request->avatar)){
+        $file = $request->file('avatar');
+        $filename = $file->getClientOriginalName();
+        $file->move($path, $filename);
+        $avatar = $filename;
+    }else{
+        $avatar = "avatar.png";
+    }
+    $User = new User;
+    $User->name = $request->name;
+    $User->email = $request->email;
+    $User->is_admin = $request->is_admin;
+    $User->avatar = $avatar;
+    $User->save();
+    Session::flash('message', "Changes have Been Saved");
+    return Redirect::back();
+
+}
+
+public function save_user(Request $request, $id){
+    $path = 'uploads/users';
+    if(isset($request->avatar)){
+        $file = $request->file('avatar');
+        $filename = $file->getClientOriginalName();
+        $file->move($path, $filename);
+        $avatar = $filename;
+    }else{
+        $avatar = $request->remain;
+    }
+   $updateDetails = array(
+      'name'=> $request->name,
+      'email'=> $request->email,
+      'is_admin'=> $request->is_admin,
+      'avatar'=> $avatar,
+   );
+   DB::table('users')->where('id',$id)->update($updateDetails);
+   Session::flash('message', "Changes have Been Saved");
+   return Redirect::back();
+}
+public function edit_pic_user($id){
+    $User = User::find($id);
+    return view('billing.edit_pic_user', compact('User'));
+}
+public function save_pic_user(Request $request, $id){
+
+    $path = 'uploads/users';
+    if(isset($request->avatar)){
+        $file = $request->file('avatar');
+        $filename = $file->getClientOriginalName();
+        $file->move($path, $filename);
+        $avatarlogo = $filename;
+    }else{
+        $avatarlogo = $request->retained;
+    }
+    $updateDetails = array(
+       'avatar' => $avatarlogo,
+    );
+    DB::table('users')->where('id',$id)->update($updateDetails);
+    Session::flash('message', "Changes have Been Saved");
+    return Redirect::back();
+}
+public function switch_user($id,$status){
+    $updateDetails = array(
+        'is_admin' => $status,
+    );
+    DB::table('users')->where('id',$id)->update($updateDetails);
+    Session::flash('message', "Status Updated!");
+    return Redirect::back();
+}
+
 
 }

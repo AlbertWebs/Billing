@@ -35,6 +35,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //Fire This When App Starts
         $this->configureRateLimiting();
 
         $this->routes(function () {

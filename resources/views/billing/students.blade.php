@@ -35,7 +35,7 @@
                             <td>
                                 <a href="{{url('/')}}/billings/edit-pic/{{$item->id}}">
                                     <img src="{{url('/')}}/uploads/students/{{$item->avatar}}" class="rounded-circle" width="42" height="42" alt=""><br>
-                                    <center>Edit</center>
+                                    <center>Edit({{$item->id}})</center>
                                 </a>
                             </td>
                             <td>

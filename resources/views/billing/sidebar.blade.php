@@ -13,6 +13,18 @@
             <a href="{{url('/')}}/billings/students-enroll" class="nav-link"><i class="icon-color-sampler"></i> <span>Enroll Student</span></a>
         </li>
         <!-- /main -->
+         <!-- Main -->
+         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="far fa-user mr-3"></span> Users</div> <i class="icon-menu " title="Main"></i></li>
+
+         <li class="nav-item nav-item-submenu">
+             <a href="{{url('/')}}/billings/users" class="nav-link"><i class="icon-copy"></i> <span>All Users</span></a>
+
+
+         </li>
+         <li class="nav-item nav-item-submenu">
+             <a href="{{url('/')}}/billings/students-enroll" class="nav-link"><i class="icon-color-sampler"></i> <span>Enroll Student</span></a>
+         </li>
+         <!-- /main -->
 
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-book-open mr-3"></span> Courses </div> <i class="icon-menu " title="Main"></i></li>
 
@@ -52,9 +64,7 @@
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/my-payments" class="nav-link"><i class="icon-pencil3"></i> <span>All Payments</span></a>
         </li>
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/editable-invoice" class="nav-link"><i class="icon-pencil3"></i> <span>Editable Invoice</span></a>
-        </li>
+
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/m-pesa" class="nav-link"><i class="icon-pencil3"></i> <span>M-PESA Payment</span></a>
         </li>

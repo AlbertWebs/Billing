@@ -93,10 +93,20 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/my-statements/{id}', [App\Http\Controllers\BillingController::class, 'my_statements'])->name('edit-pic');
     Route::get('/my-courses/{id}', [App\Http\Controllers\BillingController::class, 'my_courses'])->name('my-courses');
 
+    Route::get('/users', [App\Http\Controllers\BillingController::class, 'users'])->name('users');
+    Route::get('/user/{id}', [App\Http\Controllers\BillingController::class, 'user'])->name('user');
+    Route::get('/delete-user/{id}', [App\Http\Controllers\BillingController::class, 'delete_user'])->name('delete-user');
+    Route::get('/add-user', [App\Http\Controllers\BillingController::class, 'add_user'])->name('add-user');
+    Route::post('/add-user', [App\Http\Controllers\BillingController::class, 'add_user_post'])->name('add-user-post');
+    Route::post('/save-user/{id}', [App\Http\Controllers\BillingController::class, 'save_user'])->name('save-user');
 
+    Route::get('/edit-pic-user/{id}', [App\Http\Controllers\BillingController::class, 'edit_pic_user'])->name('edit-pic-user');
+    Route::post('/save-pic-user/{id}', [App\Http\Controllers\BillingController::class, 'save_pic_user'])->name('save-pic-user');
 
+    Route::get('/switch-user/{id}/{status}', [App\Http\Controllers\BillingController::class, 'switch_user'])->name('switch-user');
 
 });
+
 
 
 // Route::get('admin/home', [BillingController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');

@@ -55,7 +55,7 @@
 					<div class="sidebar-section-body">
 						<div class="media">
 							<a href="#" class="mr-3">
-								<img src="{{asset('theme/assets/global_assets/images/demo/users/face11.jpg')}}" class="rounded-circle" alt="">
+								<img src="{{url('/')}}/uploads/users/{{Auth::user()->avatar}}" class="rounded-circle" alt="">
 							</a>
 
 							<div class="media-body">

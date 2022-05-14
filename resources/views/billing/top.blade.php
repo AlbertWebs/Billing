@@ -26,7 +26,7 @@
     <ul class="navbar-nav flex-row order-1 order-lg-2 flex-1 flex-lg-0 justify-content-end align-items-center">
         <li class="nav-item nav-item-dropdown-lg dropdown">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
-                <i class="icon-bubbles4"></i>
+                <i class="fas fa-info"></i>
                 <span class="badge badge-warning badge-pill ml-auto ml-lg-0">1</span>
             </a>
 
@@ -66,8 +66,8 @@
 
         <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler dropdown-toggle d-inline-flex align-items-center h-100" data-toggle="dropdown">
-                <img src="{{asset('theme/assets/global_assets/images/demo/users/face11.jpg')}}" class="rounded-pill mr-lg-2" height="34" alt="">
-                <span class="d-none d-lg-inline-block">Albert</span>
+                <img src="{{url('/')}}/uploads/users/{{Auth::user()->avatar}}" class="rounded-pill mr-lg-2" height="34" alt="">
+                <span class="d-none d-lg-inline-block">{{Auth::user()->name}}</span>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">

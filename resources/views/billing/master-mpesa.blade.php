@@ -54,11 +54,11 @@
 					<div class="sidebar-section-body">
 						<div class="media">
 							<a href="#" class="mr-3">
-								<img src="{{asset('theme/assets/global_assets/images/demo/users/face11.jpg')}}" class="rounded-circle" alt="">
+								<img src="{{url('/')}}/uploads/users/{{Auth::user()->avatar}}" class="rounded-circle" alt="">
 							</a>
 
 							<div class="media-body">
-								<div class="font-weight-semibold">Albert Muhatia</div>
+								<div class="font-weight-semibold">{{Auth::user()->name}}</div>
 								<div class="font-size-sm line-height-sm opacity-50">
 									Senior developer
 								</div>
