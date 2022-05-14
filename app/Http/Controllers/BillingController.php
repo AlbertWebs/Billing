@@ -605,5 +605,18 @@ public function income_week(){
     return view('billing.income_today', compact('Billings','Title'));
 }
 
+public function income_search(){
+    $Title = "Search Income Date";
+    return view('billing.income_search', compact('Title'));
+}
+
+public function income_x_days($date){
+    $Title = "Income on $date";
+    $Billings = Billing::whereDate('created_at', $date)->get();
+    return view('billing.income_search', compact('Billings','Title'));
+}
+
+
+
 
 }
