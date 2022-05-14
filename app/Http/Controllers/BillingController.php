@@ -606,17 +606,45 @@ public function income_week(){
 }
 
 public function income_search(){
+    // Clear Session
+    Session::forget('search');
+    $Billings = Billing::all();
     $Title = "Search Income Date";
-    return view('billing.income_search', compact('Title'));
+    return view('billing.income_search', compact('Title','Billings'));
 }
 
-public function income_x_days($date){
-    $Title = "Income on $date";
-    $Billings = Billing::whereDate('created_at', $date)->get();
+public function income_x_days(Request $request){
+    Session::forget('search');
+    $date = $request->date;
+    $Title = "Income on $request->date";
+    $datef = date('Y-m-d', strtotime($date));
+    $Billings = Billing::whereDate('created_at', $datef)->get();
+    Session::put('search', $date);
     return view('billing.income_search', compact('Billings','Title'));
 }
 
+public function income_search_range(){
+    // Clear Session
+    Session::forget('search');
+    $Billings = Billing::all();
+    $Title = "Search Income Date";
+    return view('billing.income_search_range', compact('Title','Billings'));
+}
 
+public function income_x_days_range(Request $request){
+    Session::forget('search');
+    $date = $request->date;
+    $Range = $request->date;
+    $dates = explode(' - ' ,$Range);
+    $Start = $dates[0];
+    $Stop = $dates[1];
+    $StartF = date('Y-m-d', strtotime($Start));
+    $StopF = date('Y-m-d', strtotime($Stop));
+    $Title = "Income on $StartF - $StopF";
+    $Billings = Billing::whereBetween('created_at', [$StartF,$StopF])->get();
+    Session::put('search', $date);
+    return view('billing.income_search_range', compact('Billings','Title'));
+}
 
 
 }

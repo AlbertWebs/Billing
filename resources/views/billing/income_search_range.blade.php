@@ -15,11 +15,11 @@
                 <!-- Search field --><br><br><br>
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{url('/')}}/billings/income-x-days" method="POST">
+                        <form action="{{url('/')}}/billings/income-x-days-range" method="POST">
                             @csrf
                             <div class="d-sm-flex">
                                 <div class="form-group-feedback form-group-feedback-left flex-grow-1 mb-3 mb-sm-0">
-                                    <input type="text" name="date" class="form-control form-control-lg daterange-single" id="date_timepicker_end" placeholder="Search">
+                                    <input type="text" name="date" class="form-control form-control-lg daterange-basic" id="date_timepicker_end" placeholder="Search">
                                     <div class="form-control-feedback form-control-feedback-lg">
                                         <i class="fas fa-search text-muted"></i>
                                     </div>

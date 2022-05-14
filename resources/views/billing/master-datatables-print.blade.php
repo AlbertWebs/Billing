@@ -34,12 +34,7 @@
 	<script src="{{asset('theme/assets/global_assets/js/plugins/pickers/pickadate/legacy.js')}}"></script>
 	<script src="{{asset('theme/assets/global_assets/js/plugins/notifications/jgrowl.min.js')}}"></script>
     <script src="{{asset('theme/assets/global_assets/js/demo_pages/picker_date.js')}}"></script>
-    <script>
-        $(document).ready(function () {
-            $("#datepicker").datepicker();
-            $("#datese").datepicker({ format: "yyyy-MM-dd" });
-        });
-    </script>
+
 </head>
 
 <body>
