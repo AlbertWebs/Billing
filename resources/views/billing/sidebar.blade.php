@@ -22,7 +22,7 @@
 
          </li>
          <li class="nav-item nav-item-submenu">
-             <a href="{{url('/')}}/billings/students-enroll" class="nav-link"><i class="icon-color-sampler"></i> <span>Enroll Student</span></a>
+             <a href="{{url('/')}}/billings/add-user" class="nav-link"><i class="icon-color-sampler"></i> <span>Add User</span></a>
          </li>
          <!-- /main -->
 
@@ -75,7 +75,8 @@
         <li class="nav-item nav-item-submenu">
             <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span>Students Reports</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="components_modals.html" class="nav-link">Students By Course</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-today" class="nav-link">Todays Income</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/ncome-this-week" class="nav-link">Weekly Income</a></li>
                 <li class="nav-item"><a href="components_dropdowns.html" class="nav-link">Student By Year</a></li>
                 <li class="nav-item"><a href="components_tabs.html" class="nav-link">Student By Campus</a></li>
                 <li class="nav-item-divider"></li>

@@ -10,6 +10,7 @@ use App\Models\Tutor;
 use App\Models\Billing;
 use App\Models\Setting;
 use App\Models\User;
+use Carbon\Carbon;
 use Session;
 use PDF;
 
@@ -537,19 +538,11 @@ public function delete_user($id){
 
 public function add_user_post(Request $request){
     $path = 'uploads/users';
-    if(isset($request->avatar)){
-        $file = $request->file('avatar');
-        $filename = $file->getClientOriginalName();
-        $file->move($path, $filename);
-        $avatar = $filename;
-    }else{
-        $avatar = "avatar.png";
-    }
     $User = new User;
     $User->name = $request->name;
     $User->email = $request->email;
+    $User->password = $request->password;
     $User->is_admin = $request->is_admin;
-    $User->avatar = $avatar;
     $User->save();
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
@@ -557,20 +550,12 @@ public function add_user_post(Request $request){
 }
 
 public function save_user(Request $request, $id){
-    $path = 'uploads/users';
-    if(isset($request->avatar)){
-        $file = $request->file('avatar');
-        $filename = $file->getClientOriginalName();
-        $file->move($path, $filename);
-        $avatar = $filename;
-    }else{
-        $avatar = $request->remain;
-    }
+
    $updateDetails = array(
       'name'=> $request->name,
       'email'=> $request->email,
+      'password'=> $request->password,
       'is_admin'=> $request->is_admin,
-      'avatar'=> $avatar,
    );
    DB::table('users')->where('id',$id)->update($updateDetails);
    Session::flash('message', "Changes have Been Saved");
@@ -605,6 +590,19 @@ public function switch_user($id,$status){
     DB::table('users')->where('id',$id)->update($updateDetails);
     Session::flash('message', "Status Updated!");
     return Redirect::back();
+}
+
+public function income_today(){
+    $Title = "Todays Income";
+    $Billings = Billing::whereDate('created_at', Carbon::today())->get();
+    return view('billing.income_today', compact('Billings','Title'));
+}
+
+public function income_week(){
+    $Title = "This Weeks Income";
+    $date = Carbon::now()->subDays(7);
+    $Billings = Billing::where('created_at', '>=', $date)->get();
+    return view('billing.income_today', compact('Billings','Title'));
 }
 
 

@@ -99,11 +99,15 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/add-user', [App\Http\Controllers\BillingController::class, 'add_user'])->name('add-user');
     Route::post('/add-user', [App\Http\Controllers\BillingController::class, 'add_user_post'])->name('add-user-post');
     Route::post('/save-user/{id}', [App\Http\Controllers\BillingController::class, 'save_user'])->name('save-user');
-
     Route::get('/edit-pic-user/{id}', [App\Http\Controllers\BillingController::class, 'edit_pic_user'])->name('edit-pic-user');
     Route::post('/save-pic-user/{id}', [App\Http\Controllers\BillingController::class, 'save_pic_user'])->name('save-pic-user');
-
     Route::get('/switch-user/{id}/{status}', [App\Http\Controllers\BillingController::class, 'switch_user'])->name('switch-user');
+   //Reports
+   Route::get('/income-today', [App\Http\Controllers\BillingController::class, 'income_today'])->name('income-today');
+   Route::get('/income-this-week', [App\Http\Controllers\BillingController::class, 'income_week'])->name('income-this-week');
+   Route::get('/income-x-days/{days}', [App\Http\Controllers\BillingController::class, 'income_x_days'])->name('income-x-days');
+   Route::get('/income-x-months/{days}', [App\Http\Controllers\BillingController::class, 'income_x_months'])->name('income-x-months');
+   Route::get('/income-x-range/{days}', [App\Http\Controllers\BillingController::class, 'income_x_range'])->name('income-x-range');
 
 });
 
