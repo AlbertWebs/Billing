@@ -36,7 +36,10 @@ class BillingController extends Controller
      */
 
     public function index(){
-         return view('billing.index');
+        $Group = "home";
+        $Title = "All Students";
+        $Active = "home";
+         return view('billing.index', compact('Group','Title','Active'));
     }
 
     public function students(){
@@ -752,6 +755,8 @@ public function total_overpayed(){
     $Title = "Total Overpayed";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
+
+
 
 
 }

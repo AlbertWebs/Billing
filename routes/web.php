@@ -19,7 +19,7 @@ use App\Http\Controllers\MpesaController;
 //     return view('billing.index');
 // });
 Auth::routes();
-Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('admin.home')->middleware('is_admin');
+Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('admin.home')->middleware('is_admin');
 
 //Group
 // Products
