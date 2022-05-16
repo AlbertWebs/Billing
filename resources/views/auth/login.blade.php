@@ -9,7 +9,7 @@
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{asset('theme/assets/global_assets/css/icons/icomoon/styles.min.css')}}" rel="stylesheet" type="text/css">
-    {{-- <link href="{{asset('theme/assets/global_assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css"> --}}
+    <link href="{{asset('theme/assets/global_assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('theme/assets/css/all.min.css')}}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 
@@ -40,12 +40,14 @@
                     {{-- <div class="card-header">{{ __('Login') }}</div> --}}
 
 					<!-- Login card -->
-					<form class="login-form" method="POST" action="{{ route('login') }}">
+					<form class="login-form" method="POST" action="{{ route('login') }}" id="Login-Form">
                         @csrf
 						<div class="card mb-0">
 							<div class="card-body">
 								<div class="text-center mb-3">
-									<i class="icon-people icon-2x text-warning border-warning border-3 rounded-pill p-3 mb-3 mt-1 fas fa-user-alt-slash mr-3 fa-2x"></i>
+									<i class="text-warning border-warning border-3 rounded-pill p-3 mb-3 mt-1 fa fa-user-circle mr-3 fa-2x">
+                                        {{-- <img src="{{url('/')}}/uploads/logo/atlascollege.png" alt=""> --}}
+                                    </i>
 									<h5 class="mb-0">Login to your account</h5>
 									<span class="d-block text-muted">Your credentials</span>
 								</div>
@@ -58,7 +60,7 @@
                                         </span>
                                     @enderror
 									<div class="form-control-feedback">
-										<i class="icon-user text-muted"></i>
+										<i class="fa fa-user text-muted"></i>
 									</div>
 								</div>
 
@@ -70,7 +72,7 @@
                                         </span>
                                     @enderror
 									<div class="form-control-feedback">
-										<i class="icon-lock2 text-muted"></i>
+										<i class="fa fa-lock text-muted"></i>
 									</div>
 								</div>
 
@@ -84,7 +86,7 @@
 								</div>
 
 								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-block">Sign in</button>
+									<button type="submit" class="btn btn-primary btn-block">Sign in  <img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" /></button>
 								</div>
 
 
@@ -114,6 +116,34 @@
 
 	</div>
 	<!-- /page content -->
+    <script>
+        $( document ).ready(function() {
+            $('#Loading').hide();
+            $('#Success').hide();
+            $('#exists').hide();
+        });
+        $("#Login-Form").submit(function(e) {
+            e.preventDefault(); // prevent actual form submit
+            $('#Loading').show();
+            var form = $(this);
+            var url = form.attr('action'); //get submit url [replace url here if desired]
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes form input
+                success: function(data){
+                    console.log(data);
+                    $('#Loading').hide();
+                    $('#Success').show();
+                    // Refresh
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                    // Success
+                }
+            });
+        });
+    </script>
 
 </body>
 
