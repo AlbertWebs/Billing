@@ -108,6 +108,53 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="d-block"><strong><u>T.Bal: {{$Balance}}</u></strong></h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="d-block"><strong><u>T.Amount: {{$Total}}</u></strong></h6>
+                                    </td>
+                                </tr>
+
                             </tbody>
 						</table>
 					</div>

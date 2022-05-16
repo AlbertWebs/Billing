@@ -595,14 +595,27 @@ public function switch_user($id,$status){
 public function income_today(){
     $Title = "Todays Income";
     $Billings = Billing::whereDate('created_at', Carbon::today())->get();
-    return view('billing.income_today', compact('Billings','Title'));
+    $Total = Billing::whereDate('created_at', Carbon::today())->sum('amount');
+    $Balance = Billing::whereDate('created_at', Carbon::today())->sum('balance');
+    return view('billing.income_today', compact('Billings','Title','Total','Balance'));
 }
 
 public function income_week(){
     $Title = "This Weeks Income";
     $date = Carbon::now()->subDays(7);
     $Billings = Billing::where('created_at', '>=', $date)->get();
-    return view('billing.income_today', compact('Billings','Title'));
+    $Total = Billing::where('created_at', '>=', $date)->sum('amount');
+    $Balance = Billing::where('created_at', '>=', $date)->sum('balance');
+    return view('billing.income_today', compact('Billings','Title','Total','Balance'));
+}
+
+public function income_this_month(){
+    $Title = "This Months Income - Last 30 Days";
+    $date = Carbon::now()->subDays(30);
+    $Billings = Billing::where('created_at', '>=', $date)->get();
+    $Total = Billing::where('created_at', '>=', $date)->sum('amount');
+    $Balance = Billing::where('created_at', '>=', $date)->sum('balance');
+    return view('billing.income_today', compact('Billings','Title','Total','Balance'));
 }
 
 public function income_search(){
@@ -620,7 +633,9 @@ public function income_x_days(Request $request){
     $datef = date('Y-m-d', strtotime($date));
     $Billings = Billing::whereDate('created_at', $datef)->get();
     Session::put('search', $date);
-    return view('billing.income_search', compact('Billings','Title'));
+    $Total = Billing::whereDate('created_at', $datef)->sum('amount');
+    $Balance = Billing::whereDate('created_at', $datef)->sum('balance');
+    return view('billing.income_search', compact('Billings','Title','Total','Balance'));
 }
 
 public function income_search_range(){
@@ -643,7 +658,9 @@ public function income_x_days_range(Request $request){
     $Title = "Income on $StartF - $StopF";
     $Billings = Billing::whereBetween('created_at', [$StartF,$StopF])->get();
     Session::put('search', $date);
-    return view('billing.income_search_range', compact('Billings','Title'));
+    $Total = Billing::whereBetween('created_at', [$StartF,$StopF])->sum('amount');
+    $Balance = Billing::whereBetween('created_at', [$StartF,$StopF])->sum('balance');
+    return view('billing.income_search_range', compact('Billings','Title','Total','Balance'));
 }
 
 

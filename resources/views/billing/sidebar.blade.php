@@ -76,9 +76,11 @@
             <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span>Payments Reports</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-today" class="nav-link">Todays Income</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/ncome-this-week" class="nav-link">Weekly Income</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-this-week" class="nav-link">Weekly Income</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-this-month" class="nav-link">Monthly Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-search" class="nav-link">Search Date</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link">Search Date Range</a></li>
+                <li class="nav-item"><a href="components_tabs.html" class="nav-link">Total Receivable</a></li>
                 <li class="nav-item"><a href="components_tabs.html" class="nav-link">Student By Campus</a></li>
                 <li class="nav-item-divider"></li>
             </ul>

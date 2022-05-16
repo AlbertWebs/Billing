@@ -66,7 +66,7 @@
                                     $Sec = date('s',$FormatDate);
                                 ?>
                                 <tr>
-                                    <td>#{{$Billing->reference}}</td>
+                                    <td>{{$Billing->reference}}</td>
                                     <td>{{$Month}} {{$Year}}</td>
                                     <td>
                                         <h6 class="mb-0">
@@ -108,7 +108,78 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="d-block"><strong><u>T.Bal: {{$Balance}}</u></strong></h6>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="d-block"><strong><u>T.Amount: {{$Total}}</u></strong></h6>
+                                    </td>
+                                </tr>
                             </tbody>
+                            {{-- <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>
+
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="d-block">Balance: KES {{$Balance}}</h6>
+                                    </td>
+                                </tr>
+                            </tfoot> --}}
 						</table>
 					</div>
 					<!-- /basic initialization -->
