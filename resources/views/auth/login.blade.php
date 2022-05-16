@@ -133,13 +133,12 @@
                 data: form.serialize(), // serializes form input
                 success: function(data){
                     console.log(data);
-                    $('#Loading').hide();
-                    $('#Success').show();
                     // Refresh
                     setTimeout(function() {
                         location.reload();
                     }, 2000);
                     // Success
+                    // $('#Loading').hide();
                 }
             });
         });
