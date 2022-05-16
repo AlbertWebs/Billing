@@ -880,7 +880,10 @@ class MpesaController extends Controller
     }
 
     public function m_pesa(){
-        return view('billing.m_pesa');
+        $Group = "billings";
+        $Title = "All Students";
+        $Active = "m-pesa";
+        return view('billing.m_pesa',compact('Group','Title','Active'));
     }
 
     public function m_pesa_email($email){

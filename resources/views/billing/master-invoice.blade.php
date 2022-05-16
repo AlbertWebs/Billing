@@ -31,6 +31,7 @@
 <script src="assets/js/app.js"></script>
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/form_select2.js')}}"></script>
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/invoice_archive.js')}}"></script>
+<script src="{{asset('theme/assets/js/app.js')}}"></script>
 
 </head>
 

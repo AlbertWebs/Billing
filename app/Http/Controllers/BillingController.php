@@ -40,12 +40,18 @@ class BillingController extends Controller
     }
 
     public function students(){
+        $Group = "students";
+        $Title = "All Students";
+        $Active = "students";
         $Student = Student::all();
-        return view('billing.students', compact('Student'));
+        return view('billing.students', compact('Student','Group','Title','Active'));
     }
 
     public function enroll(){
-       return view('billing.enrol');
+        $Group = "students";
+        $Title = "All Users";
+        $Active = "enroll";
+        return view('billing.enrol',compact('Group','Title','Active'));
     }
 
     public function enroll_student(Request $request){
@@ -67,8 +73,11 @@ class BillingController extends Controller
     }
 
     public function student($id){
+       $Group = "students";
+       $Title = "All Users";
+       $Active = "students";
        $Student = Student::find($id);
-       return view('billing.save-student', compact('Student'));
+       return view('billing.save-student', compact('Student','Group','Active'));
     }
 
     public function save_images($id){
@@ -136,24 +145,29 @@ class BillingController extends Controller
         return Redirect::back();
    }
 
-
-
-
-
     public function courses(){
+        $Group = "courses";
+        $Title = "All Users";
+        $Active = "courses";
         $Courses = Course::all();
-        return view('billing.courses', compact('Courses'));
+        return view('billing.courses', compact('Courses','Group','Title','Active'));
     }
 
     public function add_course(){
+        $Group = "courses";
+        $Title = "All Users";
+        $Active = "add course";
         $Tutor = Tutor::all();
         $School = School::all();
-        return view('billing.add-course', compact('Tutor','School'));
+        return view('billing.add-course', compact('Tutor','School', 'Group','Title','Active'));
     }
 
 
     public function add_school(){
-        return view('billing.add_school');
+        $Group = "courses";
+        $Title = "All Users";
+        $Active = "add school";
+        return view('billing.add_school', compact('Group','Title','Active'));
     }
 
 
@@ -162,10 +176,13 @@ class BillingController extends Controller
     }
 
     public function course($id){
+        $Group = "courses";
+        $Title = "All Users";
+        $Active = "add course";
         $Tutor = Tutor::all();
         $Courses = Course::find($id);
         $School = School::all();
-        return view('billing.course', compact('Courses','Tutor','School'));
+        return view('billing.course', compact('Courses','Tutor','School','Group','Title','Active'));
     }
 
     public function tutors(){
@@ -247,7 +264,10 @@ class BillingController extends Controller
    }
 
    public function create_bill(){
-    return view('billing.create-bill');
+    $Group = "billings";
+    $Title = "All Users";
+    $Active = "create-bill";
+    return view('billing.create-bill',compact('Group','Title','Active'));
    }
 
    public function create_bill_fetch($email){
@@ -255,13 +275,19 @@ class BillingController extends Controller
    }
 
    public function my_payments(){
+        $Group = "billings";
+        $Title = "All Users";
+        $Active = "my-payments";
         $Billings = DB::table('billings')->where('group_id',null)->get();
-        return view('billing.payments',compact('Billings'));
+        return view('billing.payments',compact('Billings','Group','Title','Active'));
    }
 
    public function my_payments_ref($ref){
+    $Group = "billings";
+    $Title = "All Students";
+    $Active = "my-payments";
     $Billings = DB::table('billings')->where('group_id',$ref)->get();
-    return view('billing.payments_ref',compact('Billings'));
+    return view('billing.payments_ref',compact('Billings','Group','Title','Active'));
   }
 
 
@@ -365,9 +391,12 @@ public function createPDF() {
 }
 
 public function download($id) {
+    $Group = "billings";
+    $Title = "All Students";
+    $Active = "m-pesa";
     $Billing = Billing::find($id);
 
-    return view('billing.download', compact('Billing'));
+    return view('billing.download', compact('Billing','Group','Title','Active'));
 
 }
 public function edit_bill($id) {
@@ -402,8 +431,11 @@ public function destroy(){
 }
 
 public function system_settings() {
+    $Group = "courses";
+    $Title = "System Settings";
+    $Active = "schools";
     $Settings = Setting::all();
-    return view('billing.system-settings', compact('Settings'));
+    return view('billing.system-settings', compact('Settings','Group','Title','Active'));
 }
 
 public function save_settings(Request $request){
@@ -457,13 +489,19 @@ public function profile($id){
 }
 
 public function schools(){
+    $Group = "courses";
+    $Title = "All Users";
+    $Active = "schools";
     $School = School::all();
-    return view('billing.schools', compact('School'));
+    return view('billing.schools', compact('School','Group','Title','Active'));
 }
 
 public function school($id){
+    $Group = "courses";
+    $Title = "All Users";
+    $Active = "schools";
     $School = School::find($id);
-    return view('billing.school', compact('School'));
+    return view('billing.school', compact('School','Group','Title','Active'));
 }
 
 public function save_school_post(Request $request ,$id){
@@ -486,7 +524,11 @@ public function delete_student($id){
 
 public function edit_pic($id){
     $Student = Student::find($id);
-    return view('billing.edit_pic', compact('Student'));
+    $Group = "students";
+    $Title = "All Users";
+    $Active = "users";
+    return view('billing.edit_pic', compact('Student','Group','Active'));
+
 }
 public function save_pic(Request $request, $id){
 
@@ -518,16 +560,25 @@ public function my_statements($id){
 
 public function user($id){
     $User = User::find($id);
-    return view('billing.user', compact('User'));
+    $Group = "students";
+    $Title = "$User->name";
+    $Active = "student";
+    return view('billing.user', compact('User','Group','Title','Active'));
 
 }
 public function users(){
+    $Group = "students";
+    $Title = "All Users";
+    $Active = "users";
     $User = User::all();
-    return view('billing.users', compact('User'));
+    return view('billing.users', compact('User','Group','Title','Active'));
 }
 
 public function add_user(){
-    return view('billing.add_user');
+    $Group = "students";
+    $Title = "All Students";
+    $Active = "add user";
+    return view('billing.add_user', compact('Group','Title','Active'));
 }
 
 public function delete_user($id){
@@ -562,8 +613,11 @@ public function save_user(Request $request, $id){
    return Redirect::back();
 }
 public function edit_pic_user($id){
+    $Group = "students";
+    $Title = "All Users";
+    $Active = "users";
     $User = User::find($id);
-    return view('billing.edit_pic_user', compact('User'));
+    return view('billing.edit_pic_user', compact('User','Group','Title','Active'));
 }
 public function save_pic_user(Request $request, $id){
 
@@ -593,40 +647,50 @@ public function switch_user($id,$status){
 }
 
 public function income_today(){
+    $Group = "reports";
+    $Active = "today";
     $Title = "Todays Income";
     $Billings = Billing::whereDate('created_at', Carbon::today())->get();
     $Total = Billing::whereDate('created_at', Carbon::today())->sum('amount');
     $Balance = Billing::whereDate('created_at', Carbon::today())->sum('balance');
-    return view('billing.income_today', compact('Billings','Title','Total','Balance'));
+    return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
 public function income_week(){
+    $Group = "reports";
+    $Active = "today";
     $Title = "This Weeks Income";
     $date = Carbon::now()->subDays(7);
     $Billings = Billing::where('created_at', '>=', $date)->get();
     $Total = Billing::where('created_at', '>=', $date)->sum('amount');
     $Balance = Billing::where('created_at', '>=', $date)->sum('balance');
-    return view('billing.income_today', compact('Billings','Title','Total','Balance'));
+    return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
 public function income_this_month(){
+    $Group = "reports";
+    $Active = "month";
     $Title = "This Months Income - Last 30 Days";
     $date = Carbon::now()->subDays(30);
     $Billings = Billing::where('created_at', '>=', $date)->get();
     $Total = Billing::where('created_at', '>=', $date)->sum('amount');
     $Balance = Billing::where('created_at', '>=', $date)->sum('balance');
-    return view('billing.income_today', compact('Billings','Title','Total','Balance'));
+    return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
 public function income_search(){
     // Clear Session
+    $Group = "reports";
+    $Active = "search";
     Session::forget('search');
     $Billings = Billing::all();
     $Title = "Search Income Date";
-    return view('billing.income_search', compact('Title','Billings'));
+    return view('billing.income_search', compact('Title','Billings','Group','Active'));
 }
 
 public function income_x_days(Request $request){
+    $Group = "reports";
+    $Active = "search";
     Session::forget('search');
     $date = $request->date;
     $Title = "Income on $request->date";
@@ -635,18 +699,22 @@ public function income_x_days(Request $request){
     Session::put('search', $date);
     $Total = Billing::whereDate('created_at', $datef)->sum('amount');
     $Balance = Billing::whereDate('created_at', $datef)->sum('balance');
-    return view('billing.income_search', compact('Billings','Title','Total','Balance'));
+    return view('billing.income_search', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
 public function income_search_range(){
+    $Group = "reports";
+    $Active = "search";
     // Clear Session
     Session::forget('search');
     $Billings = Billing::all();
     $Title = "Search Income Date";
-    return view('billing.income_search_range', compact('Title','Billings'));
+    return view('billing.income_search_range', compact('Title','Billings','Group','Active'));
 }
 
 public function income_x_days_range(Request $request){
+    $Group = "reports";
+    $Active = "search-r";
     Session::forget('search');
     $date = $request->date;
     $Range = $request->date;
@@ -660,7 +728,29 @@ public function income_x_days_range(Request $request){
     Session::put('search', $date);
     $Total = Billing::whereBetween('created_at', [$StartF,$StopF])->sum('amount');
     $Balance = Billing::whereBetween('created_at', [$StartF,$StopF])->sum('balance');
-    return view('billing.income_search_range', compact('Billings','Title','Total','Balance'));
+    return view('billing.income_search_range', compact('Billings','Title','Total','Balance','Group','Active'));
+}
+
+public function total_receivable(){
+    $Group = "reports";
+    $Active = "receivable";
+    // Clear Session
+    Session::forget('search');
+    $Billings = DB::table('billings')->where('balance','>',0)->get();
+    $Balance = DB::table('billings')->sum('balance');
+    $Title = "Total Reciveble";
+    return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
+}
+
+public function total_overpayed(){
+    $Group = "reports";
+    $Active = "overpayed";
+    // Clear Session
+    Session::forget('search');
+    $Billings = DB::table('billings')->where('balance','<',0)->get();
+    $Balance = DB::table('billings')->sum('balance');
+    $Title = "Total Overpayed";
+    return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
 
 

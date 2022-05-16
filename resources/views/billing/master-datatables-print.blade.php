@@ -9,6 +9,7 @@
 
 	<link href="../../../../../../../../fonts.googleapis.com/css1381.css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{asset('theme/assets/global_assets/css/icons/icomoon/styles.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('theme/assets/global_assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('theme/assets/css/all.min.css')}}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 

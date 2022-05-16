@@ -7,13 +7,14 @@
           {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-graduation-cap mr-3"></span> Courses & Schools</div> <i class="icon-menu" title="Reports"></i></li> --}}
         <li class="nav-item-divider"></li>
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-user mr-3"></span> Students & Users</div> <i class="icon-menu" title="Forms"></i></li>
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span class="far fa-user mr-3"> Students & Users</span></a>
+
+        <li class="nav-item nav-item-submenu @if($Group == "students") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="far fa-user mr-3"> Students & Users</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link">All Students</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link">All Users</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/students-enroll" class="nav-link">Add Enroll</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/add-user" class="nav-link">Add User</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link @if($Active == "students") active @endif">All Students</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link @if($Active == "users") active @endif">All Users</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-enroll" class="nav-link @if($Active == "enroll") active @endif">Add Enroll</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/add-user" class="nav-link @if($Active == "add user") active @endif">Add User</a></li>
             </ul>
         </li>
         <li class="nav-item-divider"></li>
@@ -21,24 +22,24 @@
 
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-graduation-cap mr-3"></span> Schools & Courses</div> <i class="icon-menu" title="Reports"></i></li>
 
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-graduation-cap mr-3"> Schools & Courses</span></a>
+        <li class="nav-item nav-item-submenu @if($Group == "courses") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-graduation-cap mr-3"> Schools & Courses</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="{{url('/')}}/billings/courses" class="nav-link">All Courses</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/schools" class="nav-link">All Schools</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/add-school" class="nav-link">Add School</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/add-course" class="nav-link">Add Course</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/courses" class="nav-link @if($Active == "courses") active @endif">All Courses</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/schools" class="nav-link @if($Active == "schools") active @endif">All Schools</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/add-school" class="nav-link  @if($Active == "add school") active @endif">Add School</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/add-course" class="nav-link @if($Active == "add course") active @endif">Add Course</a></li>
             </ul>
         </li>
         <li class="nav-item-divider"></li>
 
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-money-bill mr-3"></span> Billing</div> <i class="icon-menu" title="Reports"></i></li>
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-money-bill mr-3"> Billing</span></a>
+        <li class="nav-item nav-item-submenu @if($Group == "billings") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-money-bill mr-3"> Billing</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link">Record Payment</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/my-payments" class="nav-link">All Payments</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/m-pesa" class="nav-link">M-PESA Payment</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link @if($Active == "create-bill") active @endif">Record Payment</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/my-payments" class="nav-link @if($Active == "my-payments") active @endif">All Payments</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/m-pesa" class="nav-link @if($Active == "m-pesa") active @endif">M-PESA Payment</a></li>
             </ul>
         </li>
         <li class="nav-item-divider"></li>
@@ -48,15 +49,16 @@
 
         <!-- Components -->
         <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-book-open mr-3"></span> Reports</div> <i class="icon-menu" title="Reports"></i></li>
-        <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/reports" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-book-open mr-3"><span> Reports</span></a>
+        <li class="nav-item nav-item-submenu @if($Group == "reports") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-book-open mr-3"><span> Reports</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="{{url('/')}}/billings/income-today" class="nav-link">Todays Income</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/income-this-week" class="nav-link">Weekly Income</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/income-this-month" class="nav-link">Monthly Income</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/income-search" class="nav-link">Search Date</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link">Search Date Range</a></li>
-                <li class="nav-item"><a href="components_tabs.html" class="nav-link">Total Receivable</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-today" class="nav-link @if($Active == "today") active @endif">Todays Income</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-this-week" class="nav-link @if($Active == "week") active @endif">Weekly Income</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-this-month" class="nav-link @if($Active == "month") active @endif">Monthly Income</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-search" class="nav-link @if($Active == "search") active @endif">Search Date</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link @if($Active == "search-r") active @endif">Search Date Range</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/total-receivable" class="nav-link @if($Active == "receivable") active @endif">Total Receivable</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/total-overpayed" class="nav-link @if($Active == "overpayed") active @endif">Total Overpayed</a></li>
             </ul>
         </li>
         <li class="nav-item-divider"></li>
