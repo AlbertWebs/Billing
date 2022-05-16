@@ -1,4 +1,4 @@
-@extends('billing.master-invoice')
+@extends('billing.master-invoices')
 @section('content')
 <?php $Settings = DB::table('settings')->get('logo') ?>
 @foreach ($Settings as $set)
@@ -210,6 +210,7 @@
 
 
            @include('billing.footer')
+
 
         </div>
         <!-- /inner content -->

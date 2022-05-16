@@ -10,8 +10,10 @@ use App\Models\Tutor;
 use App\Models\Billing;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Cash;
 use Carbon\Carbon;
 use Session;
+use Auth;
 use PDF;
 
 use DB;
@@ -274,7 +276,12 @@ class BillingController extends Controller
    }
 
    public function create_bill_fetch($email){
-    return view('billing.create-bill', compact('email'));
+    $Group = "billings";
+    $Title = "All Users";
+    $Active = "my-payments";
+    // Create Session
+    Session::put('user', $email);
+    return view('billing.create-bill', compact('email','Group','Title','Active'));
    }
 
    public function my_payments(){
@@ -302,7 +309,7 @@ class BillingController extends Controller
 
 public function create_bill_post(Request $request){
     $user = $request->user;
-    $price = $request->price;
+    $price = $request->amount;
     $amount = $request->amount;
     $description = $request->description;
     $note = $request->note;
@@ -312,6 +319,24 @@ public function create_bill_post(Request $request){
     $group_id = $request->group_id;
 
     $Course = Course::find($course_id);
+    $TheStudent = Student::find($user);
+    $IncomeBalance = Cash::latest()->first();
+    if($IncomeBalance == null){
+       $TheBalance = $price;
+    }else{
+        $CurrentBalance = $IncomeBalance->balance;
+        $TheBalance = $CurrentBalance+$price;
+    }
+    // Create Cases
+    $Cash = new Cash;
+    $Cash->amount = $amount;
+    $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
+    $Cash->user = Auth::user()->id;
+    $Cash->source = "M-PESA";
+    $Cash->code = "M-PESA";
+    $Cash->balance = $TheBalance;
+    $Cash->save();
+
     $Course_price = $Course->price;
     $Amount_paid = $amount;
     // Check if payment exists
@@ -373,6 +398,9 @@ public function create_bill_post(Request $request){
             Session::put('billing', $Billing->id);
         }
     }
+    // Redirect To Printing Page
+    // return view('billing.create-bill',compact('Billing'));
+
 }
 public function create_bill_partial($id){
     $Billing = Billing::find($id);
@@ -757,6 +785,12 @@ public function total_overpayed(){
 }
 
 
-
+public function income(){
+    $Group = "income";
+    $Title = "All Income";
+    $Active = "users";
+    $Income = Cash::all();
+    return view('billing.income', compact('Income','Group','Title','Active'));
+}
 
 }

@@ -110,6 +110,9 @@ Route::group(['prefix'=>'billings'], function(){
    Route::post('/income-x-days-range', [App\Http\Controllers\BillingController::class, 'income_x_days_range'])->name('income_x_days_range');
    Route::get('/income-this-month', [App\Http\Controllers\BillingController::class, 'income_this_month'])->name('income-this-month');
 
+   Route::get('/income', [App\Http\Controllers\BillingController::class, 'income'])->name('income');
+   Route::get('/expenses', [App\Http\Controllers\BillingController::class, 'expenses'])->name('expenses');
+
    Route::post('/income-x-days', [App\Http\Controllers\BillingController::class, 'income_x_days'])->name('income-x-days');
    Route::get('/income-x-months/{days}', [App\Http\Controllers\BillingController::class, 'income_x_months'])->name('income-x-months');
    Route::get('/income-x-range/{days}', [App\Http\Controllers\BillingController::class, 'income_x_range'])->name('income-x-range');

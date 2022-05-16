@@ -20,6 +20,7 @@ class CreateCashesTable extends Migration
             $table->timestamp('date')->useCurrent = true;
             $table->string('user')->nullable();
             $table->text('reason')->nullable();
+            $table->text('balance')->nullable();
             $table->string('code')->nullable();
             $table->timestamps();
         });
