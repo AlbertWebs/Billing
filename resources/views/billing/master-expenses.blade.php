@@ -38,7 +38,7 @@
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/uploader_bootstrap.js')}}"></script>
 <script>
     $( document ).ready(function() {
-        alert();
+        // alert();
         $('#Loading').hide();
         $('#Success').hide();
         $('#exists').hide();

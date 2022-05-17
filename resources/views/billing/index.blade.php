@@ -56,7 +56,7 @@
                 <div class="col-lg-4">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
-                            <a href="{{url('/')}}/billings/students" class="btn btn-secondary"><i class="fa fa-plus mr-2"></i><i class="fa fa-user mr-2"></i> Enroll Student</a>
+                            <a href="{{url('/')}}/billings/students-enroll" class="btn btn-secondary"><i class="fa fa-plus mr-2"></i><i class="fa fa-user mr-2"></i> Enroll Student</a>
                             <a href="{{url('/')}}/billings/students" class="btn btn-success"><i class="fa fa-user mr-2"></i> Students</a>
                         </div>
                     </div>

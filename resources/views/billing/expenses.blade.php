@@ -23,11 +23,17 @@
                         @foreach ($Expense as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->balance}}</td>
                             <td>
-                                {{$item->reason}}
+                                @if($item->balance<1)
+                                   <span class="btn btn-outline-danger text-danger"><u>KES {{$item->balance}}</u></span>
+                                @else
+                                   <span class="btn btn-outline-success alert-success"><u>KES {{$item->balance}}</u></span>
+                                @endif
                             </td>
-                            <td>{{$item->amount}}</td>
+                            <td>
+                                <a href="#" class="btn btn-outline-success">{{$item->reason}}</a>
+                            </td>
+                            <td ><span class="btn btn-outline-info"><strong>KES {{$item->amount}}</strong></span></td>
                             <td>
                                 <?php
                                    $Admin = DB::table('users')->where('id',$item->user)->get();
@@ -38,12 +44,24 @@
                             </td>
 
                             <td>
-                                <a href="{{url('/')}}/billings/income/{{$item->id}}" class="btn btn-outline-info">
+                                @if(Auth::user()->is_admin == 1)
+                                <a href="{{url('/')}}/billings/expenses/{{$item->id}}" class="btn btn-outline-info">
                                     <i class="fas fa-pen"></i>
                                 </a>
-                                <a onclick="return confirm('Do you wish to delete this course?')" href="{{url('/')}}/billings/income-delete/{{$item->id}}" class="btn btn-outline-danger">
+                                @else
+                                <a onclick="return confirm('Limited Access Rights')" href="#" class="btn btn-outline-info">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                @endif
+                                @if(Auth::user()->is_admin == 1)
+                                <a onclick="return confirm('Do you wish to delete this course?')" href="{{url('/')}}/billings/expenses-delete/{{$item->id}}" class="btn btn-outline-danger">
                                     <i class="fas fa-trash"></i>
                                 </a>
+                                @else
+                                <a onclick="return confirm('Limited Access Rights')" href="#" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
