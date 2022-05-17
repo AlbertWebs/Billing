@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\School;
 use App\Models\Course;
 use App\Models\Tutor;
+use App\Models\Expense;
 use App\Models\Billing;
 use App\Models\Setting;
 use App\Models\User;
@@ -419,6 +420,7 @@ public function create_bill_partial($id){
     return view('billing.create-bill-partial',compact('Billing','Group','Title','Active'));
 }
 
+
 public function getInfo($id)
 {
   $fill = DB::table('courses')->where('id', $id)->pluck('price');
@@ -796,8 +798,6 @@ public function total_overpayed(){
     $Title = "Total Overpayed";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
-
-
 public function income(){
     $Group = "income";
     $Title = "All Income";
@@ -805,5 +805,47 @@ public function income(){
     $Income = Cash::all();
     return view('billing.income', compact('Income','Group','Title','Active'));
 }
+
+public function record_expenses(){
+    $Cash = DB::table('cashes')->orderBy('id','DESC')->first();
+    $Group = "income";
+    $Title = "Record Expenses";
+    $Active = "m-pesa";
+    return view('billing.record-expenses',compact('Group','Title','Active','Cash'));
+}
+
+public function record_expenses_post(Request $request){
+    $Cash = DB::table('cashes')->orderBy('id','DESC')->first();
+    $Balance = $Cash->balance;
+    $NewBalance = $Balance-$request->amount;
+    // Calculate Balance
+    $Expense = new Expense;
+    $Expense->amount = $request->amount;
+    $Expense->balance = $NewBalance;
+    $Expense->user = Auth::user()->id;
+    $Expense->reason = $request->reason;
+    if($Expense->save()){
+        // Create a record in the cashes table
+        $Cash = new Cash;
+        $Cash->amount = "-$request->amount";
+        $Cash->reason = $request->reason;
+        $Cash->user = Auth::user()->id;
+        $Cash->source = "Admin Initiated";
+        $Cash->code = "N/A";
+        $Cash->balance = $NewBalance;
+        $Cash->save();
+        //
+        return $this->expenses();
+    }
+}
+
+public function expenses(){
+    $Group = "income";
+    $Title = "Record Expenses";
+    $Active = "expenses";
+    $Expense = Expense::all();
+    return view('billing.expenses',compact('Expense','Group','Title','Active'));
+}
+
 
 }

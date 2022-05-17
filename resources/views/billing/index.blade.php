@@ -122,8 +122,9 @@
                 <div class="col-lg-12">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
-                            <a href="{{url('/')}}/billings/income" class="btn btn-primary"><i class="fa fa-money-bill-wave-alt mr-2"></i> Income</a>
+                            <a href="{{url('/')}}/billings/income" class="btn btn-secondary"><i class="fa fa-money-bill-wave-alt mr-2"></i> Income</a>
                             <a href="{{url('/')}}/billings/expenses" class="btn btn-primary"><i class="fa fa-money-bill-wave-alt mr-2"></i> Expenses</a>
+                            <a href="{{url('/')}}/billings/record-expenses" class="btn btn-success"><i class="fa fa-pen-fancy mr-2"></i> Record Expenses</a>
                         </div>
                     </div>
                 </div>

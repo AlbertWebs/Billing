@@ -118,6 +118,12 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/income-x-range/{days}', [App\Http\Controllers\BillingController::class, 'income_x_range'])->name('income-x-range');
    Route::get('/total-receivable', [App\Http\Controllers\BillingController::class, 'total_receivable'])->name('total-receivable');
    Route::get('/total-overpayed', [App\Http\Controllers\BillingController::class, 'total_overpayed'])->name('total-overpayed');
+
+   Route::get('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses'])->name('record-expenses');
+   Route::post('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses_post'])->name('record-expenses-post');
+   Route::get('/expenses', [App\Http\Controllers\BillingController::class, 'expenses'])->name('expenses');
+
+
 });
 
 
