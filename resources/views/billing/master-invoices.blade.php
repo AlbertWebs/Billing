@@ -32,7 +32,9 @@
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/form_select2.js')}}"></script>
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/invoice_archive.js')}}"></script>
 <script src="{{asset('theme/assets/js/app.js')}}"></script>
-<script type="text/javascript">
+
+@if(Session::has('partials') || Session::has('billing') || Session::has('user'))
+{{-- <script type="text/javascript">
     (function($){
         $(window).on("beforeunload", function() {
             $.ajax({
@@ -42,7 +44,8 @@
             return false;
         })
     })(jQuery);
-</script>
+</script> --}}
+@endif
 
 </head>
 

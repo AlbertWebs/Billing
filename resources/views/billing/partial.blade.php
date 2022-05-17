@@ -1,4 +1,4 @@
-<form action="{{url('/')}}/billings/create-bill" method="POST" id="Enroll-Form" enctype="multipart/form-data">
+<form action="{{url('/')}}/billings/create-bill" method="POST" id="Enroll-Forms" enctype="multipart/form-data">
     {{csrf_field()}}
     <?php
         $Billingz = DB::table('billings')->orderBy('id','DESC')->first();

@@ -346,7 +346,7 @@ public function create_bill_post(Request $request){
         if($Amount_paid == $Course_price){
             $Balance = 0;
             $group_role = "parent";
-            $group_id = $reference;
+            $group_id = null;
             $original_payment = $reference;
             $paid = "Paid";
         }else{
@@ -406,19 +406,17 @@ public function create_bill_post(Request $request){
     if($Billing->save()){
         //Get Latest
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
-        foreach($Billing as $bill){
-            Session::put('billing', $Billing->id);
-        }
+        return $this->download($Billing->id);
     }
 
 }
+
 public function create_bill_partial($id){
     $Group = "billings";
     $Title = "Make a Partial Payment";
     $Active = "m-pesa";
     $Billing = Billing::find($id);
-    Session::put('partials', $Billing->id);
-    return view('billing.create-bill',compact('Billing','Group','Title','Active'));
+    return view('billing.create-bill-partial',compact('Billing','Group','Title','Active'));
 }
 
 public function getInfo($id)
@@ -470,7 +468,11 @@ public function destroy(){
     Session::forget('billing');
     Session::forget('user');
     Session::forget('partials');
-    return Redirect::back();
+    $Group = "home";
+    $Title = "All Students";
+    $Active = "home";
+    return view('billing.index', compact('Group','Title','Active'));
+    // return Redirect::back();
 }
 
 public function system_settings() {
@@ -482,7 +484,6 @@ public function system_settings() {
 }
 
 public function save_settings(Request $request){
-
     $path = 'uploads/logo';
     if(isset($request->logo)){
         $file = $request->file('logo');
