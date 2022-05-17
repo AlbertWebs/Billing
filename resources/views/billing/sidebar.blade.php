@@ -75,9 +75,10 @@
         </li>
         <li class="nav-item-divider"></li>
 
-
+        @if(Session::has('partials') OR Session::has('billing') OR Session::has('user'))
         <li class="nav-item nav-item-submenu">
-            <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span>Reset Forms</span></a>
+            <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span>Reset All Forms</span></a>
         </li>
+        @endif
     </ul>
 </div>

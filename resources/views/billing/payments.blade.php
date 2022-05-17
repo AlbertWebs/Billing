@@ -21,12 +21,12 @@
                 <table class="table table-lg invoice-archive">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th style="min-width:100px;">#</th>
                             <th>Period</th>
                             <th>Issued to</th>
                             <th>Status</th>
                             <th>Payment date</th>
-                            <th>Instalments</th>
+                            <th style="min-width:300px;">Instalments</th>
                             <th>Amount</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -81,7 +81,7 @@
                                 @if($Billing->balance < 1)
                                   <span>
                                     <a href="http://localhost:8000/billings/my-payments/{{$Billing->reference}}" class="btn btn-outline-success">
-                                        <?php $Instalments = DB::table('billings')->where('group_id',$Billing->reference)->get(); echo count($Instalments); ?> Instalment(s)
+                                        <?php $Instalments = DB::table('billings')->where('group_id',$Billing->reference)->get(); $counter = count($Instalments); $total = $counter+1; echo $total; ?> Instalment(s)
                                     </a>
                                   </span>
 
@@ -91,26 +91,31 @@
                                     <a href="http://localhost:8000/billings/create-bill-partial/{{$Billing->id}}" class="btn btn-outline-danger">
                                         Pay Now
                                     </a>
+                                    <?php
+                                          $Instalments = DB::table('billings')->where('group_id',$Billing->original_payment)->get();
+                                          $counter = count($Instalments);
+                                          $total = $counter+1;
+                                    ?>
+                                    @if($counter == 1)
+                                    <a href="http://localhost:8000/billings/my-payments/{{$Billing->original_payment}}" class="btn btn-outline-danger">
+                                           <?php echo $total; ?> Instalment(s)
+                                    </a>
+                                    @else
+                                    <a href="#" class="btn btn-outline-danger">
+                                        <?php echo $total; ?> Instalment(s)
+                                    </a>
+                                    @endif
                                   </span>
                                 @endif
                             </td>
                             <td>
-                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} <span class="d-block font-size-sm text-muted font-weight-normal">Balance KES {{$Billing->balance}}</span></h6>
+                                <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} <span class="d-block font-size-sm text-muted font-weight-normal">@if($Billing->balance < 0)<span class="text-success">Balance KES {{$Billing->balance}}</span>@else Balance KES {{$Billing->balance}} @endif</span></h6>
                             </td>
                             <td class="text-center">
                                 <div class="list-icons list-icons-extended">
                                     {{-- <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a> --}}
                                     <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item" ><i class="fas fa-download mr-3 fa-2x"></i></a>
-                                    <div class="dropdown">
-                                        <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="fas fa-cogs mr-3 fa-2x"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{url('/')}}/billings/download/{{$Billing->id}}" class="dropdown-item"><i class="icon-file-download"></i> Download</a>
-                                            <a href="{{url('/')}}/billings/download/{{$Billing->id}}" class="dropdown-item"><i class="icon-printer"></i> Print</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a href="{{url('/')}}/billings/edit-bill/{{$Billing->id}}" class="dropdown-item"><i class="icon-file-plus"></i> Edit</a>
-                                            {{-- <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a> --}}
-                                        </div>
-                                    </div>
+
                                 </div>
                             </td>
                         </tr>

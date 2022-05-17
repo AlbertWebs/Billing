@@ -35,8 +35,11 @@
 <script type="text/javascript">
     (function($){
         $(window).on("beforeunload", function() {
-            alert('Me')
-            return true;
+            $.ajax({
+               url:'{{url('/')}}/billings/session-destroy',
+               type:'GET'
+             });
+            return false;
         })
     })(jQuery);
 </script>

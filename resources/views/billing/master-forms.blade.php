@@ -37,6 +37,19 @@
 
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/uploader_bootstrap.js')}}"></script>
 
+@if(Session::has('billing'))
+<script type="text/javascript">
+    (function($){
+        $(window).on("beforeunload", function() {
+            $.ajax({
+               url:'{{url('/')}}/billings/session-destroy',
+               type:'GET'
+             });
+            return false;
+        })
+    })(jQuery);
+</script>
+@endif
 </head>
 
 <body>

@@ -22,6 +22,7 @@ class CreateBillingsTable extends Migration
             $table->integer('course_id');
             $table->string('group_id')->nullable();
             $table->string('group_role')->nullable();
+            $table->string('original_payment')->nullable();
             $table->text('description')->nullable();
             $table->string('due')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->text('title')->nullable();
