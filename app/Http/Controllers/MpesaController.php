@@ -887,8 +887,11 @@ class MpesaController extends Controller
     }
 
     public function m_pesa_email($email){
+        $Group = "income";
+    $Title = "Record Expenses";
+    $Active = "m-pesa";
         $Student = Student::where('email',$email)->get();
         Session::put('user', $email);
-        return view('billing.m_pesa');
+        return view('billing.m_pesa',compact('Group','Title','Active'));
     }
 }

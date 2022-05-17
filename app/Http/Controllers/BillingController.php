@@ -599,9 +599,12 @@ public function save_pic(Request $request, $id){
 }
 
 public function my_statements($id){
+    $Group = "income";
+    $Title = "Record Expenses";
+    $Active = "m-pesa";
     $Student = Student::find($id);
     $Billings = Billing::where('student',$id)->get();
-    return view('billing.statements', compact('Billings','Student'));
+    return view('billing.statements', compact('Billings','Student','Group','Title','Active'));
 }
 
 public function user($id){
@@ -846,6 +849,18 @@ public function expenses(){
     $Expense = Expense::all();
     return view('billing.expenses',compact('Expense','Group','Title','Active'));
 }
+
+public function my_courses($id){
+    // $Billings = DB::table('billings')->where('student',$id)->get();
+    // $Billings = Billing::select('course_id')->where('student',$id)->distinct()->get();
+    $Billings = Billing::distinct()->get(['course_id']);
+    dd($Billings);
+    foreach ($Billings as $key => $value) {
+        echo $value->reference;
+    }
+    // dd($Billings);
+}
+
 
 
 }

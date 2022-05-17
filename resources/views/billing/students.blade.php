@@ -63,10 +63,11 @@
                             </td>
                             @endif
                             <td>
-                                <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> Statement
+                                <?php $Billings = DB::table('billings')->where('student',$item->id)->get(); ?>
+                                <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> Statement(<?php echo count($Billings); ?>)
                                 </a>
-                                <a href="{{url('/')}}/billings/my-courses/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-graduation-cap"></i> Courses
-                                </a>
+                                {{-- <a href="{{url('/')}}/billings/my-courses/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-graduation-cap"></i> Courses
+                                </a> --}}
                                 <a title="Initiate Payment" href="{{url('/')}}/billings/m-pesa/{{$item->email}}" class="btn btn-outline-info">  <i class="fas fa-money-bill-wave"></i> Pay
                                 </a>
                                 <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Record
