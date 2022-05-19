@@ -50,6 +50,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill'])->name('create-bill');
     Route::get('/create-bill/{email}', [App\Http\Controllers\BillingController::class, 'create_bill_fetch'])->name('create-bill-fetch');
     Route::post('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill_post'])->name('create-bill-post');
+    Route::post('/create-bill-c2b', [App\Http\Controllers\BillingController::class, 'create_bill_post_c2b'])->name('create-bill-post-c2b');
     Route::get('/create-bill-partial/{id}', [App\Http\Controllers\BillingController::class, 'create_bill_partial'])->name('create-bill-partial');
 
     Route::get('/my-payments', [App\Http\Controllers\BillingController::class, 'my_payments'])->name('my-payments');
@@ -125,7 +126,7 @@ Route::group(['prefix'=>'billings'], function(){
 
    Route::get('/stk', [App\Http\Controllers\BillingController::class, 'stk'])->name('stk');
    Route::get('/c2b', [App\Http\Controllers\BillingController::class, 'c2b'])->name('c2b');
-   Route::get('/record-c2b', [App\Http\Controllers\BillingController::class, 'record_c2b'])->name('record-c2b');
+   Route::get('/record-c2b/{email}', [App\Http\Controllers\BillingController::class, 'record_c2b'])->name('record-c2b');
 
 
 });

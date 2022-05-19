@@ -134,7 +134,7 @@
                         <div class="text-center">
                             <a href="{{url('/')}}/billings/stk" class="btn btn-success"><i class="fa fa-money-bill-alt mr-2"></i> STK Payments</a>
                             <a href="{{url('/')}}/billings/c2b" class="btn btn-success"><i class="fa fa-money-bill-alt mr-2"></i> C2B Payments</a>
-                            <a href="{{url('/')}}/billings/record-c2b" class="btn btn-success"><i class="fa fa-pen-fancy mr-2"></i> Record C2B Payments</a>
+                            {{-- <a href="{{url('/')}}/billings/record-c2b" class="btn btn-success"><i class="fa fa-pen-fancy mr-2"></i> Record C2B Payments</a> --}}
                         </div>
                     </div>
                 </div>

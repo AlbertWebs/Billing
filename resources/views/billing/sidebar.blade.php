@@ -11,7 +11,7 @@
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-user mr-3"></span> Students & Users</div> <i class="icon-menu" title="Forms"></i></li> --}}
 
         <li class="nav-item nav-item-submenu @if($Group == "students") nav-item-expanded nav-item-open @endif">
-            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="far fa-user mr-3"> Students & Users</span></a>
+            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-user mr-3"> Students & Users</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link @if($Active == "students") active @endif">All Students</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link @if($Active == "users") active @endif">All Users</a></li>

@@ -12,6 +12,8 @@ use App\Models\Billing;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\Cash;
+use App\Models\MpesaTransaction;
+use App\Models\STKMpesaTransaction;
 use Carbon\Carbon;
 use Session;
 use Auth;
@@ -308,6 +310,110 @@ class BillingController extends Controller
     return view('billing.editable-invoice');
 }
 
+public function create_bill_post_c2b(Request $request){
+    $user = $request->user;
+    $price = $request->amount;
+    $amount = $request->amount;
+    $description = $request->description;
+    $note = $request->note;
+    $title = $request->title;
+    $course_id = $request->course;
+    $reference = $request->reference;
+    $group_id = $request->group_id;
+
+    $Course = Course::find($course_id);
+    $TheStudent = Student::find($user);
+    $IncomeBalance = Cash::latest()->first();
+    if($IncomeBalance == null){
+       $TheBalance = $price;
+    }else{
+        $CurrentBalance = $IncomeBalance->balance;
+        $TheBalance = $CurrentBalance+$price;
+    }
+    // Create Cases
+    $Cash = new Cash;
+    $Cash->amount = $amount;
+    $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
+    $Cash->user = Auth::user()->id;
+    $Cash->source = "M-PESA";
+    $Cash->code = "M-PESA";
+    $Cash->balance = $TheBalance;
+    $Cash->save();
+
+    $Course_price = $Course->price;
+    $Amount_paid = $amount;
+    // Check if payment exists
+    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','DESC')->first();
+    if($Previous == null){
+        //
+        if($Amount_paid == $Course_price){
+            $Balance = 0;
+            $group_role = "parent";
+            $group_id = null;
+            $original_payment = $reference;
+            $paid = "Paid";
+        }else{
+            $Balance = $Course_price-$Amount_paid;
+            $group_role = "child";
+            $group_id = null;
+            $paid = "Partially Paid";
+            $original_payment = $reference;
+        }
+        //
+    }else{
+        $Bal = $Previous->balance;
+        $NewBalance =$Bal-$Amount_paid;
+        if($NewBalance<1){
+            $Balance = $NewBalance;
+            $paid = "Paid";
+            $group_role = "parent";
+            // $group_id = $reference;
+            $group_id = null;
+            $original_payment = $request->original_payment;
+            // Update the children
+            $UpdateDetails = array(
+                'group_role' => 'child',
+                'group_id' => $reference,
+            );
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+        }
+        else
+        {
+            $Balance = $Bal-$Amount_paid;
+            $paid = "Partially Paid";
+            $group_role = "child";
+            $group_id = null;
+            $original_payment = $request->original_payment;
+            $UpdateDetails = array(
+                'group_role' => 'child',
+                'group_id' => $original_payment,
+            );
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+        }
+    }
+
+    $Billing = new Billing;
+    $Billing->student = $user;
+    $Billing->original_payment = $original_payment;
+    $Billing->group_id = $group_id;
+    $Billing->group_role = $group_role;
+    $Billing->note = $note;
+    $Billing->reference = $reference;
+    $Billing->balance = $Balance;
+    $Billing->course_id = $course_id;
+    $Billing->amount = $amount;
+    $Billing->description = $description;
+    $Billing->title = $Course->title;
+    $Billing->paid = $paid;
+
+    if($Billing->save()){
+        //Get Latest
+        $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
+        return $this->download($Billing->id);
+    }
+
+}
+
 public function create_bill_post(Request $request){
     $user = $request->user;
     $price = $request->amount;
@@ -573,7 +679,7 @@ public function edit_pic($id){
     $Group = "students";
     $Title = "All Users";
     $Active = "users";
-    return view('billing.edit_pic', compact('Student','Group','Active'));
+    return view('billing.edit_pic', compact('Student','Group','Active','Title'));
 
 }
 public function save_pic(Request $request, $id){
@@ -850,6 +956,22 @@ public function expenses(){
     return view('billing.expenses',compact('Expense','Group','Title','Active'));
 }
 
+public function c2b(){
+    $Group = "m-pesa";
+    $Title = "C2B Payments";
+    $Active = "c2b";
+    $Expense = MpesaTransaction::all();
+    return view('billing.c2b',compact('Expense','Group','Title','Active'));
+}
+
+public function stk(){
+    $Group = "m-pesa";
+    $Title = "STK Push Payments";
+    $Active = "stk";
+    $Expense = STKMpesaTransaction::all();
+    return view('billing.stk',compact('Expense','Group','Title','Active'));
+}
+
 public function my_courses($id){
     // $Billings = DB::table('billings')->where('student',$id)->get();
     // $Billings = Billing::select('course_id')->where('student',$id)->distinct()->get();
@@ -862,5 +984,13 @@ public function my_courses($id){
 }
 
 
+public function record_c2b($email){
+    $Group = "m-pesa";
+    $Title = "All Users";
+    $Active = "c2b";
+    //Create Session
+    Session::put('user', $email);
+    return view('billing.record_c2b', compact('email','Group','Title','Active'));
+   }
 
 }
