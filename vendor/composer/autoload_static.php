@@ -546,6 +546,13 @@ class ComposerStaticInitd888a407d091002e3aeee2d7a481cb97
     );
 
     public static $prefixesPsr0 = array (
+        'O' => 
+        array (
+            'Orangehill\\Iseed' => 
+            array (
+                0 => __DIR__ . '/..' . '/orangehill/iseed/src',
+            ),
+        ),
         'M' => 
         array (
             'Mockery' => 
@@ -712,8 +719,24 @@ class ComposerStaticInitd888a407d091002e3aeee2d7a481cb97
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
+        'Database\\Seeders\\AccountbalanceTableSeeder' => __DIR__ . '/../..' . '/database/seeders/AccountbalanceTableSeeder.php',
+        'Database\\Seeders\\B2bApiResponseTableSeeder' => __DIR__ . '/../..' . '/database/seeders/B2bApiResponseTableSeeder.php',
+        'Database\\Seeders\\B2cApiResponseTableSeeder' => __DIR__ . '/../..' . '/database/seeders/B2cApiResponseTableSeeder.php',
+        'Database\\Seeders\\BillingsTableSeeder' => __DIR__ . '/../..' . '/database/seeders/BillingsTableSeeder.php',
+        'Database\\Seeders\\CashesTableSeeder' => __DIR__ . '/../..' . '/database/seeders/CashesTableSeeder.php',
+        'Database\\Seeders\\CoursesTableSeeder' => __DIR__ . '/../..' . '/database/seeders/CoursesTableSeeder.php',
         'Database\\Seeders\\CreateUsersSeeder' => __DIR__ . '/../..' . '/database/seeders/CreateUsersSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\ExpensesTableSeeder' => __DIR__ . '/../..' . '/database/seeders/ExpensesTableSeeder.php',
+        'Database\\Seeders\\LnmoApiResponseTableSeeder' => __DIR__ . '/../..' . '/database/seeders/LnmoApiResponseTableSeeder.php',
+        'Database\\Seeders\\MobilePaymentsTableSeeder' => __DIR__ . '/../..' . '/database/seeders/MobilePaymentsTableSeeder.php',
+        'Database\\Seeders\\PaymentTableSeeder' => __DIR__ . '/../..' . '/database/seeders/PaymentTableSeeder.php',
+        'Database\\Seeders\\ReverseTransactionTableSeeder' => __DIR__ . '/../..' . '/database/seeders/ReverseTransactionTableSeeder.php',
+        'Database\\Seeders\\SchoolsTableSeeder' => __DIR__ . '/../..' . '/database/seeders/SchoolsTableSeeder.php',
+        'Database\\Seeders\\SettingsTableSeeder' => __DIR__ . '/../..' . '/database/seeders/SettingsTableSeeder.php',
+        'Database\\Seeders\\TransactionStatusTableSeeder' => __DIR__ . '/../..' . '/database/seeders/TransactionStatusTableSeeder.php',
+        'Database\\Seeders\\TutorsTableSeeder' => __DIR__ . '/../..' . '/database/seeders/TutorsTableSeeder.php',
+        'Database\\Seeders\\UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeders/UsersTableSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',
@@ -3563,6 +3586,11 @@ class ComposerStaticInitd888a407d091002e3aeee2d7a481cb97
         'Opis\\Closure\\SecurityProvider' => __DIR__ . '/..' . '/opis/closure/src/SecurityProvider.php',
         'Opis\\Closure\\SelfReference' => __DIR__ . '/..' . '/opis/closure/src/SelfReference.php',
         'Opis\\Closure\\SerializableClosure' => __DIR__ . '/..' . '/opis/closure/src/SerializableClosure.php',
+        'Orangehill\\Iseed\\Facades\\Iseed' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Facades/Iseed.php',
+        'Orangehill\\Iseed\\Iseed' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Iseed.php',
+        'Orangehill\\Iseed\\IseedCommand' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/IseedCommand.php',
+        'Orangehill\\Iseed\\IseedServiceProvider' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/IseedServiceProvider.php',
+        'Orangehill\\Iseed\\TableNotFoundException' => __DIR__ . '/..' . '/orangehill/iseed/src/Orangehill/Iseed/Exceptions.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
