@@ -123,6 +123,10 @@ Route::group(['prefix'=>'billings'], function(){
    Route::post('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses_post'])->name('record-expenses-post');
    Route::get('/expenses', [App\Http\Controllers\BillingController::class, 'expenses'])->name('expenses');
 
+   Route::get('/stk', [App\Http\Controllers\BillingController::class, 'stk'])->name('stk');
+   Route::get('/c2b', [App\Http\Controllers\BillingController::class, 'c2b'])->name('c2b');
+   Route::get('/record-c2b', [App\Http\Controllers\BillingController::class, 'record_c2b'])->name('record-c2b');
+
 
 });
 

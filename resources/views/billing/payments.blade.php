@@ -65,7 +65,7 @@
                                 @else
                                    <select name="status" class="custom-select alert-info" >
                                 @endif
-                                    @if($Billing->balance == 0)
+                                    @if($Billing->balance <= 0)
                                     <option value="overdue">Partially Paid</option>
                                     <option value="hold" selected>Fully Paid</option>
                                     @else

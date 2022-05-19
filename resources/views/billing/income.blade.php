@@ -14,6 +14,7 @@
                         <tr><th>#</th>
                             <th>Source</th>
                             <th>Reason</th>
+                            <th>Balance</th>
                             <th>Amount</th>
                             <th>Admin</th>
                             <th style="min-width:140px">Actions</th>
@@ -26,6 +27,13 @@
                             <td>{{$item->source}}<br>Code:{{$item->code}}</td>
                             <td>
                                 {{$item->reason}}
+                            </td>
+                            <td>
+                                @if($item->balance < 0)
+                                <span class="text-danger"><strong>{{$item->balance}}</strong></span>
+                                @else
+                                <span class="text-success"><strong>{{$item->balance}}</strong></span>
+                                @endif
                             </td>
                             <td>{{$item->amount}}</td>
                             <td>

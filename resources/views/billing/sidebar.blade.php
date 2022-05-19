@@ -74,6 +74,14 @@
             </ul>
         </li>
         <li class="nav-item-divider"></li>
+        <li class="nav-item nav-item-submenu @if($Group == "m-pesa") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-money-bill-alt mr-3"><span> M-PESA </span></a>
+            <ul class="nav nav-group-sub" data-submenu-title="Basic components">
+                <li class="nav-item"><a href="{{url('/')}}/billings/stk" class="nav-link @if($Active == "stk") active @endif">STK Payments</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/c2b" class="nav-link @if($Active == "c2b") active @endif">C2B Payments</a></li>
+            </ul>
+        </li>
+        <li class="nav-item-divider"></li>
 
         @if(Session::has('partials') OR Session::has('billing') OR Session::has('user'))
         <li class="nav-item nav-item-submenu">

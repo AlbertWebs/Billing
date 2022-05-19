@@ -75,7 +75,7 @@
                 <div class="col-lg-4">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
-                            <a href="{{url('/')}}/billings/schools" class="btn btn-warning"><i class="fa fa-plus mr-2"></i><i class="fa fa-graduation-cap mr-2"></i> Add School</a>
+                            <a href="{{url('/')}}/billings/add-school" class="btn btn-warning"><i class="fa fa-plus mr-2"></i><i class="fa fa-graduation-cap mr-2"></i> Add School</a>
                             <a href="{{url('/')}}/billings/schools" class="btn btn-success"><i class="fa fa-graduation-cap mr-2"></i> Schools</a>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                 <div class="col-lg-4">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
-                            <a href="{{url('/')}}/billings/courses" class="btn btn-success"><i class="fa fa-pen mr-2"></i> Courses</a>
+                            <a href="{{url('/')}}/billings/courses" class="btn btn-success"><i class="fa fa-pen-alt mr-2"></i> Courses</a>
                             <a href="{{url('/')}}/billings/add-course" class="btn btn-info"><i class="fa fa-plus mr-2"></i><i class="fa fa-pen mr-2"></i>Add Courses</a>
                         </div>
                     </div>
@@ -129,6 +129,15 @@
                     </div>
                 </div>
                 <hr>
+                <div class="col-lg-12">
+                    <div class="card card-body border-top-primary">
+                        <div class="text-center">
+                            <a href="{{url('/')}}/billings/stk" class="btn btn-success"><i class="fa fa-money-bill-alt mr-2"></i> STK Payments</a>
+                            <a href="{{url('/')}}/billings/c2b" class="btn btn-success"><i class="fa fa-money-bill-alt mr-2"></i> C2B Payments</a>
+                            <a href="{{url('/')}}/billings/record-c2b" class="btn btn-success"><i class="fa fa-pen-fancy mr-2"></i> Record C2B Payments</a>
+                        </div>
+                    </div>
+                </div>
 
 
 
