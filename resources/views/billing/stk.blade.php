@@ -11,8 +11,8 @@
             <div class="card">
                 <table class="table datatable-basic">
                     <thead>
-                        <tr><th>#</th>
-                            <th>Balance</th>
+                        <tr><th>#lnmoID</th>
+                            <th>Transaction Code</th>
                             <th>Reason</th>
                             <th>Amount</th>
                             <th>Initiator</th>
@@ -22,46 +22,33 @@
                     <tbody>
                         @foreach ($Expense as $item)
                         <tr>
-                            <td>{{$item->id}}</td>
+                            <td>{{$item->lnmoID}}</td>
                             <td>
-                                @if($item->balance<1)
-                                   <span class="btn btn-outline-danger text-danger"><u>KES {{$item->balance}}</u></span>
-                                @else
-                                   <span class="btn btn-outline-success alert-success"><u>KES {{$item->balance}}</u></span>
-                                @endif
+                                   <span class="btn btn-outline-danger text-success"><u>KES {{$item->MpesaReceiptNumber}}</u></span>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-outline-success">{{$item->reason}}</a>
+                                <h6 class="mb-0">
+                                    <?php $Student = DB::table('students')->where('id',$item->user_id)->get(); ?>
+                                    @foreach ($Student as $student)
+                                    <a target="new" href="{{url('/')}}/billings/profile/{{$item->id}}">
+                                        {{$student->name}}
+                                    </a>
+                                    @endforeach
+                                </h6>
                             </td>
-                            <td ><span class="btn btn-outline-info"><strong>KES {{$item->amount}}</strong></span></td>
+                            <td ><span class="btn btn-outline-info"><strong>KES {{$item->Amount}}</strong></span></td>
                             <td>
-                                <?php
-                                   $Admin = DB::table('users')->where('id',$item->user)->get();
-                                ?>
-                                @foreach ($Admin as $tutor)
-                                  {{$tutor->name}}
-                                @endforeach
+                                {{$item->PhoneNumber}}
                             </td>
 
                             <td>
-                                @if(Auth::user()->is_admin == 1)
-                                <a href="{{url('/')}}/billings/expenses/{{$item->id}}" class="btn btn-outline-info">
-                                    <i class="fas fa-pen"></i>
-                                </a>
+                                @if($item->status == 1)
+                                <span class="btn btn-outline-success text-success"><u>Confirmed</u></span>
                                 @else
-                                <a onclick="return confirm('Limited Access Rights')" href="#" class="btn btn-outline-info">
-                                    <i class="fas fa-pen"></i>
-                                </a>
+                                <span class="btn btn-outline-danger text-danger"><u>Pending</u></span>
                                 @endif
-                                @if(Auth::user()->is_admin == 1)
-                                <a onclick="return confirm('Do you wish to delete this course?')" href="{{url('/')}}/billings/expenses-delete/{{$item->id}}" class="btn btn-outline-danger">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                                @else
-                                <a onclick="return confirm('Limited Access Rights')" href="#" class="btn btn-outline-danger">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                                @endif
+                                <br>
+                                <strong>{{$item->updateTime}}</strong>
                             </td>
                         </tr>
                         @endforeach
