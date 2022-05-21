@@ -8,6 +8,7 @@ use App\Models\MpesaTransactionB2C;
 use App\Models\MpesaTransactionB2B;
 use App\Models\STKMpesaTransaction;
 use App\Models\MpesaTransactionStatus;
+use App\Models\STKRequest;
 use App\Models\MpesaTransactionAccountBalance;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -64,13 +65,17 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
+        // dd($curl_response);
 
         // Insert MerchantRequestID
         $curl_content=json_decode($curl_response);
-        $mpesa_transaction = new STKMpesaTransaction();
+        $MerchantRequestID = $curl_content->MerchantRequestID;
+        $mpesa_transaction = new STKRequest;
         $mpesa_transaction->CheckoutRequestID =  $curl_content->CheckoutRequestID;
-        $mpesa_transaction->MerchantRequestID =  $curl_content->MerchantRequestID;
+        $mpesa_transaction->MerchantRequestID =  $MerchantRequestID;
         $mpesa_transaction->user_id =  $request->user_id;
+        $mpesa_transaction->PhoneNumber =  $request->mobile;
+        $mpesa_transaction->Amount =  $AmountSTK;
         $mpesa_transaction->save();
 
         Log::info($curl_response);
@@ -814,6 +819,11 @@ class MpesaController extends Controller
                     sleep(10);
                     return $this->checklast($AccID,$table,$curl_response);
                 }else{
+                    // Go To Requestes and set status to 1
+                    $UpdateDetails = array(
+                        'status'=>1,
+                    );
+                    DB::table('s_t_k_requests')->where('CheckoutRequestID',$AccID)->update($UpdateDetails);
                     return $curl_response;
                 }
         }else{
@@ -888,10 +898,10 @@ class MpesaController extends Controller
 
     public function m_pesa_email($email){
         $Group = "income";
-    $Title = "Record Expenses";
-    $Active = "m-pesa";
+        $Title = "Record Expenses";
+        $Active = "m-pesa";
         $Student = Student::where('email',$email)->get();
-        Session::put('user', $email);
-        return view('billing.m_pesa',compact('Group','Title','Active'));
+        Session::put('f', $email);
+        return view('billing.m_pesa',compact('Group','Title','Active','Student'));
     }
 }

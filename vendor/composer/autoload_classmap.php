@@ -40,6 +40,7 @@ return array(
     'App\\Models\\MpesaTransactionB2C' => $baseDir . '/app/Models/MpesaTransactionB2C.php',
     'App\\Models\\MpesaTransactionStatus' => $baseDir . '/app/Models/MpesaTransactionStatus.php',
     'App\\Models\\STKMpesaTransaction' => $baseDir . '/app/Models/STKMpesaTransaction.php',
+    'App\\Models\\STKRequest' => $baseDir . '/app/Models/STKRequest.php',
     'App\\Models\\School' => $baseDir . '/app/Models/School.php',
     'App\\Models\\Setting' => $baseDir . '/app/Models/Setting.php',
     'App\\Models\\Student' => $baseDir . '/app/Models/Student.php',

@@ -77,6 +77,7 @@
                                                 <?php $Student = DB::table('students')->where('email',Session::get('user'))->get(); ?>
                                                 @foreach ($Student as $Stu)
                                                 <input type="text" name="mobile" autocomplete="off" value="{{$Stu->mobile}}" class="form-control" placeholder="+723014032">
+                                                <input type="hidden" name="user_id"  value="{{$Stu->id}}">
                                                 @endforeach
                                                 @else
                                                 <input type="text" name="mobile" autocomplete="off" value="2547" class="form-control" placeholder="+723014032">

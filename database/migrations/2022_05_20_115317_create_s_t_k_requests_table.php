@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLnmoApiResponseTable extends Migration
+class CreateSTKRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateLnmoApiResponseTable extends Migration
      */
     public function up()
     {
-        Schema::create('lnmo_api_response', function (Blueprint $table) {
-            $table->integer('lnmoID', true);
+        Schema::create('s_t_k_requests', function (Blueprint $table) {
+            $table->id();
             $table->integer('user_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->string('Amount', 20);
-            $table->string('MpesaReceiptNumber', 20);
-            $table->string('CheckoutRequestID', 20);
-            $table->string('MerchantRequestID', 20);
-            $table->string('TransactionDate', 20);
+            $table->string('CheckoutRequestID', 255);
+            $table->string('MerchantRequestID', 255);
             $table->string('PhoneNumber', 15);
-            $table->dateTime('updateTime')->useCurrent();
+            $table->timestamps();
         });
     }
 
@@ -34,6 +32,6 @@ class CreateLnmoApiResponseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lnmo_api_response');
+        Schema::dropIfExists('s_t_k_requests');
     }
 }
