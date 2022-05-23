@@ -40,7 +40,11 @@ class MpesaController extends Controller
      * */
     public function customerMpesaSTKPush(Request $request)
     {
-        $phoneNumber = $request->mobile;
+        //SET Sessions
+
+        //SET Sessions
+        $phoneNumbers = str_replace(' ', '', $request->mobile);
+        $phoneNumber = str_replace('+', '', $phoneNumbers);
         $AmountSTK = $request->amount;
         $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         $curl = curl_init();
@@ -74,14 +78,14 @@ class MpesaController extends Controller
         $mpesa_transaction->CheckoutRequestID =  $curl_content->CheckoutRequestID;
         $mpesa_transaction->MerchantRequestID =  $MerchantRequestID;
         $mpesa_transaction->user_id =  $request->user_id;
-        $mpesa_transaction->PhoneNumber =  $request->mobile;
+        $mpesa_transaction->PhoneNumber =  $phoneNumber;
         $mpesa_transaction->Amount =  $AmountSTK;
         $mpesa_transaction->save();
 
         Log::info($curl_response);
         $CheckoutRequestID = $curl_content->CheckoutRequestID;
         $table = 'lnmo_api_response';
-        return $this->checklast($CheckoutRequestID,$table,$curl_response);
+        return $this->checklast($CheckoutRequestID,$table,$curl_response,$request->user_id);
     }
 
     public function customerMpesaSTKPushCallBack(Request $request){
@@ -795,7 +799,7 @@ class MpesaController extends Controller
         return $curl_response;
     }
 
-    public function checklast($AccID,$table,$curl_response){
+    public function checklast($AccID,$table,$curl_response,$user){
         if($table == 'accountbalance'){
             $table == 'accountbalance';
             $TableData = DB::table('accountbalance')->orderBy('accountBalID', 'DESC')->first();
@@ -803,7 +807,7 @@ class MpesaController extends Controller
                $lastRecord =  $TableData->accountBalID;
                if($lastRecord == $AccID){
                 sleep(5);
-                return $this->checklast($lastRecord,$table,$curl_response);
+                return $this->checklast($lastRecord,$table,$curl_response,$user);
                }else{
                    $newAccId = $AccID+1;
                    $NewBalance = DB::table('accountbalance')->where('accountBalID',$newAccId)->get();
@@ -817,13 +821,17 @@ class MpesaController extends Controller
                 $TableData = DB::table('lnmo_api_response')->where('CheckoutRequestID', $AccID)->where('status','1')->get();
                 if($TableData->isEmpty()){
                     sleep(10);
-                    return $this->checklast($AccID,$table,$curl_response);
+                    return $this->checklast($AccID,$table,$curl_response,$user);
                 }else{
                     // Go To Requestes and set status to 1
                     $UpdateDetails = array(
                         'status'=>1,
                     );
+                    $UpdateDetail = array(
+                        'user_id'=>$user,
+                    );
                     DB::table('s_t_k_requests')->where('CheckoutRequestID',$AccID)->update($UpdateDetails);
+                    DB::table('lnmo_api_response')->where('CheckoutRequestID',$AccID)->update($UpdateDetail);
                     return $curl_response;
                 }
         }else{
@@ -898,10 +906,10 @@ class MpesaController extends Controller
 
     public function m_pesa_email($email){
         $Group = "income";
-        $Title = "Record Expenses";
+        $Title = "STK Payment Initaite";
         $Active = "m-pesa";
         $Student = Student::where('email',$email)->get();
-        Session::put('f', $email);
+        Session::put('user', $email);
         return view('billing.m_pesa',compact('Group','Title','Active','Student'));
     }
 }

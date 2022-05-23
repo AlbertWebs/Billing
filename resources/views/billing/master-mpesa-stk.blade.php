@@ -31,25 +31,6 @@
 <script src="{{asset('theme/assets/global_assets/js/demo_pages/form_select2.js')}}"></script>
 {{-- <script src="../../../../global_assets/js/demo_pages/invoice_archive.js"></script> --}}
 
-<script src="{{asset('theme/assets/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js')}}"></script>
-<script src="{{asset('theme/assets/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js')}}"></script>
-
-
-<script src="{{asset('theme/assets/global_assets/js/demo_pages/uploader_bootstrap.js')}}"></script>
-
-@if(Session::has('partials') || Session::has('billing') || Session::has('user'))
-{{-- <script type="text/javascript">
-    (function($){
-        $(window).on("beforeunload", function() {
-            $.ajax({
-               url:'{{url('/')}}/billings/session-destroy',
-               type:'GET'
-             });
-            return false;
-        })
-    })(jQuery);
-</script> --}}
-@endif
 </head>
 
 <body>
@@ -120,13 +101,14 @@
         $( document ).ready(function() {
             $('#Loading').hide();
             $('#Success').hide();
-            $('#exists').hide();
-            $('#transIDResponse').hide();
-            $('.transSuccess').hide();
+
         });
         $("#Enroll-Form").submit(function(e) {
             e.preventDefault(); // prevent actual form submit
             $('#Loading').show();
+            setTimeout(function() {
+                $('#Success').show();
+                    }, 5000);
             var form = $(this);
             var url = form.attr('action'); //get submit url [replace url here if desired]
             $.ajax({
@@ -139,81 +121,15 @@
                     $('#Success').show();
                     // Refresh
                     setTimeout(function() {
-                        location.reload();
-                    }, 2000);
+                        // location.reload();
+						window.location = "{{url('billings/verify')}}"
+                    }, 5000);
                     // Success
                 }
             });
         });
     </script>
 
-    <script>
-        function duplicateEmail(element){
-            var email = $(element).val();
-            $.ajax({
-                type: "GET",
-                url: '{{url('billings/checkemail')}}',
-                data: {email:email},
-                dataType: "json",
-                success: function(res) {
-                    if(res.exists){
-                        $('#exists').show();
-                    }else{
-                        // Do nothing
-                    }
-                },
-                error: function (jqXHR, exception) {
-
-                }
-            });
-        }
-
-        function checkTransaction(element){
-            var transID = $(element).val();
-            $('#transIDResponse').hide();
-            $('.transSuccess').hide();
-            $.ajax({
-                type: "GET",
-                url: '{{url('billings/checkID')}}',
-                data: {transID:transID},
-                dataType: "json",
-                success: function(res) {
-                    if(confirm('Clear This Transaction? You cannot undo this process')){
-                        var transID = res.transID;
-                        // alert(transID)
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': "{{csrf_token()}}",
-                            },
-                            type: "post",
-                            url: '{{url('billings/c2b-status-update')}}',
-                            data: {transID:transID},
-                            success: function (data) {
-                            //
-                            if(res.exists){
-                                    $("#fetchAmount").val(res.amount);
-                                    // alert(res.amount)
-                                    $('#transSuccess').show();
-                                }else{
-                                    // Do nothing
-                                    $('#transIDResponse').show();
-                                }
-                            //
-                            }
-                        });
-                    //
-                    }else{
-                         alert('You Have To Confirm This Transaction')
-                         $('#transID').val('');
-                    }
-
-                },
-                error: function (jqXHR, exception) {
-
-                }
-            });
-        }
-    </script>
 </body>
 
 </html>

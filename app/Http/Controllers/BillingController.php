@@ -48,6 +48,9 @@ class BillingController extends Controller
     }
 
     public function students(){
+        Session::forget('billing');
+        Session::forget('user');
+        Session::forget('partials');
         $Group = "students";
         $Title = "All Students";
         $Active = "students";
@@ -85,7 +88,7 @@ class BillingController extends Controller
        $Title = "All Users";
        $Active = "students";
        $Student = Student::find($id);
-       return view('billing.save-student', compact('Student','Group','Active'));
+       return view('billing.save-student', compact('Student','Group','Active','Title'));
     }
 
     public function save_images($id){
@@ -311,6 +314,11 @@ class BillingController extends Controller
 }
 
 public function create_bill_post_c2b(Request $request){
+    return $this->create_bill_post();
+}
+
+public function create_bill_posts(Request $request){
+
     $user = $request->user;
     $price = $request->amount;
     $amount = $request->amount;
@@ -415,6 +423,13 @@ public function create_bill_post_c2b(Request $request){
 }
 
 public function create_bill_post(Request $request){
+    // Assign Course to student
+    $updateCourse = array(
+        'course_id' =>$request->course,
+    );
+    DB::table('students')->where('id',$request->user)->update($updateCourse);
+    //
+
     $user = $request->user;
     $price = $request->amount;
     $amount = $request->amount;
@@ -448,6 +463,7 @@ public function create_bill_post(Request $request){
     $Amount_paid = $amount;
     // Check if payment exists
     $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','DESC')->first();
+    $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','ASC')->first();
     if($Previous == null){
         //
         if($Amount_paid == $Course_price){
@@ -473,7 +489,7 @@ public function create_bill_post(Request $request){
             $group_role = "parent";
             // $group_id = $reference;
             $group_id = null;
-            $original_payment = $request->original_payment;
+            $original_payment = $Origin->original_payment;
             // Update the children
             $UpdateDetails = array(
                 'group_role' => 'child',
@@ -487,7 +503,7 @@ public function create_bill_post(Request $request){
             $paid = "Partially Paid";
             $group_role = "child";
             $group_id = null;
-            $original_payment = $request->original_payment;
+            $original_payment = $Origin->original_payment;
             $UpdateDetails = array(
                 'group_role' => 'child',
                 'group_id' => $original_payment,
@@ -571,6 +587,7 @@ public function checkEmail(Request $request){
         return response()->json(array("exists" => false));
     }
 }
+
 
 public function destroy(){
     Session::forget('billing');
@@ -991,6 +1008,39 @@ public function record_c2b($email){
     //Create Session
     Session::put('user', $email);
     return view('billing.record_c2b', compact('email','Group','Title','Active'));
-   }
+}
+
+public function checkID(Request $request){
+    $transID = $request->input('transID');
+    $isExists = MpesaTransaction::where('TransID',$transID)->where('status','0')->first();
+    if($isExists){
+        return response()->json(array("exists" => true, "amount"=>$isExists->TransAmount, "transID"=>$isExists->TransID));
+    }else{
+        return response()->json(array("exists" => false));
+    }
+}
+
+public function c2b_status_update(Request $request){
+        $updateDetails = array(
+            'status' => 1,
+        );
+        DB::table('mobile_payments')->where('TransID',$request->transID)->update($updateDetails);
+        return response()->json(array("exists" => true));
+}
+
+public function verify(){
+    //Get Last Payment
+    $Last = STKMpesaTransaction::where('status','1')->orderBy('lnmoID','DESC')->first();
+    $UserID = $Last->user_id;
+    $Amount = $Last->Amount;
+    $Group = "billings";
+    $Title = "Assign STK Payment";
+    $Active = "create-bill";
+    $EmailFetch = Student::find($UserID);
+    $Email = $EmailFetch->email;
+    Session::put('user', $Email);
+    return view('billing.create-bill-stk',compact('Group','Title','Active','Amount','Email'));
+}
+
 
 }

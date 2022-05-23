@@ -21,6 +21,7 @@ class CreateStudentsTable extends Migration
             $table->string('gender');
             $table->string('avatar');
             $table->string('status');
+            $table->string('course_id')->nullable();
             $table->timestamps();
         });
     }

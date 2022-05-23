@@ -76,6 +76,17 @@
                             <div class="form-group" data-select2-id="207">
                                 <select name="course" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true" required>
                                     <optgroup label="Students" data-select2-id="208">
+                                        @if(Session::has('user'))
+                                        <?php $u = Session::get('user'); $Studs = DB::table('students')->where('email',$u)->get(); ?>
+                                        @foreach ($Studs as $studs)
+                                            <?php $collection = DB::table('courses')->where('id',$studs->course_id)->get(); ?>
+                                            @foreach ($collection as $item)
+                                              <option selected value="{{$item->id}}" data-select2-id="681"> {{$item->title}} </option>
+                                            @endforeach
+                                        @endforeach
+
+                                        @endif
+
                                         <?php $Students = DB::table('courses')->get(); ?>
                                         @foreach($Students as $Stude)
                                         <option value="{{$Stude->id}}" data-select2-id="68{{$Stude->id}}">{{$Stude->title}} - {{$Stude->price}}</option>

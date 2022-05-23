@@ -1,4 +1,4 @@
-@extends('billing.master-mpesa')
+@extends('billing.master-mpesa-stk')
 @section('content')
 <!-- Main content -->
 <div class="content-wrapper">
@@ -68,6 +68,7 @@
                         <div class="card-body">
                             <form action="{{url('/')}}/api/v1/stk/push" method="POST" id="Enroll-Form" enctype="multipart/form-data">
                                 {{csrf_field()}}
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group row">
@@ -86,14 +87,31 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label">Amount:</label>
-                                            <div class="col-lg-9">
-                                                <input type="number" name="amount" autocomplete="off" value="+254 7" class="form-control" >
+                                    <?php $Billings = DB::table('billings')->where('student',$Stu->id)->where('course_id',$Stu->course_id)->orderBy('id','DESC')->first(); ?>
+                                    @if($Billings == null)
+                                        <div class="col-lg-12">
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label">Amount:</label>
+                                                <div class="col-lg-9">
+                                                    <input type="number" value="" name="amount" autocomplete="off" value="+254 7" class="form-control" >
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @else
+                                       <?php $Balance = $Billings->balance; ?>
+                                        @if($Balance<1)
+
+                                        @else
+                                            <div class="col-lg-12">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label">Amount:</label>
+                                                    <div class="col-lg-9">
+                                                        <input type="number" value="{{$Balance}}" name="amount" autocomplete="off" value="+254 7" class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endif
                                     {{--  --}}
 
                                 </div>

@@ -56,6 +56,10 @@
                                         {{$student->name}}
                                     </a>
                                     @endforeach
+                                    <?php $Course = DB::table('courses')->where('id',$Billing->course_id)->get(); ?>
+                                    @foreach ($Course as $course)
+                                    <span class="d-block font-size-sm text-muted">{{$course->title}}</span>
+                                    @endforeach
                                     <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span>
                                 </h6>
                             </td>
@@ -88,7 +92,7 @@
 
                                 @else
                                   <span class="">
-                                    <a href="http://localhost:8000/billings/create-bill-partial/{{$Billing->id}}" class="btn btn-outline-danger">
+                                    <a href="http://localhost:8000/billings/m-pesa/{{$student->email}}" class="btn btn-outline-danger">
                                         Pay Now
                                     </a>
                                     <?php

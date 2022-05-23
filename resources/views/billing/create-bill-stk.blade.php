@@ -14,13 +14,17 @@
                     <!-- Basic layout-->
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Record C2B Payment</h5>
+                            <h5 class="card-title">Record Payment</h5>
                         </div>
+
+
                         <div class="card-body">
-                            <form action="{{url('/')}}/billings/create-bill" method="POST" id="Enroll-Form" enctype="multipart/form-data" novalidate>
+                            <form action="{{url('/')}}/billings/create-bill" method="POST" id="Enroll-Forms" enctype="multipart/form-data">
                                 {{csrf_field()}}
+
                                 <?php
                                     $Billing = DB::table('billings')->orderBy('id','DESC')->first();
+
                                         if($Billing == null){
                                         $newOrder = 1;
                                         }else{
@@ -29,7 +33,9 @@
                                             $newOrder = $order+$Current;
 
                                         }
+
                                 ?>
+
                                         <input type="hidden" name="group_id" name="">
 
                                         <div class="col-lg-12">
@@ -75,23 +81,9 @@
                                         <div class="col-lg-12">
                                             <div class="form-group" data-select2-id="207">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-2 col-form-label">Transaction ID:</label>
-                                                    <div class="col-lg-10">
-                                                        <input type="text" onblur="checkTransaction(this)" class="form-control" name="transID" id="transID"  placeholder="P3XDAAKK4DS" autocomplete="students-name" required>
-                                                        <p id="transIDResponse" style="padding:10px" class="alert-danger">The transaction has not been recieved <a class="btn btn-outline-primary" href=""> <i class="fas fa-recycle"></i> Refresh </a></p>
-                                                        <small id="transSuccess" style="padding:5px" class="alert-success transSuccess">Transaction Has Been Received</small>
-                                                        <input type="text" class="form-control transSuccess" name="amount"  autocomplete="students-name" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="col-lg-12">
-                                            <div class="form-group" data-select2-id="207">
-                                                <div class="form-group row">
                                                     <label class="col-lg-2 col-form-label">Amount:</label>
                                                     <div class="col-lg-10">
-                                                        <input id="fetchAmount" type="text" class="form-control" name="amount"  autocomplete="students-name" required>
+                                                        <input type="number" class="form-control" name="amount" value="{{$Amount}}"  placeholder="10000" autocomplete="student-name" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,10 +149,10 @@
                                     </a>
                                     @else
                                     <button type="submit" class="btn btn-primary">
-                                        <span class="fas fa-save mr-3"></span>  Save C2B <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                                        <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
                                     @endif
-                                    <p id="Success" style="padding:10px" class="alert-success">C2B Payment Has Been Recorded Successfully</p>
+                                    <p id="Success" style="padding:10px" class="alert-success">Payment Has Been Recorded Successfully</p>
                                 </div>
 
 

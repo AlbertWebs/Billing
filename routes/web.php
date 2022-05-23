@@ -70,6 +70,9 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/m-pesa/{email}', [App\Http\Controllers\MpesaController::class, 'm_pesa_email'])->name('m-pesa');
 
     Route::get('/checkemail', [App\Http\Controllers\BillingController::class, 'checkEmail'])->name('checkEmail');
+
+    Route::get('/checkID', [App\Http\Controllers\BillingController::class, 'checkID'])->name('checkID');
+
     Route::get('/system-settings', [App\Http\Controllers\BillingController::class, 'system_settings'])->name('system-settings');
 
     Route::post('/save-settings', [App\Http\Controllers\BillingController::class, 'save_settings'])->name('save-settings');
@@ -127,6 +130,10 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/stk', [App\Http\Controllers\BillingController::class, 'stk'])->name('stk');
    Route::get('/c2b', [App\Http\Controllers\BillingController::class, 'c2b'])->name('c2b');
    Route::get('/record-c2b/{email}', [App\Http\Controllers\BillingController::class, 'record_c2b'])->name('record-c2b');
+
+   Route::get('/verify', [App\Http\Controllers\BillingController::class, 'verify'])->name('verify');
+   Route::post('/c2b-status-update', [App\Http\Controllers\BillingController::class, 'c2b_status_update'])->name('c2b-status-update');
+
 
 
 });

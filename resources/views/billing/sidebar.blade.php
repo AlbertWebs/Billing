@@ -39,9 +39,9 @@
         <li class="nav-item nav-item-submenu @if($Group == "billings") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-money-bill mr-3"> Billing</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link @if($Active == "create-bill") active @endif">Record Payment</a></li>
+                {{-- <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link @if($Active == "create-bill") active @endif">Record Payment</a></li> --}}
                 <li class="nav-item"><a href="{{url('/')}}/billings/my-payments" class="nav-link @if($Active == "my-payments") active @endif">All Payments</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/m-pesa" class="nav-link @if($Active == "m-pesa") active @endif">M-PESA Payment</a></li>
+                {{-- <li class="nav-item"><a href="{{url('/')}}/billings/m-pesa" class="nav-link @if($Active == "m-pesa") active @endif">M-PESA Payment</a></li> --}}
             </ul>
         </li>
         <li class="nav-item-divider"></li>

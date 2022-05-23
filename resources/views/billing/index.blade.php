@@ -93,20 +93,14 @@
                 <div class="col-lg-4">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
-                            <a href="{{url('/')}}/billings/create-bill" class="btn btn-secondary"><i class="fa fa-pen-fancy mr-2"></i> Record Payments</a>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="col-lg-4">
-                    <div class="card card-body border-top-primary">
-                        <div class="text-center">
                             <a href="{{url('/')}}/billings/my-payments" class="btn btn-secondary"><i class="fa fa-money-bill-wave mr-2"></i> All Payments</a>
                         </div>
                     </div>
                 </div>
+                <hr>
 
-                <div class="col-lg-8">
+
+                <div class="col-lg-12">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
                             <a href="{{url('/')}}/billings/income-today" class="btn btn-success"><i class="fa fa-money-bill-wave-alt mr-2"></i> Today</a>
