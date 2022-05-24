@@ -107,11 +107,9 @@
             e.preventDefault(); // prevent actual form submit
             $('#Loading').show();
             $('#Success').show();
+            $('#Success').html('Please wait.........');
             setTimeout(function() {
-                $('#Success').html('Please wait.........');
-            }, 2000);
-            setTimeout(function() {
-                $('#Success').html('Check Your Phone....');
+                $('#Success').html('Checkout your phone....');
             }, 2000);
             var form = $(this);
             var url = form.attr('action'); //get submit url [replace url here if desired]
@@ -122,8 +120,9 @@
                 success: function(data){
                     console.log(data);
                     $('#Loading').hide();
-                    $('#Success').html('');
+                    $('#Success').hide();
                     setTimeout(function() {
+                        $('#Success').show();
                         $('#Success').html('Redirecting you...');
                     }, 1000);
                     // Refresh

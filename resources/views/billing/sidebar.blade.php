@@ -3,7 +3,7 @@
 
         <!-- Main -->
         <li class="nav-item nav-item-submenu @if($Group == "home") nav-item-expanded nav-item-open @endif">
-            <a href="{{url('/')}}" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-home mr-3"> Dashboard </span></a>
+            <a href="{{url('/billings/students')}}" class="nav-link"><i class="icon-grid"></i> <span class="fas fa-home mr-3"> Dashboard </span></a>
         </li>
          <!-- /main -->
           {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-graduation-cap mr-3"></span> Courses & Schools</div> <i class="icon-menu" title="Reports"></i></li> --}}

@@ -43,7 +43,7 @@
                                 ?>
 
                                         <input type="hidden" name="group_id" name="">
-                                        <input type="hidden" name="transID" value="">
+                                        {{-- <input type="hidden" name="transID" value=""> --}}
 
 
                                         <div class="col-lg-12">

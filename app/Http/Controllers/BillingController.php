@@ -41,6 +41,7 @@ class BillingController extends Controller
      */
 
     public function index(){
+
         $Group = "home";
         $Title = "All Students";
         $Active = "home";
@@ -513,6 +514,14 @@ public function create_bill_post(Request $request){
         }
     }
 
+    Session::forget('billing');
+    Session::save();
+    Session::forget('user');
+    Session::save();
+    Session::forget('partials');
+    Session::save();
+    $this->destroyer();
+
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->original_payment = $original_payment;
@@ -526,12 +535,7 @@ public function create_bill_post(Request $request){
     $Billing->description = $description;
     $Billing->title = $Course->title;
     $Billing->paid = $paid;
-
     if($Billing->save()){
-        Session::forget('billing');
-        Session::forget('user');
-        Session::forget('partials');
-        //Get Latest
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
         return $this->download($Billing->id);
     }
@@ -592,6 +596,12 @@ public function checkEmail(Request $request){
     }
 }
 
+public function destroyer()
+{
+    Session::forget('billing');
+    Session::forget('user');
+    Session::forget('partials');
+}
 
 public function destroy(){
     Session::forget('billing');
