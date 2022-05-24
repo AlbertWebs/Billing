@@ -1,5 +1,11 @@
 @extends('billing.master-forms')
 @section('content')
+<script>
+    window.onbeforeunload = function() {
+        alert('Ensure you save this Transaction Before you leave this page');
+        return false;
+    }
+</script>
 <!-- Main content -->
 <div class="content-wrapper">
 
@@ -37,6 +43,8 @@
                                 ?>
 
                                         <input type="hidden" name="group_id" name="">
+                                        <input type="hidden" name="transID" value="">
+
 
                                         <div class="col-lg-12">
                                             <div class="form-group" data-select2-id="207">

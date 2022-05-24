@@ -415,6 +415,7 @@ public function create_bill_posts(Request $request){
     $Billing->paid = $paid;
 
     if($Billing->save()){
+
         //Get Latest
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
         return $this->download($Billing->id);
@@ -527,6 +528,9 @@ public function create_bill_post(Request $request){
     $Billing->paid = $paid;
 
     if($Billing->save()){
+        Session::forget('billing');
+        Session::forget('user');
+        Session::forget('partials');
         //Get Latest
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
         return $this->download($Billing->id);

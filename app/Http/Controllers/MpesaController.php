@@ -52,15 +52,15 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
         $curl_post_data = [
             //Fill in the request parameters with valid values
-            'BusinessShortCode' => 174379,
+            'BusinessShortCode' => env("BUSINESSSHORTCODE"),
             'Password' => $this->lipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => $AmountSTK,
             'PartyA' => $phoneNumber, // replace this with your phone number
-            'PartyB' => 174379,
+            'PartyB' => env("STKPARTYB"),
             'PhoneNumber' => $phoneNumber, // replace this with your phone number
-            'CallBackURL' => 'https://pipdotfx.com/api/v1/stk/push_call_back',
+            'CallBackURL' => env("STK_CALLBACKURL"),
             'AccountReference' => "Account Reference",
             'TransactionDesc' => "Testing stk push on sandbox"
         ];

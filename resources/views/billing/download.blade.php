@@ -29,7 +29,14 @@
             <!-- Content area -->
             <div class="content">
 
-
+                <script>
+                    function printClick() {
+                        var w = window.open('', 'printform', 'width=300,height=400');
+                        var html = $("#prntrForm").html();
+                        $(w.document.body).html(html);
+                        w.print();
+                    }
+                </script>
 
                 <!-- Editable invoice -->
                 <div class="card">

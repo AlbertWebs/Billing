@@ -27,6 +27,7 @@ class CreateBillingsTable extends Migration
             $table->string('due')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->text('title')->nullable();
             $table->string('reference')->nullable();
+            $table->string('transID')->nullable();
             $table->integer('paid');
             $table->timestamps();
         });

@@ -106,9 +106,13 @@
         $("#Enroll-Form").submit(function(e) {
             e.preventDefault(); // prevent actual form submit
             $('#Loading').show();
+            $('#Success').show();
             setTimeout(function() {
-                $('#Success').show();
-                    }, 5000);
+                $('#Success').html('Please wait.........');
+            }, 2000);
+            setTimeout(function() {
+                $('#Success').html('Check Your Phone....');
+            }, 2000);
             var form = $(this);
             var url = form.attr('action'); //get submit url [replace url here if desired]
             $.ajax({
@@ -118,10 +122,12 @@
                 success: function(data){
                     console.log(data);
                     $('#Loading').hide();
-                    $('#Success').show();
+                    $('#Success').html('');
+                    setTimeout(function() {
+                        $('#Success').html('Redirecting you...');
+                    }, 1000);
                     // Refresh
                     setTimeout(function() {
-                        // location.reload();
 						window.location = "{{url('billings/verify')}}"
                     }, 5000);
                     // Success

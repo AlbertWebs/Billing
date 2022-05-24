@@ -123,7 +123,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Initiate Bill Payment <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
-                                    <p id="Success" style="padding:10px" class="alert-success">Check Your Phone....</p>
+                                    <p id="Success" style="padding:10px" class="alert-success"></p>
                                 </div>
 
 
