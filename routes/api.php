@@ -23,7 +23,9 @@ Route::post('v1/stk/push',[MpesaController::class,'customerMpesaSTKPush']);
 
 Route::post('v1/stk/push_call_back',[MpesaController::class,'customerMpesaSTKPushCallBack']);
 
+Route::post('v1/validation',[MpesaController::class,'mpesaValidation']);
 
+Route::post('v1/transaction/confirmation',[MpesaController::class,'mpesaConfirmation']);
 
 
 Route::post('v1/simulateMpesa',[MpesaController::class,'simulateMpesa']);
