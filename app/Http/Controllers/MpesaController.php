@@ -85,7 +85,7 @@ class MpesaController extends Controller
         $mpesa_transaction->save();
 
         $STKMpesaTransaction = new STKMpesaTransaction;
-        $STKMpesaTransaction->user_id = $user;
+        $STKMpesaTransaction->user_id = $request->user_id;
         $STKMpesaTransaction->CheckoutRequestID = $curl_content->CheckoutRequestID;
         $STKMpesaTransaction->MerchantRequestID = $MerchantRequestID;
         $STKMpesaTransaction->save();
