@@ -84,6 +84,12 @@ class MpesaController extends Controller
         $mpesa_transaction->Amount =  $AmountSTK;
         $mpesa_transaction->save();
 
+        $STKMpesaTransaction = new STKMpesaTransaction;
+        $STKMpesaTransaction->user_id = $user;
+        $STKMpesaTransaction->CheckoutRequestID = $curl_content->CheckoutRequestID;
+        $STKMpesaTransaction->MerchantRequestID = $MerchantRequestID;
+        $STKMpesaTransaction->save();
+
         Log::info($curl_response);
         $CheckoutRequestID = $curl_content->CheckoutRequestID;
         $table = 'lnmo_api_response';
@@ -834,10 +840,6 @@ class MpesaController extends Controller
                     );
                     DB::table('s_t_k_requests')->where('CheckoutRequestID',$AccID)->update($UpdateDetails);
                     // DB::table('lnmo_api_response')->where('CheckoutRequestID',$AccID)->update($UpdateDetail);
-                    $STKMpesaTransaction = new STKMpesaTransaction;
-                    $STKMpesaTransaction->user_id = $user;
-                    $STKMpesaTransaction->CheckoutRequestID = $AccID;
-                    $STKMpesaTransaction->save();
                     return $curl_response;
                 }
         }else{
