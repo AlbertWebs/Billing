@@ -31,6 +31,7 @@
                                         }
                                 ?>
                                         <input type="hidden" name="group_id" name="">
+                                        <input type="hidden" name="c2b" value="yes">
 
                                         <div class="col-lg-12">
                                             <div class="form-group" data-select2-id="207">

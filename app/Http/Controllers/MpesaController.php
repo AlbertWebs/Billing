@@ -110,7 +110,6 @@ class MpesaController extends Controller
             );
             DB::table('lnmo_api_response')->where('CheckoutRequestID',$CheckoutRequestID)->update($updateStatus);
         // Log To Laravel LOgs
-        activity()->log('STK Payment Has Been Made');
         Log::info($request->getContent());
 
         // Responding to the confirmation request
@@ -235,8 +234,8 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
             'ShortCode' => "603021",
             'ResponseType' => 'Completed',
-            'ConfirmationURL' => "https://pipdotfx.com/api/v1/transaction/confirmation",
-            'ValidationURL' => "https://pipdotfx.com/api/v1/validation"
+            'ConfirmationURL' => "https://billing.designekta.com/api/v1/transaction/confirmation",
+            'ValidationURL' => "https://billing.designekta.com/api/v1/validation"
         )));
         $curl_response = curl_exec($curl);
         echo $curl_response;

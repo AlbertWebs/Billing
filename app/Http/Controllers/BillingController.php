@@ -425,6 +425,14 @@ public function create_bill_posts(Request $request){
 }
 
 public function create_bill_post(Request $request){
+    // Check C2b is set
+    if($request->has('c2b')){
+         $UpdateUser = array(
+             'user_id' => $request->user,
+         );
+         DB::table('mobile_payments')->where('TransID',$request->transID)->update($UpdateUser);
+      }
+
     // Assign Course to student
     $updateCourse = array(
         'course_id' =>$request->course,
