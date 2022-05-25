@@ -29,7 +29,7 @@ class MpesaController extends Controller
     public function lipaNaMpesaPassword()
     {
         $lipa_time = Carbon::rawParse('now')->format('YmdHms');
-        $passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+        $passkey = env("M_PESA_PASSKEY");
         $BusinessShortCode = 174379;
         $timestamp =$lipa_time;
         $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
@@ -40,14 +40,17 @@ class MpesaController extends Controller
      * */
     public function customerMpesaSTKPush(Request $request)
     {
+        //SET Sessions
+
+        //SET Sessions
         $phoneNumbers = str_replace(' ', '', $request->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         $AmountSTK = $request->amount;
         // $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+
         $url = env('M_PESA_ENV') == 0
         ? 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
         : 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -123,14 +126,15 @@ class MpesaController extends Controller
 
     public function generateAccessToken()
     {
-        $consumer_key= env("MPESA_CONSUMER_KEY");
-        $consumer_secret=env("M_PESA_CONSUMER_SECRET");
+        $consumer_key="s7AHpPSYx2rB8rpT7GQbKufpu81KlL1F";
+        $consumer_secret="SmL3Vw8Jh1KSlvIB";
         $credentials = base64_encode($consumer_key.":".$consumer_secret);
 
-        // $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         $url = env('M_PESA_ENV') == 0
         ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
         : 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+
+        // $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".$credentials));
@@ -783,11 +787,8 @@ class MpesaController extends Controller
     public function simulateMpesa(Request $request)
     {
 
-        $url = env('M_PESA_ENV') == 0
-        ? 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate'
-        : 'https://api.safaricom.co.ke/mpesa/c2b/v1/simulate';
         //
-        // $url = 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate';
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate';
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));

@@ -235,4 +235,10 @@ return [
 
     ],
 
+    'debug_blacklist' => [
+        '_ENV' => [
+
+        ]
+    ]
+
 ];

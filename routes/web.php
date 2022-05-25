@@ -134,7 +134,9 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/verify', [App\Http\Controllers\BillingController::class, 'verify'])->name('verify');
    Route::post('/c2b-status-update', [App\Http\Controllers\BillingController::class, 'c2b_status_update'])->name('c2b-status-update');
 
+   Route::get('/simulateMpesa',[MpesaController::class,'simulateMpesa']);
 
+   Route::get('register-url',[MpesaController::class,'mpesaRegisterUrls']);
 
 });
 

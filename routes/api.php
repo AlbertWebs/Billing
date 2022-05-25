@@ -22,3 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('v1/stk/push',[MpesaController::class,'customerMpesaSTKPush']);
 
 Route::post('v1/stk/push_call_back',[MpesaController::class,'customerMpesaSTKPushCallBack']);
+
+
+
+
+Route::post('v1/simulateMpesa',[MpesaController::class,'simulateMpesa']);
