@@ -94,7 +94,6 @@ class MpesaController extends Controller
         Log::info($request->getContent());
         $content=json_decode($request->getContent(), true);
             $CheckoutRequestID = $content['Body']['stkCallback']['CheckoutRequestID'];
-
             $nameArr = [];
             foreach ($content['Body']['stkCallback']['CallbackMetadata']['Item'] as $row) {
 
@@ -102,16 +101,12 @@ class MpesaController extends Controller
                     continue;
                 }
                 $nameArr[$row['Name']] = $row['Value'];
-                // addUserID
             }
             DB::table('lnmo_api_response')->where('CheckoutRequestID',$CheckoutRequestID)->update($nameArr);
             $updateStatus = array(
                 'status' =>1
             );
             DB::table('lnmo_api_response')->where('CheckoutRequestID',$CheckoutRequestID)->update($updateStatus);
-        // Log To Laravel LOgs
-        Log::info($request->getContent());
-
         // Responding to the confirmation request
         $response = new Response;
         $response->headers->set("Content-Type","text/xml; charset=utf-8");
@@ -838,7 +833,11 @@ class MpesaController extends Controller
                         'user_id'=>$user,
                     );
                     DB::table('s_t_k_requests')->where('CheckoutRequestID',$AccID)->update($UpdateDetails);
-                    DB::table('lnmo_api_response')->where('CheckoutRequestID',$AccID)->update($UpdateDetail);
+                    // DB::table('lnmo_api_response')->where('CheckoutRequestID',$AccID)->update($UpdateDetail);
+                    $STKMpesaTransaction = new STKMpesaTransaction;
+                    $STKMpesaTransaction->user_id = $user;
+                    $STKMpesaTransaction->CheckoutRequestID = $AccID;
+                    $STKMpesaTransaction->save();
                     return $curl_response;
                 }
         }else{

@@ -100,15 +100,21 @@
                 <hr>
 
 
-                <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div class="card card-body border-top-primary">
+                        <div class="text-center">
+                            <a href="{{url('/')}}/billings/total-receivable" class="btn btn-success"><i class="fa fa-donate mr-2"></i> Receivables</a>
+                            <a href="{{url('/')}}/billings/total-overpayed" class="btn btn-success"><i class="fa fa-money-check-alt mr-2"></i> Overpayed</a>
+                            <a href="{{url('/')}}/billings/income-search" class="btn btn-success"><i class="fa fa-search-dollar mr-2"></i> Search Date</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
                     <div class="card card-body border-top-primary">
                         <div class="text-center">
                             <a href="{{url('/')}}/billings/income-today" class="btn btn-success"><i class="fa fa-money-bill-wave-alt mr-2"></i> Today</a>
                             <a href="{{url('/')}}/billings/income-this-week" class="btn btn-success"><i class="fa fa-money-bill-wave-alt mr-2"></i> Weekly</a>
                             <a href="{{url('/')}}/billings/income-this-month" class="btn btn-success"><i class="fa fa-money-bill-wave-alt mr-2"></i> Monthly</a>
-                            <a href="{{url('/')}}/billings/total-receivable" class="btn btn-success"><i class="fa fa-donate mr-2"></i> Receivables</a>
-                            <a href="{{url('/')}}/billings/total-overpayed" class="btn btn-success"><i class="fa fa-money-check-alt mr-2"></i> Overpayed</a>
-                            <a href="{{url('/')}}/billings/income-search" class="btn btn-success"><i class="fa fa-search-dollar mr-2"></i> Search Date</a>
                         </div>
                     </div>
                 </div>
