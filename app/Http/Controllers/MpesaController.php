@@ -63,7 +63,7 @@ class MpesaController extends Controller
             'PartyB' => env("STKPARTYB"),
             'PhoneNumber' => $phoneNumber, // replace this with your phone number
             'CallBackURL' => env("STK_CALLBACKURL"),
-            'AccountReference' => "Account Reference",
+            'AccountReference' => "Atlast Educational Centre",
             'TransactionDesc' => "Testing stk push on sandbox"
         ];
         $data_string = json_encode($curl_post_data);
