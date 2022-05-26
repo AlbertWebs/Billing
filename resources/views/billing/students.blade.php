@@ -80,7 +80,7 @@
                                 </a>
                                 <a href="{{url('/')}}/billings/record-c2b/{{$item->email}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> C2B
                                 </a>
-                                <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Record Cash
+                                <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
                                 </a>
                                 {{-- <?php $Billings = DB::table('billings')->where('student',$item->id)->get(); ?>
                                 <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> Statement(<?php echo count($Billings); ?>)
