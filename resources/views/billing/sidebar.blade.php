@@ -2,7 +2,7 @@
     <ul class="nav nav-sidebar" data-nav-type="accordion">
 
         <!-- Main -->
-        <li class="nav-item nav-item-submenu @if($Group == "home") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item @if($Group == "home") nav-item-expanded nav-item-open @endif">
             <a href="{{url('/billings/students')}}" class="nav-link"> <span class="fas fa-home mr-3"> Dashboard </span></a>
         </li>
          <!-- /main -->
@@ -10,7 +10,7 @@
         <li class="nav-item-divider"></li>
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-user mr-3"></span> Students & Users</div> <i class="icon-menu" title="Forms"></i></li> --}}
 
-        <li class="nav-item nav-item-submenu @if($Group == "students") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item @if($Group == "students") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-user mr-3"> Students & Users</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link @if($Active == "students") active @endif">All Students</a></li>
@@ -24,7 +24,7 @@
 
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-graduation-cap mr-3"></span> Schools & Courses</div> <i class="icon-menu" title="Reports"></i></li> --}}
 
-        <li class="nav-item nav-item-submenu @if($Group == "courses") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item  @if($Group == "courses") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-graduation-cap mr-3"> Schools & Courses</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/courses" class="nav-link @if($Active == "courses") active @endif">All Courses</a></li>
@@ -36,7 +36,7 @@
         <li class="nav-item-divider"></li>
 
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-money-bill mr-3"></span> Billing</div> <i class="icon-menu" title="Reports"></i></li> --}}
-        <li class="nav-item nav-item-submenu @if($Group == "billings") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item  @if($Group == "billings") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-money-bill mr-3"> Billing</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 {{-- <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link @if($Active == "create-bill") active @endif">Record Payment</a></li> --}}
@@ -51,7 +51,7 @@
 
         <!-- Components -->
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-book-open mr-3"></span> Reports</div> <i class="icon-menu" title="Reports"></i></li> --}}
-        <li class="nav-item nav-item-submenu @if($Group == "reports") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item  @if($Group == "reports") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-book-open mr-3"><span> Reports</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-today" class="nav-link @if($Active == "today") active @endif">Todays Fees Income</a></li>
@@ -66,7 +66,7 @@
         <li class="nav-item-divider"></li>
         {{--  --}}
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-money-check mr-3"></span> Income & Expenses</div> <i class="icon-menu" title="Reports"></i></li> --}}
-        <li class="nav-item nav-item-submenu @if($Group == "income") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item  @if($Group == "income") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-money-check mr-3"><span> Income & Expenses</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/income" class="nav-link @if($Active == "income") active @endif">Income</a></li>
@@ -74,7 +74,7 @@
             </ul>
         </li>
         <li class="nav-item-divider"></li>
-        <li class="nav-item nav-item-submenu @if($Group == "m-pesa") nav-item-expanded nav-item-open @endif">
+        <li class="nav-item  @if($Group == "m-pesa") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-money-bill-alt mr-3"><span> M-PESA </span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/stk" class="nav-link @if($Active == "stk") active @endif">STK Payments</a></li>
@@ -84,7 +84,7 @@
         <li class="nav-item-divider"></li>
 
         @if(Session::has('partials') OR Session::has('billing') OR Session::has('user'))
-        <li class="nav-item nav-item-submenu">
+        <li class="nav-item ">
             <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span class="fas fa-recycle mr-3"> Reset All Forms</span></a>
         </li>
         @endif
