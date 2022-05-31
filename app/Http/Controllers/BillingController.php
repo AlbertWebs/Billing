@@ -543,9 +543,10 @@ public function create_bill_post(Request $request){
     $Billing->description = $description;
     $Billing->title = $Course->title;
     $Billing->paid = $paid;
+    $Course  = Course::find($course_id);
     if($Billing->save()){
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
-        $Message = "Hello $TheStudent->name, Your Payment of $amount has been recorded successfully";
+        $Message = "Hello $TheStudent->name, Your Payment of $amount, For $Course->title has been recorded successfully";
         //
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
