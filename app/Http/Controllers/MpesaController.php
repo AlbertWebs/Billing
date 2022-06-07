@@ -199,26 +199,26 @@ class MpesaController extends Controller
         $mpesa_transaction->LastName = "**";
         $mpesa_transaction->save();
 
-        $LastRecord = DB::table('mobile_payments')->orderBy('transLoID','desc')->first();
-        if(Auth::user()){
+        // $LastRecord = DB::table('mobile_payments')->orderBy('transLoID','desc')->first();
+        // if(Auth::user()){
 
-                $updateDetails = array(
-                    'user_id' => Auth::user()->id,
-                );
-                DB::table('mobile_payments')->where('transLoID',$LastRecord->transLoID)->update($updateDetails);
+        //         $updateDetails = array(
+        //             'user_id' => Auth::user()->id,
+        //         );
+        //         DB::table('mobile_payments')->where('transLoID',$LastRecord->transLoID)->update($updateDetails);
 
-        }else{
+        // }else{
 
-                $updateDetails = array(
-                    'user_id' => $content->BillRefNumber,
-                );
-                DB::table('mobile_payments')->where('transLoID',$LastRecord->transLoID)->update($updateDetails);
+        //         $updateDetails = array(
+        //             'user_id' => $content->BillRefNumber,
+        //         );
+        //         DB::table('mobile_payments')->where('transLoID',$LastRecord->transLoID)->update($updateDetails);
 
-        }
+        // }
 
 
         // Log To Laravel LOgs
-        activity()->log('C2B Payment Has Been Made');
+        // activity()->log('C2B Payment Has Been Made');
 
 
         // Responding to the confirmation request
