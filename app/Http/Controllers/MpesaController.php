@@ -181,6 +181,8 @@ class MpesaController extends Controller
         $content=json_decode($request->getContent());
         Log::info($request->getContent());
 
+
+
         $mpesa_transaction = new MpesaTransaction();
         $mpesa_transaction->TransactionType = $content->TransactionType;
         $mpesa_transaction->TransID = $content->TransID;
@@ -193,8 +195,8 @@ class MpesaController extends Controller
         $mpesa_transaction->ThirdPartyTransID = $content->ThirdPartyTransID;
         $mpesa_transaction->MSISDN = $content->MSISDN;
         $mpesa_transaction->FirstName = $content->FirstName;
-        $mpesa_transaction->MiddleName = $content->MiddleName;
-        $mpesa_transaction->LastName = $content->LastName;
+        $mpesa_transaction->MiddleName = "**";
+        $mpesa_transaction->LastName = "**";
         $mpesa_transaction->save();
 
         $LastRecord = DB::table('mobile_payments')->orderBy('transLoID','desc')->first();
