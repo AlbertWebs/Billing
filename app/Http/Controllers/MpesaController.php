@@ -126,11 +126,16 @@ class MpesaController extends Controller
         $consumer_key= env("MPESA_CONSUMER_KEY");
         $consumer_secret=env("M_PESA_CONSUMER_SECRET");
         $credentials = base64_encode($consumer_key.":".$consumer_secret);
+        // echo $consumer_key;
+
 
         // $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         $url = env('M_PESA_ENV') == 0
-        ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+        ? 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
         : 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
+
+        // echo $url;
+        // die();
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".$credentials));
@@ -139,6 +144,7 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         $curl_response = curl_exec($curl);
+        // dd($curl_response);
         $access_token=json_decode($curl_response);
         return $access_token->access_token;
     }
@@ -227,13 +233,13 @@ class MpesaController extends Controller
     public function mpesaRegisterUrls()
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl');
+        curl_setopt($curl, CURLOPT_URL, 'https://api.safaricom.co.ke/mpesa/c2b/v2/registerurl');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization: Bearer '. $this->generateAccessToken()));
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
-            'ShortCode' => "603021",
+            'ShortCode' => "928732",
             'ResponseType' => 'Completed',
             'ConfirmationURL' => "https://billing.designekta.com/api/v1/transaction/confirmation",
             'ValidationURL' => "https://billing.designekta.com/api/v1/validation"
