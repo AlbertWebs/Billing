@@ -29,8 +29,8 @@ class MpesaController extends Controller
     public function lipaNaMpesaPassword()
     {
         $lipa_time = Carbon::rawParse('now')->format('YmdHms');
-        $passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
-        $BusinessShortCode = 174379;
+        $passkey = "f8c8d30f750d884990562ad0fd20e5e0c2e867e21ccae3974eff8c841a8d032f";
+        $BusinessShortCode = 928732;
         $timestamp =$lipa_time;
         $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
         return $lipa_na_mpesa_password;
@@ -43,11 +43,7 @@ class MpesaController extends Controller
         $phoneNumbers = str_replace(' ', '', $request->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         $AmountSTK = $request->amount;
-        // $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-        $url = env('M_PESA_ENV') == 0
-        ? 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
-        : 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
-
+        $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -71,7 +67,7 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
-        // dd($curl_response);
+        dd($curl_response);
 
         // Insert MerchantRequestID
         $curl_content=json_decode($curl_response);
