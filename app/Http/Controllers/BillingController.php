@@ -558,7 +558,7 @@ public function create_bill_post(Request $request){
 }
 
 public function sendSMS($Message,$TheStudent){
-    echo $Message;
+    // echo $Message;
 
     $message = $Message;
     $phone =$TheStudent;
@@ -593,7 +593,7 @@ public function sendSMS($Message,$TheStudent){
 
     $response = curl_exec($ch);
     curl_close($ch);
-    print_r($response);
+    // print_r($response);
 }
 
 public function create_bill_partial($id){

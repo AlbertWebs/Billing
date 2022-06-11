@@ -92,9 +92,12 @@
 
                                 @else
                                   <span class="">
+                                    <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
+                                    @foreach ($Student as $student)
                                     <a href="http://localhost:8000/billings/m-pesa/{{$student->email}}" class="btn btn-outline-danger">
                                         Pay Now
                                     </a>
+                                    @endforeach
                                     <?php
                                           $Instalments = DB::table('billings')->where('group_id',$Billing->original_payment)->get();
                                           $counter = count($Instalments);

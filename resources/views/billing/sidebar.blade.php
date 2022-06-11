@@ -15,7 +15,7 @@
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link @if($Active == "students") active @endif">All Students</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link @if($Active == "users") active @endif">All Users</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/students-enroll" class="nav-link @if($Active == "enroll") active @endif">Add Enroll</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-enroll" class="nav-link @if($Active == "enroll") active @endif">Enroll</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/add-user" class="nav-link @if($Active == "add user") active @endif">Add User</a></li>
             </ul>
         </li>

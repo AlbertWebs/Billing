@@ -32,26 +32,24 @@
 
             <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
                 <div class="dropdown-content-header">
-                    <span class="font-weight-semibold">Messages</span>
+                    <span class="font-weight-semibold">Release Notes</span>
                     <a href="#" class="text-body"><i class="icon-compose"></i></a>
                 </div>
 
                 <div class="dropdown-content-body dropdown-scrollable">
                     <ul class="media-list">
                         <li class="media">
-                            <div class="mr-3 position-relative">
-                                <img src="{{asset('theme/assets/global_assets/images/demo/users/face10.jpg')}}" width="36" height="36" class="rounded-circle" alt="">
-                            </div>
+
 
                             <div class="media-body">
                                 <div class="media-title">
                                     <a href="#">
-                                        <span class="font-weight-semibold">New Payment</span>
-                                        <span class="text-muted float-right font-size-sm">04:58</span>
+                                        <span class="font-weight-semibold">Atlas Educational Center Release v1.0</span>
+                                        <span class="text-muted float-right font-size-sm">May 20th 2020</span>
                                     </a>
                                 </div>
 
-                                <span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+                                <span class="text-muted">Release v1.0 Coded With PHP and runs on Laravel. Git Link at <a href="https://github.com/AlbertWebs/Billing">https://github.com/AlbertWebs/Billing</a></span>
                             </div>
                         </li>
 
