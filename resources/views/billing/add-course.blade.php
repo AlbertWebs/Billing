@@ -102,7 +102,7 @@
                                                 <div class="form-group" data-select2-id="207">
 
                                                     <select name="school" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true">
-                                                        <optgroup label="Tutors" data-select2-id="208">
+                                                        <optgroup label="Schools" data-select2-id="208">
                                                             @foreach ($School as $school)
                                                                <option value="{{$school->id}}" data-select2-id="68{{$school->id}}">{{$school->title}}</option>
                                                             @endforeach

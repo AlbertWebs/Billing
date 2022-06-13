@@ -21,6 +21,7 @@ class CreateCashesTable extends Migration
             $table->string('user')->nullable();
             $table->text('reason')->nullable();
             $table->text('balance')->nullable();
+            $table->text('campus');
             $table->string('code')->nullable();
             $table->timestamps();
         });

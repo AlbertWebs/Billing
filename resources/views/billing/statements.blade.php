@@ -1,6 +1,9 @@
 @extends('billing.master-invoice')
 @section('content')
 <!-- Main content -->
+@foreach ($Student as $Student)
+
+
 <div class="content-wrapper">
 
     <!-- Inner content -->
@@ -14,10 +17,10 @@
 
             <!-- Invoice archive -->
             <div class="card">
-                <div class="card-header bg-transparent header-elements-inline">
+                <div class="card-header bg-transparent header-elements-inline cs-hide_print">
                     <h6 class="card-title">Payments By: {{$Student->name}}</h6>
                 </div>
-                <button type="button" class="btn btn-success btn-sm ml-3" onclick = "window.print()"><i class="icon-printer mr-2"></i><span class="fas fa-print mr-3"></span> Print</button>
+                <a href="javascript:window.print()" type="button" class="btn btn-success btn-sm ml-3 cs-hide_print"><i class="icon-printer mr-2"></i><span class="fas fa-print mr-3"></span> Print</a>
 
                 <table class="table table-lg invoice-archive">
                     <thead>
@@ -25,7 +28,7 @@
                             <th>Reference</th>
                             <th>Period</th>
                             <th>Issued to </th>
-                            <th>Status</th>
+                            <th></th>
                             <th>Payment date  </th>
                             <th></th>
                             <th>Amount</th>
@@ -61,7 +64,7 @@
                                 </h6>
                             </td>
                             <td>
-                                @if($Billing->balance == 0)
+                                {{-- @if($Billing->balance == 0)
                                    <select name="status" class="custom-select alert-success" >
                                 @else
                                    <select name="status" class="custom-select alert-info" >
@@ -73,7 +76,7 @@
                                     <option value="overdue" selected>Partially Paid</option>
                                     <option value="hold">Paid</option>
                                     @endif
-                                </select>
+                                </select> --}}
                             </td>
                             <td>
                                 {{$Month}} {{$date}}, {{$Year}} at {{$Hour}}:{{$min}}:{{$Sec}}
@@ -107,4 +110,5 @@
 
 </div>
 <!-- /main content -->
+@endforeach
 @endsection

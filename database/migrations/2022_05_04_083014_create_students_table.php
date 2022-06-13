@@ -20,8 +20,8 @@ class CreateStudentsTable extends Migration
             $table->string('campus');
             $table->string('mobile');
             $table->string('gender');
-            $table->string('avatar');
-            $table->string('status');
+            $table->string('avatar')->default('0');
+            $table->string('status')->default('1');
             $table->string('course_id')->nullable();
             $table->timestamps();
         });

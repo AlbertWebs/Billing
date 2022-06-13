@@ -17,6 +17,7 @@ class CreateExpensesTable extends Migration
             $table->id();
             $table->string('amount')->nullable();
             $table->string('balance')->nullable();
+            $table->text('campus');
             $table->timestamp('date')->useCurrent = true;
             $table->string('user')->nullable();
             $table->text('reason')->nullable();

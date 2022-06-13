@@ -13,6 +13,7 @@
                     <thead>
                         <tr><th>#</th>
                             <th>Course Title</th>
+                            {{-- <th>Campus</th> --}}
                             <th>School</th>
                             <th>Price</th>
                             {{-- <th>Tutor</th> --}}
@@ -23,7 +24,13 @@
                         @foreach ($Courses as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->title}}</td>
+                            <td>{{$item->title}}<br>
+                                <?php $Settings = DB::table('settings')->where('id',Auth::user()->campus)->get(); ?>
+                                @foreach ($Settings as $Set)
+                                <strong>{{$Set->name}}</strong>
+                                @endforeach
+                            </td>
+
                             <td>
                                 <?php $School = DB::table('schools')->where('id',$item->school)->get(); ?>
                                 @foreach($School as $sc)

@@ -77,6 +77,8 @@ class BillingController extends Controller
          $Student->email = $email;
          $Student->mobile = $mobile;
          $Student->gender = $gender;
+         $Student->avatar = "0";
+         $Student->campus = Auth::user()->campus;
 
          $User = Student::where('email',$email)->get();
          if($Student->save()){
@@ -88,12 +90,12 @@ class BillingController extends Controller
        $Group = "students";
        $Title = "All Users";
        $Active = "students";
-       $Student = Student::find($id);
+       $Student = Student::where('campus' ,Auth::user()->campus)->where('id',$id);
        return view('billing.save-student', compact('Student','Group','Active','Title'));
     }
 
     public function save_images($id){
-        $Student = Student::find($id);
+        $Student = DB::table('students')->where('id',$id)->where('campus',Auth::User()->campus)->get();
         return view('billing.save-student-image', compact('Student'));
     }
 
@@ -151,6 +153,7 @@ class BillingController extends Controller
            'title' => $title,
            'price' => $price,
            'school' => $school,
+           'campus' =>Auth::User()->campus,
         );
 
         DB::table('courses')->where('id',$id)->update($updateDetails);
@@ -161,7 +164,7 @@ class BillingController extends Controller
         $Group = "courses";
         $Title = "All Users";
         $Active = "courses";
-        $Courses = Course::all();
+        $Courses = Course::where('campus',Auth::User()->campus)->get();
         return view('billing.courses', compact('Courses','Group','Title','Active'));
     }
 
@@ -192,7 +195,7 @@ class BillingController extends Controller
         $Title = "All Users";
         $Active = "add course";
         $Tutor = Tutor::all();
-        $Courses = Course::find($id);
+        $Courses = Course::where('campus' ,Auth::user()->campus)->where('id',$id);
         $School = School::all();
         return view('billing.course', compact('Courses','Tutor','School','Group','Title','Active'));
     }
@@ -216,6 +219,7 @@ class BillingController extends Controller
         $Course->title = $request->title;
         $Course->school = $request->school;
         $Course->price = $request->price;
+        $Course->campus = Auth::User()->campus;
 
         $Course->save();
         return Redirect::back();
@@ -225,6 +229,7 @@ class BillingController extends Controller
         $title = $request->title;
         $School = new School;
         $School->title = $request->title;
+        $School->campus = Auth::User()->campus;
         $School->save();
         Session::flash('message', "School Has Been Added");
         return Redirect::back();
@@ -246,13 +251,13 @@ class BillingController extends Controller
 
 
     public function course_delete($id){
-        DB::table('courses')->where('id',$id)->delete();
+        DB::table('courses')->where('id',$id)->where('campus' ,Auth::user()->campus)->delete();
         return Redirect::back();
     }
 
 
     public function tutor_delete($id){
-        DB::table('tutors')->where('id',$id)->delete();
+        DB::table('tutors')->where('id',$id)->where('campus' ,Auth::user()->campus)->delete();
         return Redirect::back();
     }
 
@@ -295,7 +300,7 @@ class BillingController extends Controller
         $Group = "billings";
         $Title = "All Users";
         $Active = "my-payments";
-        $Billings = DB::table('billings')->where('group_id',null)->get();
+        $Billings = DB::table('billings')->where('group_id',null)->where('campus' ,Auth::user()->campus)->get();
         return view('billing.payments',compact('Billings','Group','Title','Active'));
    }
 
@@ -303,7 +308,7 @@ class BillingController extends Controller
     $Group = "billings";
     $Title = "All Students";
     $Active = "my-payments";
-    $Billings = DB::table('billings')->where('group_id',$ref)->get();
+    $Billings = DB::table('billings')->where('group_id',$ref)->where('campus' ,Auth::user()->campus)->get();
     return view('billing.payments_ref',compact('Billings','Group','Title','Active'));
   }
 
@@ -342,6 +347,7 @@ public function create_bill_posts(Request $request){
     // Create Cases
     $Cash = new Cash;
     $Cash->amount = $amount;
+    $Cash->campus = Auth::user()->campus;
     $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
     $Cash->user = Auth::user()->id;
     $Cash->source = "M-PESA";
@@ -352,7 +358,7 @@ public function create_bill_posts(Request $request){
     $Course_price = $Course->price;
     $Amount_paid = $amount;
     // Check if payment exists
-    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','DESC')->first();
+    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->orderBy('id','DESC')->first();
     if($Previous == null){
         //
         if($Amount_paid == $Course_price){
@@ -384,7 +390,7 @@ public function create_bill_posts(Request $request){
                 'group_role' => 'child',
                 'group_id' => $reference,
             );
-            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->update($UpdateDetails);
         }
         else
         {
@@ -397,7 +403,7 @@ public function create_bill_posts(Request $request){
                 'group_role' => 'child',
                 'group_id' => $original_payment,
             );
-            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->update($UpdateDetails);
         }
     }
 
@@ -411,6 +417,7 @@ public function create_bill_posts(Request $request){
     $Billing->balance = $Balance;
     $Billing->course_id = $course_id;
     $Billing->amount = $amount;
+    $Billing->campus = Auth::user()->campus;
     $Billing->description = $description;
     $Billing->title = $Course->title;
     $Billing->paid = $paid;
@@ -418,7 +425,7 @@ public function create_bill_posts(Request $request){
     if($Billing->save()){
 
         //Get Latest
-        $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
+        $Billing = DB::table('billings')->orderBy('created_at', 'desc')->where('campus' ,Auth::user()->campus)->first();
         return $this->download($Billing->id);
     }
 
@@ -462,6 +469,7 @@ public function create_bill_post(Request $request){
     // Create Cases
     $Cash = new Cash;
     $Cash->amount = $amount;
+    $Cash->campus = Auth::user()->campus;
     $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
     $Cash->user = Auth::user()->id;
     $Cash->source = "M-PESA";
@@ -472,8 +480,8 @@ public function create_bill_post(Request $request){
     $Course_price = $Course->price;
     $Amount_paid = $amount;
     // Check if payment exists
-    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','DESC')->first();
-    $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->orderBy('id','ASC')->first();
+    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->orderBy('id','DESC')->first();
+    $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->orderBy('id','ASC')->first();
     if($Previous == null){
         //
         if($Amount_paid == $Course_price){
@@ -505,7 +513,7 @@ public function create_bill_post(Request $request){
                 'group_role' => 'child',
                 'group_id' => $reference,
             );
-            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->update($UpdateDetails);
         }
         else
         {
@@ -518,7 +526,7 @@ public function create_bill_post(Request $request){
                 'group_role' => 'child',
                 'group_id' => $original_payment,
             );
-            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->update($UpdateDetails);
+            DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::user()->campus)->update($UpdateDetails);
         }
     }
 
@@ -542,10 +550,11 @@ public function create_bill_post(Request $request){
     $Billing->amount = $amount;
     $Billing->description = $description;
     $Billing->title = $Course->title;
+    $Billing->campus = Auth::user()->campus;
     $Billing->paid = $paid;
     $Course  = Course::find($course_id);
     if($Billing->save()){
-        $Billing = DB::table('billings')->orderBy('created_at', 'desc')->first();
+        $Billing = DB::table('billings')->orderBy('created_at', 'desc')->where('campus' ,Auth::user()->campus)->first();
         $Message = "Hello $TheStudent->name, Your Payment of $amount, For $Course->title has been recorded successfully";
         //
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
@@ -554,7 +563,6 @@ public function create_bill_post(Request $request){
         $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
     }
-
 }
 
 public function sendSMS($Message,$TheStudent){
@@ -607,7 +615,7 @@ public function create_bill_partial($id){
 
 public function getInfo($id)
 {
-  $fill = DB::table('courses')->where('id', $id)->pluck('price');
+  $fill = DB::table('courses')->where('campus' ,Auth::user()->campus)->where('id', $id)->pluck('price');
 
   return Response::json(['success'=>true, 'info'=>$fill]);
 }
@@ -622,13 +630,12 @@ public function download($id) {
     $Group = "billings";
     $Title = "All Students";
     $Active = "m-pesa";
-    $Billing = Billing::find($id);
-
+    $Billing = Billing::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
     return view('billing.download', compact('Billing','Group','Title','Active'));
 
 }
 public function edit_bill($id) {
-    $Billing = Billing::find($id);
+    $Billing = Billing::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
     return view('billing.edit_bill', compact('Billing'));
 
 }
@@ -642,7 +649,7 @@ public function reports() {
 
 public function checkEmail(Request $request){
     $email = $request->input('email');
-    $isExists = Student::where('email',$email)->first();
+    $isExists = Student::where('email',$email)->where('campus' ,Auth::user()->campus)->first();
     if($isExists){
         return response()->json(array("exists" => true));
     }else{
@@ -672,7 +679,7 @@ public function system_settings() {
     $Group = "courses";
     $Title = "System Settings";
     $Active = "schools";
-    $Settings = Setting::all();
+    $Settings = Setting::where('campus' ,Auth::user()->campus)->get();
     return view('billing.system-settings', compact('Settings','Group','Title','Active'));
 }
 
@@ -696,10 +703,11 @@ public function save_settings(Request $request){
        'email' => $email,
        'mobile' => $mobile,
        'location' => $location,
+       'campus' => Auth::user()->campus,
        'logo' => $avatarlogo,
     );
 
-    DB::table('settings')->update($updateDetails);
+    DB::table('settings')->where('campus' ,Auth::user()->campus)->update($updateDetails);
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 }
@@ -709,7 +717,7 @@ public function switch_status($id,$status){
     $updateDetails = array(
         'status' => $status,
     );
-    DB::table('students')->where('id',$id)->update($updateDetails);
+    DB::table('students')->where('id',$id)->where('campus' ,Auth::user()->campus)->update($updateDetails);
     Session::flash('message', "Status Updated!");
     return Redirect::back();
 }
@@ -720,8 +728,8 @@ public function process_payment($Re){
 }
 
 public function profile($id){
-   $User = Student::find($id);
-   $Billing = Billing::where('student',$id)->get();
+   $User = Student::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
+   $Billing = Billing::where('student',$id)->where('campus' ,Auth::user()->campus)->get();
    return view('billing.profile', compact('Billing','User'));
 }
 
@@ -729,7 +737,7 @@ public function schools(){
     $Group = "courses";
     $Title = "All Users";
     $Active = "schools";
-    $School = School::all();
+    $School = School::where('campus' ,Auth::user()->campus)->get();
     return view('billing.schools', compact('School','Group','Title','Active'));
 }
 
@@ -737,7 +745,7 @@ public function school($id){
     $Group = "courses";
     $Title = "All Users";
     $Active = "schools";
-    $School = School::find($id);
+    $School = School::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
     return view('billing.school', compact('School','Group','Title','Active'));
 }
 
@@ -746,21 +754,22 @@ public function save_school_post(Request $request ,$id){
     $title = $request->title;
     $updateDetails =  array(
     'title' => $title,
+    'campus' => Auth::User()->campus,
     );
 
-    DB::table('schools')->where('id',$id)->update($updateDetails);
+    DB::table('schools')->where('id',$id)->where('campus' ,Auth::user()->campus)->update($updateDetails);
     Session::flash('message', "Updated!");
     return Redirect::back();
 }
 
 public function delete_student($id){
-    DB::table('students')->where('id',$id)->delete();
+    DB::table('students')->where('id',$id)->where('campus' ,Auth::user()->campus)->delete();
     Session::flash('message', "Deleted!");
     return Redirect::back();
 }
 
 public function edit_pic($id){
-    $Student = Student::find($id);
+    $Student = Student::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
     $Group = "students";
     $Title = "All Users";
     $Active = "users";
@@ -784,7 +793,7 @@ public function save_pic(Request $request, $id){
        'avatar' => $avatarlogo,
     );
 
-    DB::table('students')->where('id',$id)->update($updateDetails);
+    DB::table('students')->where('id',$id)->where('campus' ,Auth::user()->campus)->update($updateDetails);
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 }
@@ -793,13 +802,13 @@ public function my_statements($id){
     $Group = "income";
     $Title = "Record Expenses";
     $Active = "m-pesa";
-    $Student = Student::find($id);
-    $Billings = Billing::where('student',$id)->get();
+    $Student = Student::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
+    $Billings = Billing::where('student',$id)->where('campus' ,Auth::user()->campus)->get();
     return view('billing.statements', compact('Billings','Student','Group','Title','Active'));
 }
 
 public function user($id){
-    $User = User::find($id);
+    $User = User::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
     $Group = "students";
     $Title = "$User->name";
     $Active = "student";
@@ -810,7 +819,7 @@ public function users(){
     $Group = "students";
     $Title = "All Users";
     $Active = "users";
-    $User = User::all();
+    $User = User::where('campus' ,Auth::user()->campus)->get();
     return view('billing.users', compact('User','Group','Title','Active'));
 }
 
@@ -822,7 +831,7 @@ public function add_user(){
 }
 
 public function delete_user($id){
-    DB::table('users')->where('id',$id)->delete();
+    DB::table('users')->where('id',$id)->where('campus' ,Auth::user()->campus)->delete();
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 }
@@ -886,13 +895,14 @@ public function switch_user($id,$status){
     return Redirect::back();
 }
 
+
 public function income_today(){
     $Group = "reports";
     $Active = "today";
     $Title = "Todays Income";
-    $Billings = Billing::whereDate('created_at', Carbon::today())->get();
-    $Total = Billing::whereDate('created_at', Carbon::today())->sum('amount');
-    $Balance = Billing::whereDate('created_at', Carbon::today())->sum('balance');
+    $Billings = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::user()->campus)->get();
+    $Total = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::user()->campus)->sum('amount');
+    $Balance = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::user()->campus)->sum('balance');
     return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
@@ -901,9 +911,9 @@ public function income_week(){
     $Active = "today";
     $Title = "This Weeks Income";
     $date = Carbon::now()->subDays(7);
-    $Billings = Billing::where('created_at', '>=', $date)->get();
-    $Total = Billing::where('created_at', '>=', $date)->sum('amount');
-    $Balance = Billing::where('created_at', '>=', $date)->sum('balance');
+    $Billings = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::user()->campus)->get();
+    $Total = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::user()->campus)->sum('amount');
+    $Balance = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::user()->campus)->sum('balance');
     return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
@@ -912,9 +922,9 @@ public function income_this_month(){
     $Active = "month";
     $Title = "This Months Income - Last 30 Days";
     $date = Carbon::now()->subDays(30);
-    $Billings = Billing::where('created_at', '>=', $date)->get();
-    $Total = Billing::where('created_at', '>=', $date)->sum('amount');
-    $Balance = Billing::where('created_at', '>=', $date)->sum('balance');
+    $Billings = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::user()->campus)->get();
+    $Total = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::user()->campus)->sum('amount');
+    $Balance = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::user()->campus)->sum('balance');
     return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
@@ -923,7 +933,7 @@ public function income_search(){
     $Group = "reports";
     $Active = "search";
     Session::forget('search');
-    $Billings = Billing::all();
+    $Billings = Billing::where('campus' ,Auth::user()->campus)->get();
     $Title = "Search Income Date";
     return view('billing.income_search', compact('Title','Billings','Group','Active'));
 }
@@ -935,10 +945,10 @@ public function income_x_days(Request $request){
     $date = $request->date;
     $Title = "Income on $request->date";
     $datef = date('Y-m-d', strtotime($date));
-    $Billings = Billing::whereDate('created_at', $datef)->get();
+    $Billings = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::user()->campus)->get();
     Session::put('search', $date);
-    $Total = Billing::whereDate('created_at', $datef)->sum('amount');
-    $Balance = Billing::whereDate('created_at', $datef)->sum('balance');
+    $Total = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::user()->campus)->sum('amount');
+    $Balance = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::user()->campus)->sum('balance');
     return view('billing.income_search', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
@@ -947,7 +957,7 @@ public function income_search_range(){
     $Active = "search";
     // Clear Session
     Session::forget('search');
-    $Billings = Billing::all();
+    $Billings = Billing::where('campus' ,Auth::user()->campus)->get();
     $Title = "Search Income Date";
     return view('billing.income_search_range', compact('Title','Billings','Group','Active'));
 }
@@ -964,10 +974,10 @@ public function income_x_days_range(Request $request){
     $StartF = date('Y-m-d', strtotime($Start));
     $StopF = date('Y-m-d', strtotime($Stop));
     $Title = "Income on $StartF - $StopF";
-    $Billings = Billing::whereBetween('created_at', [$StartF,$StopF])->get();
+    $Billings = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::user()->campus)->get();
     Session::put('search', $date);
-    $Total = Billing::whereBetween('created_at', [$StartF,$StopF])->sum('amount');
-    $Balance = Billing::whereBetween('created_at', [$StartF,$StopF])->sum('balance');
+    $Total = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::user()->campus)->sum('amount');
+    $Balance = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::user()->campus)->sum('balance');
     return view('billing.income_search_range', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
@@ -976,8 +986,8 @@ public function total_receivable(){
     $Active = "receivable";
     // Clear Session
     Session::forget('search');
-    $Billings = DB::table('billings')->where('balance','>',0)->get();
-    $Balance = DB::table('billings')->sum('balance');
+    $Billings = DB::table('billings')->where('campus' ,Auth::user()->campus)->where('balance','>',0)->get();
+    $Balance = DB::table('billings')->where('campus' ,Auth::user()->campus)->sum('balance');
     $Title = "Total Reciveble";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
@@ -987,8 +997,8 @@ public function total_overpayed(){
     $Active = "overpayed";
     // Clear Session
     Session::forget('search');
-    $Billings = DB::table('billings')->where('balance','<',0)->get();
-    $Balance = DB::table('billings')->sum('balance');
+    $Billings = DB::table('billings')->where('campus' ,Auth::user()->campus)->where('balance','<',0)->get();
+    $Balance = DB::table('billings')->where('campus' ,Auth::user()->campus)->sum('balance');
     $Title = "Total Overpayed";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
@@ -996,12 +1006,12 @@ public function income(){
     $Group = "income";
     $Title = "All Income";
     $Active = "users";
-    $Income = Cash::all();
+    $Income = Cash::where('campus' ,Auth::user()->campus)->get();
     return view('billing.income', compact('Income','Group','Title','Active'));
 }
 
 public function record_expenses(){
-    $Cash = DB::table('cashes')->orderBy('id','DESC')->first();
+    $Cash = DB::table('cashes')->where('campus' ,Auth::user()->campus)->orderBy('id','DESC')->first();
     $Group = "income";
     $Title = "Record Expenses";
     $Active = "m-pesa";
@@ -1009,12 +1019,13 @@ public function record_expenses(){
 }
 
 public function record_expenses_post(Request $request){
-    $Cash = DB::table('cashes')->orderBy('id','DESC')->first();
+    $Cash = DB::table('cashes')->where('campus' ,Auth::user()->campus)->orderBy('id','DESC')->first();
     $Balance = $Cash->balance;
     $NewBalance = $Balance-$request->amount;
     // Calculate Balance
     $Expense = new Expense;
     $Expense->amount = $request->amount;
+    $Expense->campus = Auth::user()->campus;
     $Expense->balance = $NewBalance;
     $Expense->user = Auth::user()->id;
     $Expense->reason = $request->reason;
@@ -1022,6 +1033,7 @@ public function record_expenses_post(Request $request){
         // Create a record in the cashes table
         $Cash = new Cash;
         $Cash->amount = "-$request->amount";
+        $Cash->campus = Auth::user()->campus;
         $Cash->reason = $request->reason;
         $Cash->user = Auth::user()->id;
         $Cash->source = "Admin Initiated";
@@ -1037,7 +1049,7 @@ public function expenses(){
     $Group = "income";
     $Title = "Record Expenses";
     $Active = "expenses";
-    $Expense = Expense::all();
+    $Expense = Expense::where('campus' ,Auth::user()->campus)->get();
     return view('billing.expenses',compact('Expense','Group','Title','Active'));
 }
 
@@ -1060,7 +1072,7 @@ public function stk(){
 public function my_courses($id){
     // $Billings = DB::table('billings')->where('student',$id)->get();
     // $Billings = Billing::select('course_id')->where('student',$id)->distinct()->get();
-    $Billings = Billing::distinct()->get(['course_id']);
+    $Billings = Billing::distinct()->where('campus' ,Auth::user()->campus)->get(['course_id']);
     dd($Billings);
     foreach ($Billings as $key => $value) {
         echo $value->reference;

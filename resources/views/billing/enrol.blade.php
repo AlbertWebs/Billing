@@ -83,9 +83,9 @@
                                     <a href="{{url('/')}}/billings/create-bill/{{Session::get('user')}}" class="btn btn-primary">
                                         <span class="fas fa-print mr-3"></span> Record Payment <i class="icon-paperplane ml-2"></i>
                                     </a>
-                                    <a href="{{url('/')}}/billings/m-pesa/{{Session::get('user')}}" class="btn btn-primary">
+                                    {{-- <a href="{{url('/')}}/billings/m-pesa/{{Session::get('user')}}" class="btn btn-primary">
                                         <span class="fas fa-print mr-3"></span> Initiate Payment <i class="icon-paperplane ml-2"></i>
-                                    </a>
+                                    </a> --}}
                                     @endif
                                     <button type="submit" class="btn btn-primary">
                                         <span class="fas fa-save mr-3"></span> Add Student <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />

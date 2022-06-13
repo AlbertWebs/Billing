@@ -79,7 +79,7 @@
 							<div class="media-body">
 								<div class="font-weight-semibold">{{Auth::user()->name}}</div>
 								<div class="font-size-sm line-height-sm opacity-50">
-									Senior developer
+									{{Auth::user()->role}}
 								</div>
 							</div>
 

@@ -19,16 +19,17 @@ class CreateBillingsTable extends Migration
             $table->text('note');
             $table->integer('balance');
             $table->integer('amount');
+            $table->integer('campus');
             $table->integer('course_id');
             $table->string('group_id')->nullable();
             $table->string('group_role')->nullable();
             $table->string('original_payment')->nullable();
             $table->text('description')->nullable();
-            $table->string('due')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('due')->nullable();
             $table->text('title')->nullable();
             $table->string('reference')->nullable();
             $table->string('transID')->nullable();
-            $table->integer('paid');
+            $table->string('paid');
             $table->timestamps();
         });
     }
