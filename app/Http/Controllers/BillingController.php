@@ -41,7 +41,6 @@ class BillingController extends Controller
      */
 
     public function index(){
-
         $Group = "home";
         $Title = "All Students";
         $Active = "home";
@@ -55,7 +54,8 @@ class BillingController extends Controller
         $Group = "students";
         $Title = "All Students";
         $Active = "students";
-        $Student = Student::all();
+        // $Student = Student::all();
+        $Student = DB::table('students')->where('campus' ,Auth::user()->campus)->get();
         return view('billing.students', compact('Student','Group','Title','Active'));
     }
 

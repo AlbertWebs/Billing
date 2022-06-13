@@ -8,7 +8,7 @@
         </button>
     </div>
 
-    <?php $Settings = DB::table('settings')->get('logo') ?>
+    <?php $Settings = DB::table('settings')->where('id',Auth::user()->campus)->get() ?>
     @foreach ($Settings as $item)
     <div class="navbar-brand text-center text-lg-left">
         <a href="{{url('/')}}" class="d-inline-block">

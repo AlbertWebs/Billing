@@ -14,11 +14,11 @@ use App\Models\Payment;
 class PaymentsConroller extends Controller
 {
 
-    /** 
+    /**
     * Define env method similar to laravel's
     *
     * @param String $env_param | Environment Param Name
-    * 
+    *
     * @return String | Actual Param
     */
     public static function env($env_param){
@@ -31,7 +31,7 @@ class PaymentsConroller extends Controller
 
         $env = getenv($env_param);
 
-        return $env; 
+        return $env;
     }
 
     public function verify(Request $request)
@@ -75,12 +75,12 @@ class PaymentsConroller extends Controller
     }
 
     // MPESA API
-   
+
 
     public function Balance($AccID)
     {
         //return Redirect::to('https://amanivehiclesounds.co.ke/mpesa/accoutbalance.php');
-       
+
         $mpesa = new \Safaricom\Mpesa\Mpesa();
         $CommandID = "AccountBalance";
         $Initiator = $Initiator = env("MPESA_INITIATOR");
@@ -94,14 +94,14 @@ class PaymentsConroller extends Controller
         $balanceInquiry = $mpesa->accountBalance($CommandID, $Initiator, $SecurityCredential, $PartyA, $IdentifierType, $Remarks, $QueueTimeOutURL, $ResultURL);
         $tablename = "accountbalance";
         return $this->checklast($AccID,$tablename);
-       
+
     }
 
     public function checklast($AccID,$table){
         if($table == 'accountbalance'){
             $table == 'accountbalance';
             $TableData = DB::table('accountbalance')->orderBy('accountBalID', 'DESC')->first();
-            // 
+            //
                $lastRecord =  $TableData->accountBalID;
                if($lastRecord == $AccID){
                 return $this->checklast($lastRecord,$table);
@@ -113,11 +113,11 @@ class PaymentsConroller extends Controller
                    }
 
                }
-            // 
+            //
         }else if($table == 'b2b_api_response'){
             $table == 'b2b_api_response';
             $TableData = DB::table('b2b_api_response')->orderBy('b2bTransactionID', 'DESC')->first();
-            // 
+            //
                $lastRecord =  $TableData->b2bTransactionID;
                if($lastRecord == $AccID){
                    return $this->checklast($lastRecord,$table);
@@ -126,12 +126,12 @@ class PaymentsConroller extends Controller
                    $NewBalance = DB::table('b2b_api_response')->orderBy('b2bTransactionID', 'DESC')->first();
                    return "Transaction Completed Successfully";
                 }
-            // 
+            //
 
         }else if($table == 'b2c_api_response'){
             $table == 'b2c_api_response';
             $TableData = DB::table('b2c_api_response')->orderBy('b2bID', 'DESC')->first();
-            // 
+            //
                $lastRecord =  $TableData->b2bID;
                if($lastRecord == $AccID){
                    return $this->checklast($lastRecord,$table);
@@ -139,12 +139,12 @@ class PaymentsConroller extends Controller
                    $NewBalance = DB::table('b2c_api_response')->orderBy('b2bID', 'DESC')->first();
                    return "Transaction Completed Successfully";
                 }
-            // 
+            //
 
         }else if($table == 'reverse_transaction'){
             $table == 'reverse_transaction';
             $TableData = DB::table('reverse_transaction')->orderBy('transactionstatusID', 'DESC')->first();
-            // 
+            //
                $lastRecord =  $TableData->transactionstatusID;
                if($lastRecord == $AccID){
                    return $this->checklast($lastRecord,$table);
@@ -153,12 +153,12 @@ class PaymentsConroller extends Controller
                    $NewBalance = DB::table('reverse_transaction')->orderBy('transactionstatusID', 'DESC')->first();
                    return "Transaction Completed Successfully";
                 }
-            // 
+            //
 
         }else if($table == 'transaction_status'){
             $table == 'transaction_status';
             $TableData = DB::table('transaction_status')->orderBy('transactionStatusID', 'DESC')->first();
-            // 
+            //
                 $lastRecord =  $TableData->transactionStatusID;
                 if($lastRecord == $AccID){
                     return $this->checklast($lastRecord,$table);
@@ -166,16 +166,16 @@ class PaymentsConroller extends Controller
                     $NewBalance = DB::table('transaction_status')->orderBy('transactionStatusID', 'DESC')->first();
                     return "Transaction Completed Successfully";
                 }
-            // 
-                
+            //
+
         }else{
             return "Error Processing Your Request";
         }
     }
 
-    
 
-    
+
+
     public function C2B(Request $request)
     {
         $mpesa = new \Safaricom\Mpesa\Mpesa();
@@ -184,7 +184,7 @@ class PaymentsConroller extends Controller
         $Amount = '15000';
         $Msisdn = '254708374149';
         $BillRefNumber = 'AVS001';
-       
+
         $b2bTransaction = $mpesa->c2b($ShortCode, $CommandID, $Amount, $Msisdn, $BillRefNumber);
     }
 
@@ -194,7 +194,7 @@ class PaymentsConroller extends Controller
         $MPESA_SECURITY_CREDENTIALS = \Config::get('values.MPESA_SECURITY_CREDENTIALS');
         $MPESA_PARTYA = \Config::get('values.MPESA_PARTYA');
 
-     
+
 
         $mpesa = new \Safaricom\Mpesa\Mpesa();
         $CommandID = "TransactionReversal";
@@ -208,13 +208,13 @@ class PaymentsConroller extends Controller
         $Occasion = $request->Remark;
         $ResultURL = 'https://amanivehiclesounds.co.ke/payments/reverseresponce.php';
         $QueueTimeOutURL = 'https://amanivehiclesounds.co.ke/payments/reverseresponce.php';
-    
-        
+
+
         $reversal = $mpesa->reversal($CommandID, $Initiator, $SecurityCredential, $TransactionID, $Amount, $ReceiverParty, $RecieverIdentifierType, $ResultURL, $QueueTimeOutURL, $Remarks, $Occasion);
-        
+
         $tablename = 'reverse_transaction';
         return $this->checklast($AccID,$tablename);
-    } 
+    }
 
 
     public function TransactionStatus(Request $request,$AccID)
@@ -230,7 +230,7 @@ class PaymentsConroller extends Controller
         $Occasion = "AVS";
         $QueueTimeOutURL = 'https://amanivehiclesounds.co.ke/payments/transactionstatus_callback_url.php';
         $ResultURL = 'https://amanivehiclesounds.co.ke/payments/transactionstatus_callback_url.php';
-        
+
         $trasactionStatus = $mpesa->transactionStatus($Initiator, $SecurityCredential, $CommandID, $TransactionID, $PartyA, $IdentifierType, $ResultURL, $QueueTimeOutURL, $Remarks, $Occasion);
         $tablename = 'transaction_status';
         return $this->checklast($AccID,$tablename);
@@ -241,7 +241,7 @@ class PaymentsConroller extends Controller
         $MPESA_INITIATOR = \Config::get('values.MPESA_INITIATOR');
         $MPESA_SECURITY_CREDENTIALS = \Config::get('values.MPESA_SECURITY_CREDENTIALS');
         $MPESA_PARTYA = \Config::get('values.MPESA_PARTYA');
-        
+
         $mpesa = new \Safaricom\Mpesa\Mpesa();
         // Variables
         $InitiatorName = $MPESA_INITIATOR;
@@ -266,7 +266,7 @@ class PaymentsConroller extends Controller
         $MPESA_INITIATOR = \Config::get('values.MPESA_INITIATOR');
         $MPESA_SECURITY_CREDENTIALS = \Config::get('values.MPESA_SECURITY_CREDENTIALS');
         $MPESA_PARTYB = \Config::get('values.MPESA_PARTYB');
-        
+
         $mpesa = new \Safaricom\Mpesa\Mpesa();
         // Variables
         $Initiator = $MPESA_INITIATOR;
@@ -318,10 +318,10 @@ class PaymentsConroller extends Controller
         $Password = base64_encode($BusinessShortCode . $LipaNaMpesaPasskey . $Timestamp);
         $PartyB = $BusinessShortCode;
         $Remarks = 'STK';
-       
+
         $stkPushSimulation = $mpesa->STKPushSimulation($BusinessShortCode, $LipaNaMpesaPasskey, $TransactionType, $Amount, $PartyA, $PartyB, $PhoneNumber, $CallBackURL, $AccountReference, $TransactionDesc, $Remarks);
 
-        return $this->check($PhoneNumber); 
+        return $this->check($PhoneNumber);
 
     }
 
