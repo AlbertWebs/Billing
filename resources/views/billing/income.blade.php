@@ -55,6 +55,32 @@
                             </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td></td>
+                            <td>
+
+                            </td>
+
+                            <td>
+                                @if($IncomeTotal < 0)
+                                <a href="#" class="btn btn-outline-danger">
+                                   <strong><strong>Total Income</strong><hr> KES {{$IncomeTotal}}</strong>
+                                </a>
+                                @else
+                                <a href="#" class="btn btn-outline-success">
+                                    <strong><strong>Total Income</strong><hr> KES {{$IncomeTotal}}</strong>
+                                 </a>
+                                @endif
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

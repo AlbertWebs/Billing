@@ -76,7 +76,13 @@ Route::group(['prefix'=>'billings'], function(){
 
     Route::get('/system-settings', [App\Http\Controllers\BillingController::class, 'system_settings'])->name('system-settings');
 
+    Route::get('/system-settings/{id}', [App\Http\Controllers\BillingController::class, 'system_settings_single'])->name('system-settings');
+
     Route::post('/save-settings', [App\Http\Controllers\BillingController::class, 'save_settings'])->name('save-settings');
+
+    Route::post('/save-settings-single/{id}', [App\Http\Controllers\BillingController::class, 'save_settings_single'])->name('save-settings');
+
+
 
     Route::get('/session-destroy', [App\Http\Controllers\BillingController::class, 'destroy'])->name('system-destroy');
 

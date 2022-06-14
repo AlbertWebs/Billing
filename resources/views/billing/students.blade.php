@@ -23,7 +23,7 @@
                     <thead>
                         <tr><th>#</th>
                             <th>Info</th>
-                            <th>Switch Status</th>
+                            <th></th>
                             <th>Status</th>
                             <th></th>
                             <th style="min-width:140px" class="text-center">Action</th>
@@ -58,19 +58,23 @@
 
 
                             <td>
-                                @if($item->status == 1)
+                                {{-- @if($item->status == 1)
                                 <a onclick="return confirm('Would you wish to change this status to Not Graduated?')" href="{{url('/')}}/billings/switch-status/{{$item->id}}/0" class="btn btn-outline-danger"><small>Set as Graduated</small></button>
                                 @else
                                 <a onclick="return confirm('Would you wish to change this status Graduated?')" href="{{url('/')}}/billings/switch-status/{{$item->id}}/1" class="btn btn-outline-success">Set as Active</button>
-                                @endif
+                                @endif --}}
                             </td>
-                            @if($item->status == 1)
+                            @if($item->status == "Active")
                             <td>
                                 <span class="badge badge-success">Active</span>
                             </td>
-                            @else
+                            @elseif($item->status == "Graduated")
                             <td>
                                 <span class="badge badge-secondary">Graduated</span>
+                            </td>
+                            @else
+                            <td>
+                                <span class="badge badge-danger">Left</span>
                             </td>
                             @endif
                             <td>

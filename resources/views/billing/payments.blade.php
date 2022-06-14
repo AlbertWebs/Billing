@@ -58,9 +58,9 @@
                                     @endforeach
                                     <?php $Course = DB::table('courses')->where('id',$Billing->course_id)->get(); ?>
                                     @foreach ($Course as $course)
-                                    <span class="d-block font-size-sm text-muted">{{$course->title}}</span>
+                                    {{-- <span class="d-block font-size-sm text-muted">{{$course->title}}</span> --}}
                                     @endforeach
-                                    <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span>
+                                    {{-- <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span> --}}
                                 </h6>
                             </td>
                             <td>
@@ -94,7 +94,7 @@
                                   <span class="">
                                     <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
                                     @foreach ($Student as $student)
-                                    <a href="http://localhost:8000/billings/m-pesa/{{$student->email}}" class="btn btn-outline-danger">
+                                    <a href="http://localhost:8000/billings/create-bill/{{$student->email}}" class="btn btn-outline-danger">
                                         Pay Now
                                     </a>
                                     @endforeach

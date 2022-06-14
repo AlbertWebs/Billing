@@ -3,6 +3,14 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\User;
+use App\Models\Cash;
+use App\Models\Expense;
+use App\Models\Student;
+use Mail;
+use Log;
+use DB;
+use Carbon\Carbon;
 
 class sendMontly extends Command
 {
@@ -37,34 +45,22 @@ class sendMontly extends Command
      */
     public function handle()
     {
-        $user = User::where('id','1')->get();
-        foreach ($user as $a)
-        {
-            $Settings = DB::table('settings')->get();
-            foreach($Settings as $Set){
-                $Income = Cash::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->get();
-                $Expense = Expense::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->get();
-                $Student = Student::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->get();
-                $ExpenseTotal = Expense::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->sum('amount');
-                $IncomeTotal = Cash::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->sum('amount');
-                $Subject = "$Set->name Montly Reports";
-                $Counts = count($Student);
-                $Url = url('/email');
-                // Send Emails
-                $campus = $Set->id;
-                $msg = "This is automatically generated Montly Update for $Set->name <br> Total Income is $IncomeTotal, Total Expenses $ExpenseTotal, Total Enrolment: $Counts. <br> Find a detailed report at $Url/email/$Set->id";
-                $CampusName = $Set->name;
-                $data = array(
-                    'campus'=>$campus,
-                    'msg'=>$msg,
-                );
-                Mail::send('dailyReports', $data, function($message) use ($a,$Subject,$CampusName)
-                {
-                    $message->from('atlascollege@gmail.com',$CampusName);
-                    $message->to($a->email,'Super Admin')->subject($Subject);
-                });
-            }
+        $Settings = DB::table('settings')->get();
+        foreach($Settings as $Set){
+
+            $msg = "This is automatically generated Montly Update for $Set->name <br> Total Income is $IncomeTotal, Total Expenses $ExpenseTotal, Total Enrolment: $Counts. <br> Find a detailed report at $Url/email/$Set->id";
+            $CampusName = $Set->name;
+            $data = array(
+                'campus'=>$campus,
+                'msg'=>$msg,
+            );
+            Mail::send('dailyReports', $data, function($message) use ($a,$Subject,$CampusName)
+            {
+                $message->from('atlascollege@gmail.com',$CampusName);
+                $message->to($a->email,'Super Admin')->subject($Subject);
+            });
         }
+
         $message = "Montly Update mails has been send successfully";
         Log::notice($message);
         $this->info($message);

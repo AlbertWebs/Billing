@@ -15,7 +15,7 @@
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link @if($Active == "students") active @endif">All Students</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/students-enroll" class="nav-link @if($Active == "enroll") active @endif">Enroll</a></li>
-                @if(Auth::User()->role == "Supper Admin")
+                @if(Auth::User()->role == "Super Admin")
                 <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link @if($Active == "users") active @endif">All Users</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/add-user" class="nav-link @if($Active == "add user") active @endif">Add Admin</a></li>
                 @endif
@@ -73,13 +73,15 @@
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 <li class="nav-item"><a href="{{url('/')}}/billings/income" class="nav-link @if($Active == "income") active @endif">Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/expenses" class="nav-link @if($Active == "expenses") active @endif">Expenses</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/record-expenses" class="nav-link @if($Active == "expenses") active @endif">Record Expenses</a></li>
+
             </ul>
         </li>
         <li class="nav-item-divider"></li>
         <li class="nav-item  @if($Group == "m-pesa") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <span class="fas fa-money-bill-alt mr-3"><span> M-PESA </span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
-                <li class="nav-item"><a href="{{url('/')}}/billings/stk" class="nav-link @if($Active == "stk") active @endif">STK Payments</a></li>
+                {{-- <li class="nav-item"><a href="{{url('/')}}/billings/stk" class="nav-link @if($Active == "stk") active @endif">STK Payments</a></li> --}}
                 <li class="nav-item"><a href="{{url('/')}}/billings/c2b" class="nav-link @if($Active == "c2b") active @endif">C2B Payments</a></li>
             </ul>
         </li>

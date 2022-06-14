@@ -85,7 +85,7 @@
                                     <div class="col-lg-10">
                                         <select name="campus" class="form-control">
                                             <option value="Admin">Admin</option>
-                                               <option value="Supper Admin">Supper Admin</option>
+                                               <option value="Super Admin">Supper Admin</option>
 
 
 

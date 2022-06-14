@@ -67,6 +67,26 @@
                             </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td></td>
+                            <td>
+
+                            </td>
+
+                            <td>
+                                <a href="#" class="btn btn-outline-info">
+                                   <strong><strong>Total Expenses</strong> <br> KES {{$ExpenseTotal}}</strong>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

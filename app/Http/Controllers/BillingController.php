@@ -15,6 +15,7 @@ use App\Models\Cash;
 use App\Models\MpesaTransaction;
 use App\Models\STKMpesaTransaction;
 use Carbon\Carbon;
+use App\Models\Notify;
 use Session;
 use Auth;
 use PDF;
@@ -53,6 +54,7 @@ class BillingController extends Controller
         $ExpenseTotal = Expense::whereDate('created_at', Carbon::today())->where('campus',$campus)->sum('amount');
         $IncomeTotal = Cash::whereDate('created_at', Carbon::today())->where('campus',$campus)->sum('amount');
         $Student = Student::whereDate('created_at', Carbon::today())->where('campus',$campus)->get();
+
          return view('dailyReports', compact('Income','Expense','Student','ExpenseTotal','IncomeTotal'));
     }
 
@@ -87,7 +89,7 @@ class BillingController extends Controller
          $Student->email = $email;
          $Student->mobile = $mobile;
          $Student->gender = $gender;
-         $Student->avatar = "0";
+         $Student->avatar = "avatar.jpg";
          $Student->campus = Auth::user()->campus;
 
          $User = Student::where('email',$email)->get();
@@ -117,7 +119,7 @@ class BillingController extends Controller
             $file->move($path, $filename);
             $avatar = $filename;
         }else{
-            $avatar = "avatar.png";
+            $avatar = "avatar.jpg";
         }
 
         $UpdateDetails = array(
@@ -360,8 +362,8 @@ public function create_bill_posts(Request $request){
     $Cash->campus = Auth::user()->campus;
     $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
     $Cash->user = Auth::user()->id;
-    $Cash->source = "M-PESA";
-    $Cash->code = "M-PESA";
+    $Cash->source = "Fees Payment";
+    $Cash->code = "";
     $Cash->balance = $TheBalance;
     $Cash->save();
 
@@ -482,8 +484,8 @@ public function create_bill_post(Request $request){
     $Cash->campus = Auth::user()->campus;
     $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
     $Cash->user = Auth::user()->id;
-    $Cash->source = "M-PESA";
-    $Cash->code = "M-PESA";
+    $Cash->source = "Fees Payment";
+    $Cash->code = "";
     $Cash->balance = $TheBalance;
     $Cash->save();
 
@@ -548,6 +550,15 @@ public function create_bill_post(Request $request){
     Session::save();
     $this->destroyer();
 
+    if($Balance > 1){
+        $Notify = new Notify;
+        $Notify->user_id = $user;
+        $Notify->balance = $Balance;
+        $Notify->save();
+    }else{
+        DB::table('notifies')->where('user_id',$user)->delete();
+    }
+
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->original_payment = $original_payment;
@@ -570,7 +581,7 @@ public function create_bill_post(Request $request){
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
-        $this->sendSMS($Message,$phoneNumber);
+        // $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
     }
 }
@@ -693,6 +704,14 @@ public function system_settings() {
     return view('billing.system-settings', compact('Settings','Group','Title','Active'));
 }
 
+public function system_settings_single($id) {
+    $Group = "courses";
+    $Title = "System Settings";
+    $Active = "schools";
+    $Settings = Setting::where('id' ,$id)->get();
+    return view('billing.system_settings_single', compact('Settings','Group','Title','Active'));
+}
+
 public function save_settings(Request $request){
     $path = 'uploads/logo';
     if(isset($request->logo)){
@@ -720,6 +739,36 @@ public function save_settings(Request $request){
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 }
+public function save_settings_single(Request $request, $id){
+    $path = 'uploads/logo';
+    if(isset($request->logo)){
+        $file = $request->file('logo');
+        $filename = $file->getClientOriginalName();
+        $file->move($path, $filename);
+        $avatarlogo = $filename;
+    }else{
+        $avatarlogo = $request->retained;
+    }
+    $name = $request->name;
+    $email = $request->email;
+    $mobile = $request->mobile;
+    $location = $request->location;
+
+    $updateDetails = array(
+       'name' => $name,
+       'email' => $email,
+       'mobile' => $mobile,
+       'aka' => $request->initial,
+       'location' => $location,
+       'logo' => $avatarlogo,
+    );
+
+    DB::table('settings')->where('id' ,$id)->update($updateDetails);
+    Session::flash('message', "Changes have Been Saved");
+    return Redirect::back();
+}
+
+
 
 
 public function switch_status($id,$status){
@@ -877,7 +926,7 @@ public function edit_pic_user($id){
     $Group = "students";
     $Title = "All Users";
     $Active = "users";
-    $User = User::find($id);
+    $User = User::where('id',$id)->get();
     return view('billing.edit_pic_user', compact('User','Group','Title','Active'));
 }
 public function save_pic_user(Request $request, $id){
@@ -1018,8 +1067,9 @@ public function income(){
     $Group = "income";
     $Title = "All Income";
     $Active = "users";
-    $Income = Cash::where('campus' ,Auth::user()->campus)->get();
-    return view('billing.income', compact('Income','Group','Title','Active'));
+    $Income = Cash::whereMonth('created_at', date('m'))->where('campus' ,Auth::user()->campus)->get();
+    $IncomeTotal = Cash::whereMonth('created_at', date('m'))->where('campus' ,Auth::user()->campus)->sum('amount');
+    return view('billing.income', compact('Income','Group','Title','Active','IncomeTotal'));
 }
 
 public function record_expenses(){
@@ -1049,7 +1099,7 @@ public function record_expenses_post(Request $request){
         $Cash->reason = $request->reason;
         $Cash->user = Auth::user()->id;
         $Cash->source = "Admin Initiated";
-        $Cash->code = "N/A";
+        $Cash->code = "";
         $Cash->balance = $NewBalance;
         $Cash->save();
         //
@@ -1062,7 +1112,8 @@ public function expenses(){
     $Title = "Record Expenses";
     $Active = "expenses";
     $Expense = Expense::where('campus' ,Auth::user()->campus)->get();
-    return view('billing.expenses',compact('Expense','Group','Title','Active'));
+    $ExpenseTotal = Expense::whereMonth('created_at', date('m'))->where('campus' ,Auth::user()->campus)->sum('amount');
+    return view('billing.expenses',compact('Expense','Group','Title','Active','ExpenseTotal'));
 }
 
 public function c2b(){

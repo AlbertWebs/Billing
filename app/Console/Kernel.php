@@ -8,7 +8,9 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        Commands\sendMailDaily::class
+        Commands\sendMailDaily::class,
+        Commands\sendSMSDaily::class
+
     ];
     /**
      * Define the application's command schedule.
@@ -19,6 +21,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('daily:mail_send')->daily();
+        $schedule->command('daily:sms_send')->daily();
     }
 
     /**

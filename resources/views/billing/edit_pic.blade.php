@@ -2,6 +2,7 @@
 @section('content')
 <!-- Main content -->
 <div class="content-wrapper">
+@foreach ($Student as $Student)
 
     <!-- Inner content -->
     <div class="content-inner">
@@ -84,7 +85,7 @@
 
     </div>
     <!-- /inner content -->
-
+@endforeach
 </div>
 <!-- /main content -->
 @endsection

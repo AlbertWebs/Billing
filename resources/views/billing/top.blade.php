@@ -70,7 +70,14 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
+                @if(Auth::User()->role == "Super Admin")
+                  <?php $AllSchools = DB::table('settings')->get() ?>
+                  @foreach ($AllSchools as $item)
+                  <a href="{{url('/')}}/billings/system-settings/{{$item->id}}" class="dropdown-item"><i class="icon-cog5"></i>{{$item->name}} Account settings</a>
+                  @endforeach
+                @else
                 <a href="{{url('/')}}/billings/system-settings" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+                @endif
                 <a href="{{url('/')}}/logout" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
             </div>

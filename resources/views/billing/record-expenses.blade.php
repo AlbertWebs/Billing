@@ -63,7 +63,7 @@
 
                                 <hr>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button onclick="return confirm('Are you sure you want to record this expense? You cannot undo the process')" type="submit" class="btn btn-primary">
                                         <span class="fas fa-save mr-3"></span> Record Expense <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
                                     <p id="Success" style="padding:10px" class="alert-success">Expense Has Been Recorded Successfully</p>
