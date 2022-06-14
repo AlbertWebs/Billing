@@ -46,6 +46,15 @@ class BillingController extends Controller
         $Active = "home";
          return view('billing.index', compact('Group','Title','Active'));
     }
+    public function email($campus){
+        $Income = Cash::whereDate('created_at', Carbon::today())->where('campus',$campus)->get();
+        $Expense = Expense::whereDate('created_at', Carbon::today())->where('campus',$campus)->get();
+        $ExpenseTotal = Expense::whereDate('created_at', Carbon::today())->where('campus',$campus)->sum('amount');
+        $IncomeTotal = Cash::whereDate('created_at', Carbon::today())->where('campus',$campus)->sum('amount');
+        $Student = Student::whereDate('created_at', Carbon::today())->where('campus',$campus)->get();
+         return view('dailyReports', compact('Income','Expense','Student','ExpenseTotal','IncomeTotal'));
+    }
+
 
     public function students(){
         Session::forget('billing');
@@ -679,7 +688,7 @@ public function system_settings() {
     $Group = "courses";
     $Title = "System Settings";
     $Active = "schools";
-    $Settings = Setting::where('campus' ,Auth::user()->campus)->get();
+    $Settings = Setting::where('id' ,Auth::user()->campus)->get();
     return view('billing.system-settings', compact('Settings','Group','Title','Active'));
 }
 
@@ -703,11 +712,10 @@ public function save_settings(Request $request){
        'email' => $email,
        'mobile' => $mobile,
        'location' => $location,
-       'campus' => Auth::user()->campus,
        'logo' => $avatarlogo,
     );
 
-    DB::table('settings')->where('campus' ,Auth::user()->campus)->update($updateDetails);
+    DB::table('settings')->where('id' ,Auth::user()->campus)->update($updateDetails);
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 }

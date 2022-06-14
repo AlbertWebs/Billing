@@ -20,6 +20,7 @@ use App\Http\Controllers\MpesaController;
 // });
 Auth::routes();
 Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('admin.home')->middleware('is_admin');
+Route::get('/email/{campus}', [App\Http\Controllers\BillingController::class, 'email'])->name('admin.email')->middleware('is_admin');
 
 //Group
 // Products
