@@ -8,7 +8,7 @@
 
         <!-- Content area -->
         <div class="content">
-
+            @foreach ($User as $User)
             <!-- Horizontal form options -->
             <div class="row">
                 <div class="col-lg-12">
@@ -47,7 +47,8 @@
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Password:</label>
                                             <div class="col-lg-10">
-                                                <input type="text" name="password" value="{{$User->password}}" autocomplete="off" class="form-control" placeholder="P@ssW0rds">
+
+                                                <input type="text" name="password" value="" autocomplete="off" class="form-control" placeholder="P@ssW0rds" readonly>
                                                 {{-- <p id="exists" style="padding:10px" class="alert-danger">The User Already Exists</p> --}}
                                             </div>
                                         </div>
@@ -93,7 +94,7 @@
                 </div>
             </div>
             <!-- /vertical form options -->
-
+            @endforeach
         </div>
         <!-- /content area -->
 

@@ -3,30 +3,22 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\User;
-use App\Models\Cash;
-use App\Models\Expense;
-use App\Models\Student;
-use Mail;
-use Log;
-use DB;
-use Carbon\Carbon;
 
-class sendMailDaily extends Command
+class sendMontly extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'daily:mail_send';
+    protected $signature = 'montly:mail_send';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send an daily email to all the users';
+    protected $description = 'Send an maothly email to all the Super Admin';
 
     /**
      * Create a new command instance.
@@ -50,20 +42,17 @@ class sendMailDaily extends Command
         {
             $Settings = DB::table('settings')->get();
             foreach($Settings as $Set){
-                // Report Income
-                $Income = Cash::whereDate('created_at', Carbon::today())->where('campus',$Set->id)->get();
-                // Report Expenses
-                $Expense = Expense::whereDate('created_at', Carbon::today())->where('campus',$Set->id)->get();
-                // Report Enroll
-                $Student = Student::whereDate('created_at', Carbon::today())->where('campus',$Set->id)->get();
-                $ExpenseTotal = Expense::whereDate('created_at', Carbon::today())->where('campus',$Set->id)->sum('amount');
-                $IncomeTotal = Cash::whereDate('created_at', Carbon::today())->where('campus',$Set->id)->sum('amount');
-                $Subject = "$Set->name Daily Reports";
+                $Income = Cash::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->get();
+                $Expense = Expense::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->get();
+                $Student = Student::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->get();
+                $ExpenseTotal = Expense::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->sum('amount');
+                $IncomeTotal = Cash::whereDate('created_at', Carbon::now()->format('M'))->where('campus',$Set->id)->sum('amount');
+                $Subject = "$Set->name Montly Reports";
                 $Counts = count($Student);
                 $Url = url('/email');
                 // Send Emails
                 $campus = $Set->id;
-                $msg = "This is automatically generated daily Update for $Set->name <br> Total Income is $IncomeTotal, Total Expenses $ExpenseTotal, Total Enrolment: $Counts. <br> Find a detailed report at $Url/email/$Set->id";
+                $msg = "This is automatically generated Montly Update for $Set->name <br> Total Income is $IncomeTotal, Total Expenses $ExpenseTotal, Total Enrolment: $Counts. <br> Find a detailed report at $Url/email/$Set->id";
                 $CampusName = $Set->name;
                 $data = array(
                     'campus'=>$campus,
@@ -76,9 +65,8 @@ class sendMailDaily extends Command
                 });
             }
         }
-        $message = "Daily Update mails has been send successfully";
+        $message = "Montly Update mails has been send successfully";
         Log::notice($message);
         $this->info($message);
     }
 }
-

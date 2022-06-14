@@ -39,7 +39,8 @@
                                 </a>
                             </td>
                             <td>
-                                {{$item->name}}<br>
+                                {{$item->name}} <span style="visibility: hidden; line-height:0px !important;">{{$item->mobile}}</span><br>
+
                                 <small>
                                     @if($item->course_id == null)
 

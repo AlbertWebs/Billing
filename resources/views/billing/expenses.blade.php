@@ -15,6 +15,7 @@
                             <th>Balance</th>
                             <th>Reason</th>
                             <th>Amount</th>
+                            <th>Date</th>
                             <th>Initiator</th>
                             <th style="min-width:140px">Actions</th>
                         </tr>
@@ -34,6 +35,7 @@
                                 <a href="#" class="btn btn-outline-success">{{$item->reason}}</a>
                             </td>
                             <td ><span class="btn btn-outline-info"><strong>KES {{$item->amount}}</strong></span></td>
+                            <td ><span class="btn btn-outline-info"><strong>{{$item->date}}</strong></span></td>
                             <td>
                                 <?php
                                    $Admin = DB::table('users')->where('id',$item->user)->get();

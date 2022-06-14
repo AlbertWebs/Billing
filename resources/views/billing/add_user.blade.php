@@ -77,6 +77,42 @@
 
 
                                 </div>
+
+                                <hr>
+                                <hr>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Role</label>
+                                    <div class="col-lg-10">
+                                        <select name="campus" class="form-control">
+                                            <option value="Admin">Admin</option>
+                                               <option value="Supper Admin">Supper Admin</option>
+
+
+
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
+                                <hr>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Campus</label>
+                                    <div class="col-lg-10">
+                                        <select name="campus" class="form-control">
+                                            <?php $Settings = DB::table('settings')->get(); ?>
+                                            @foreach ($Settings as $set)
+                                               <option value="{{$set->id}}">{{$set->name}}</option>
+                                            @endforeach
+
+
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
                                 <hr>
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-primary">

@@ -58,7 +58,7 @@
 				<div class="sidebar-section sidebar-user my-1">
 					<div class="sidebar-section-body">
 						<div class="media">
-							<a href="#" class="mr-3">
+                            <a href="{{url('/')}}/billings/edit-pic-user/{{Auth::user()->id}}" class="mr-3">
 								<img src="{{url('/')}}/uploads/users/{{Auth::user()->avatar}}" class="rounded-circle" alt="">
 							</a>
 

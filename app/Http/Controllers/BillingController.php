@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Session;
 use Auth;
 use PDF;
+use Hash;
 
 use DB;
 use Redirect;
@@ -99,7 +100,7 @@ class BillingController extends Controller
        $Group = "students";
        $Title = "All Users";
        $Active = "students";
-       $Student = Student::where('campus' ,Auth::user()->campus)->where('id',$id);
+       $Student = Student::where('campus' ,Auth::user()->campus)->where('id',$id)->get();
        return view('billing.save-student', compact('Student','Group','Active','Title'));
     }
 
@@ -204,7 +205,7 @@ class BillingController extends Controller
         $Title = "All Users";
         $Active = "add course";
         $Tutor = Tutor::all();
-        $Courses = Course::where('campus' ,Auth::user()->campus)->where('id',$id);
+        $Courses = Course::where('campus' ,Auth::user()->campus)->where('id',$id)->get();
         $School = School::all();
         return view('billing.course', compact('Courses','Tutor','School','Group','Title','Active'));
     }
@@ -818,7 +819,7 @@ public function my_statements($id){
 public function user($id){
     $User = User::where('id',$id)->where('campus' ,Auth::user()->campus)->get();
     $Group = "students";
-    $Title = "$User->name";
+    $Title = "User";
     $Active = "student";
     return view('billing.user', compact('User','Group','Title','Active'));
 
@@ -848,9 +849,12 @@ public function add_user_post(Request $request){
     $path = 'uploads/users';
     $User = new User;
     $User->name = $request->name;
+    $User->campus = $request->campus;
+    $User->role = $request->role;
     $User->email = $request->email;
-    $User->password = $request->password;
-    $User->is_admin = $request->is_admin;
+    $User->avatar = "0";
+    $User->password = Hash::make($request->password);
+    $User->is_admin = "1";
     $User->save();
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();

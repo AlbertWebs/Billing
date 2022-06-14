@@ -8,7 +8,7 @@
 
         <!-- Content area -->
         <div class="content">
-
+            @foreach ($Student as $Student)
             <!-- Horizontal form options -->
             <div class="row">
                 <div class="col-lg-12">
@@ -125,6 +125,7 @@
                 </div>
             </div>
             <!-- /vertical form options -->
+            @endforeach
 
         </div>
         <!-- /content area -->

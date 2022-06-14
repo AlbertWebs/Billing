@@ -46,21 +46,21 @@
 
 
                             <td>
-                                @if(Auth::user()->is_admin == 1)
-                                    @if($item->is_admin == 1)
+                                @if(Auth::user()->role == "Supper User")
+                                    @if(Auth::user()->role == "Supper User")
                                     <strong><a onclick="return confirm('Would you wish to switch user to Lower Admin')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/0" class="btn btn-outline-danger">Supper Admin</a></strong>
                                     @else
                                     <a onclick="return confirm('Upgrade User To Supper Admin')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/1" class="btn btn-outline-success">Admin</a>
                                     @endif
                                 @else
-                                    @if($item->is_admin == 1)
+                                    @if(Auth::user()->role == "Supper User")
                                     <strong><a onclick="return confirm('Permission Denied! Contact System Adminitrator')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/0" class="btn btn-outline-danger">Supper Admin</a></strong>
                                     @else
                                     <a onclick="return confirm('Permission Denied! Contact System Adminitrator')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/1" class="btn btn-outline-success">Admin</a>
                                     @endif
                                 @endif
                             </td>
-                            @if($item->is_admin == 1)
+                            @if(Auth::user()->role == "Supper User")
                             <td>
                                 <span class="badge badge-success">Supper Admin</span>
                             </td>
