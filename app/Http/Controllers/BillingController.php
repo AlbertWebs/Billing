@@ -106,6 +106,17 @@ class BillingController extends Controller
        return view('billing.save-student', compact('Student','Group','Active','Title'));
     }
 
+    public function switch_campus($id){
+        if(Auth::User()->role == "Super Admin"){
+             $updateDetails = array (
+                'campus' => $id,
+             );
+             DB::table('users')->where('id',Auth::User()->id)->update($updateDetails);
+        }
+        return Redirect::back();
+     }
+
+
     public function save_images($id){
         $Student = DB::table('students')->where('id',$id)->where('campus',Auth::User()->campus)->get();
         return view('billing.save-student-image', compact('Student'));

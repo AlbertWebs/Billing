@@ -92,5 +92,23 @@
             <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span class="fas fa-recycle mr-3"> Reset All Forms</span></a>
         </li>
         @endif
+
+        @if(Auth::User()->role == "Super Admin")
+        <?php $Campuses = DB::table('settings')->get(); ?>
+        <li class="nav-item  @if($Group == "m-pesa") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"> <span class="fas fa-exchange-alt mr-3"><span> Swich Campus </span></a>
+            <ul class="nav nav-group-sub" data-submenu-title="Basic components">
+                @foreach ($Campuses as $campus)
+                @if($campus->id == Auth::User()->campus)
+
+                @else
+                <li class="nav-item"><a href="{{url('/')}}/billings/switch-campus/{{$campus->id}}" class="nav-link @if($Active == "c2b") active @endif">{{$campus->name}}</a></li>
+                @endif
+                @endforeach
+            </ul>
+        </li>
+        @endif
+
+
     </ul>
 </div>

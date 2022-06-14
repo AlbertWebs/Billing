@@ -23,7 +23,56 @@
         <span class="badge badge-success my-3 my-lg-0 ml-lg-3">Online</span>
     </div>
 
+
+
+
+
+
+
+
+
     <ul class="navbar-nav flex-row order-1 order-lg-2 flex-1 flex-lg-0 justify-content-end align-items-center">
+        <li class="nav-item nav-item-dropdown-lg dropdown">
+            <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="badge badge-warning badge-pill ml-auto ml-lg-0"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
+                <div class="dropdown-content-header">
+                    <span class="font-weight-semibold">Interacting As</span>
+                    <a href="#" class="text-body"><i class="icon-compose"></i></a>
+                </div>
+
+                <div class="dropdown-content-body dropdown-scrollable">
+                    <ul class="media-list">
+                        <li class="media">
+
+
+                            <div class="media-body">
+                                <div class="media-title">
+                                    <a href="#">
+                                        <span class="font-weight-semibold">
+                                            Interacting as
+                                            <?php  $Campusess = DB::table('settings')->where('id',Auth::User()->campus)->get(); ?>
+                                            @foreach ($Campusess as $items)
+                                            {{$items->name}}
+                                            @endforeach
+                                        </span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="dropdown-content-footer justify-content-center p-0">
+                    <a href="#" class="btn btn-light btn-block border-0 rounded-top-0" data-popup="tooltip" title="Load more"><i class="icon-menu7"></i></a>
+                </div>
+            </div>
+        </li>
         <li class="nav-item nav-item-dropdown-lg dropdown">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
                 <i class="fas fa-info"></i>
