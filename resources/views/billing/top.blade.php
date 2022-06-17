@@ -56,7 +56,7 @@
                                             Interacting as
                                             <?php  $Campusess = DB::table('settings')->where('id',Auth::User()->campus)->get(); ?>
                                             @foreach ($Campusess as $items)
-                                            {{$items->name}}
+                                            {{$items->name}} &nbsp; &nbsp; &nbsp; &nbsp; <a onclick="return confirm('Are you sure you want to {{$item->name}}? You cannot undo this process')" href="{{url('/billings/delete-campus')}}/{{Auth::User()->campus}}" class="" data-popup="tooltip" title="Load more"><i class="fas fa-trash"></i>Del</a>
                                             @endforeach
                                         </span>
                                     </a>

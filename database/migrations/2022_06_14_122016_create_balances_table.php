@@ -15,6 +15,7 @@ class CreateBalancesTable extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->id();
+            $table->string('campus');
             $table->string('month');
             $table->string('balance');
             $table->string('expenses');

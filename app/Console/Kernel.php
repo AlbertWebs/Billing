@@ -9,8 +9,8 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [
         Commands\sendMailDaily::class,
-        Commands\sendSMSDaily::class
-
+        Commands\sendSMSDaily::class,
+        Commands\closingBalance::class
     ];
     /**
      * Define the application's command schedule.
@@ -22,6 +22,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('daily:mail_send')->daily();
         $schedule->command('daily:sms_send')->daily();
+        $schedule->command('monthly:recordBalance')->monthlyOn(30, '15:00');
     }
 
     /**

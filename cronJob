@@ -1,3 +1,4 @@
 php artisan daily:mail_send
 php artisan montly:mail_send
 php artisan daily:sms_send
+php artisan monthly:recordBalance

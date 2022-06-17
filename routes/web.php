@@ -122,6 +122,12 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/income-this-month', [App\Http\Controllers\BillingController::class, 'income_this_month'])->name('income-this-month');
 
    Route::get('/switch-campus/{id}', [App\Http\Controllers\BillingController::class, 'switch_campus'])->name('switch-campus');
+   Route::get('/add-campus', [App\Http\Controllers\BillingController::class, 'add_campus'])->name('add-campus');
+   Route::post('/save-campus', [App\Http\Controllers\BillingController::class, 'save_campus'])->name('save-campus');
+   Route::get('/delete-campus/{id}', [App\Http\Controllers\BillingController::class, 'delete_campus'])->name('delete-campus');
+
+
+
 
 
    Route::get('/income', [App\Http\Controllers\BillingController::class, 'income'])->name('income');
@@ -135,6 +141,9 @@ Route::group(['prefix'=>'billings'], function(){
 
    Route::get('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses'])->name('record-expenses');
    Route::post('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses_post'])->name('record-expenses-post');
+   Route::post('/correct-accounts', [App\Http\Controllers\BillingController::class, 'correct_accounts'])->name('correct-accounts');
+   Route::get('/correct-books', [App\Http\Controllers\BillingController::class, 'correct_books'])->name('correct-books');
+
    Route::get('/expenses', [App\Http\Controllers\BillingController::class, 'expenses'])->name('expenses');
 
    Route::get('/stk', [App\Http\Controllers\BillingController::class, 'stk'])->name('stk');
