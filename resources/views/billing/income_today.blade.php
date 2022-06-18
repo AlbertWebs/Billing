@@ -1,5 +1,52 @@
 @extends('billing.master-datatables-print')
 @section('content')
+<style>
+       .dt-buttons{
+            display: none;
+        }
+        .header{
+            padding: 10px;
+            text-align: center;
+        }
+        .header h2{
+            line-height: 0;
+            margin-top:5px;
+            font-weight: 900;
+        }
+        .header h5{
+            line-height: 0.8;
+            padding-top:5px;
+            font-weight: 600;
+        }
+        .header h6{
+            line-height: 0.5;
+            padding-top:1px;
+            font-weight: 600;
+        }
+    @media print {
+        .dataTables_filter input{
+            display: none;
+        }
+        .dataTables_filter{
+            display: none;
+        }
+        .cs-invoice_btn{
+            display: none;
+        }
+        .dataTables_length{
+            display: none;
+        }
+        .dt-buttons{
+            display: none;
+        }
+        .datatable-footer{
+            display: none;
+        }
+        .dt-button{
+            display: none;
+        }
+    }
+</style>
 	<!-- Page content -->
 	<div class="page-content">
 		<!-- Main content -->
@@ -9,18 +56,33 @@
 			<div class="content-inner">
 				<!-- Content area -->
 				<div class="content">
+                    <a href="javascript:window.print()" class="dt-button buttons-print btn btn-primary"><span><i class="icon-printer mr-2"></i> Print Report</span></a>
 
 					<!-- Basic initialization -->
 					<div class="card">
+                        <?php $Settings = DB::table('settings')->where('id',Auth::User()->campus)->get(); ?>
+                        @foreach ($Settings as $Setting)
+                          <div class="header">
+                              <img width="200" src="{{url('/')}}/uploads/logo/{{$Setting->logo}}" alt="Atlas">
+                              <h2>{{$Setting->name}}</h2>
+                              <h5>{{$Setting->address}}</h5>
+                              <h6>{{$Setting->mobile}}</h6>
+                              {{-- <h6>{{$Setting->email}}</h6> --}}
+                              <h6><u>{{$Title}}</u></h6>
+<hr>
+                          </div>
+
+                        @endforeach
 						<table class="table datatable-button-print-basic">
+
 							<thead>
 								<tr>
                                     <th>Ref</th>
-                                    <th>Period</th>
+                                    {{-- <th>Period</th> --}}
                                     <th>Issued to</th>
                                     <th>For</th>
-                                    <th>Status</th>
-                                    <th>Payment date</th>
+                                    {{-- <th>Status</th> --}}
+                                    <th>Date</th>
                                     <th>Amount</th>
                                     <th class="text-center">
 
@@ -43,7 +105,7 @@
                                 ?>
                                 <tr>
                                     <td>#{{$Billing->reference}}</td>
-                                    <td>{{$Month}} {{$Year}}</td>
+                                    {{-- <td>{{$Month}} {{$Year}}</td> --}}
                                     <td>
                                         <h6 class="mb-0">
                                             <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
@@ -59,7 +121,7 @@
                                             <span class="d-block">{{$Billing->description}}</span>
                                         </h6>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         @if($Billing->balance == 0)
                                            <select name="status" class="custom-select alert-success" >
                                         @else
@@ -71,7 +133,7 @@
                                             <option value="overdue" selected>Partially Paid</option>
                                             @endif
                                         </select>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         {{$Month}} {{$date}}, {{$Year}} at {{$Hour}}:{{$min}}:{{$Sec}}
                                     </td>
@@ -84,9 +146,9 @@
                                     </td>
                                 </tr>
                                 @endforeach
+
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+
                                     <td>
 
                                     </td>
@@ -104,30 +166,7 @@
 
                                     </td>
                                     <td class="text-center">
-                                        <h6 class="d-block"><strong><u>T.Bal: {{$Balance}}</u></strong></h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-
-                                    <td>
-
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="d-block"><strong><u>T.Amount: {{$Total}}</u></strong></h6>
+                                        <h6 class="d-block"><strong><u>Total: {{$Total}}</u></strong></h6>
                                     </td>
                                 </tr>
                             </tbody>

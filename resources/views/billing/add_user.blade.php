@@ -57,7 +57,7 @@
 
                                 <hr>
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Is Admin:</label>
@@ -78,7 +78,7 @@
 
                                 </div>
 
-                                <hr>
+                                <hr> --}}
                                 <hr>
                                 <div class="form-group row">
                                     <label class="col-form-label col-lg-2">Role</label>

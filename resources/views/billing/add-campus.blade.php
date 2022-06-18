@@ -98,6 +98,18 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <div class="col-lg-12">
+                                    <div class="form-group" data-select2-id="207">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Address</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" name="address"  placeholder="" value="" autocomplete="student-name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                       <center><img width="300" src=""></center>

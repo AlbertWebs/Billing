@@ -83,7 +83,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         <span class="fas fa-save mr-3"></span> Save Changes <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
                                     </button>
-                                    <p id="Success" style="padding:10px" class="alert-success">Student Has Been Enrolled Successfully</p>
+                                    <p id="Success" style="padding:10px" class="alert-success">User Has Been Updated</p>
                                 </div>
 
 

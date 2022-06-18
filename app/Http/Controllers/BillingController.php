@@ -261,6 +261,7 @@ class BillingController extends Controller
         $Setting->email = $request->email;
         $Setting->mobile = $request->mobile;
         $Setting->location = $request->location;
+        $Setting->address = $request->address;
         $Setting->logo = $avatarlogo;
         $Setting->save();
         return Redirect::back();
@@ -957,7 +958,7 @@ public function save_user(Request $request, $id){
    $updateDetails = array(
       'name'=> $request->name,
       'email'=> $request->email,
-      'password'=> $request->password,
+
       'is_admin'=> $request->is_admin,
    );
    DB::table('users')->where('id',$id)->update($updateDetails);
@@ -990,8 +991,13 @@ public function save_pic_user(Request $request, $id){
     return Redirect::back();
 }
 public function switch_user($id,$status){
+    if($status == "Super Admin"){
+        $newStatus = "Admin";
+    }else{
+        $newStatus = "Super Admin";
+    }
     $updateDetails = array(
-        'is_admin' => $status,
+        'role' => $newStatus,
     );
     DB::table('users')->where('id',$id)->update($updateDetails);
     Session::flash('message', "Status Updated!");

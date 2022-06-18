@@ -899,7 +899,7 @@ kbd {
 .cs-invoice.cs-style1 {
   background: #fff;
   border-radius: 10px;
-  padding: 50px;
+  padding: 10px;
 }
 
 .cs-invoice.cs-style1 .cs-invoice_head {
@@ -915,7 +915,7 @@ kbd {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   border-bottom: 1px solid #eaeaea;
 }
 
@@ -1292,16 +1292,43 @@ kbd {
   }
 }
 
+
 @media (max-width: 767px) {
   .cs-mobile_hide {
     display: none;
   }
   .cs-invoice.cs-style1 {
-    padding: 30px 20px;
+    padding: 5px 5px;
   }
   .cs-invoice.cs-style1 .cs-right_footer {
     width: 100%;
   }
+  .signature{
+     padding: 0px;
+  }
+  .signature h6{
+    padding: 0px;
+    margin:0 0 5px 0;
+    font-size: 12px;
+ }
+ .signature p{
+    margin-bottom: 5px;
+    line-height: 0.8em;
+    color:#333;
+    font-size: 10px;
+    font-style: italic;
+ }
+ .additional {
+    font-size: 8px !important;
+}
+
+.cs-invoice.cs-style1 .cs-note {
+    margin-top: 10px;
+}
+.correct-print-margin{
+    padding-bottom: 5px !important;
+}
+
 }
 
 @media (max-width: 500px) {

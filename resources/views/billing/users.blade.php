@@ -34,7 +34,7 @@
                         <tr>
                             <td>
                                 <a href="{{url('/')}}/billings/edit-pic-user/{{$item->id}}">
-                                    <img src="{{url('/')}}/uploads/students/{{$item->avatar}}" class="rounded-circle" width="42" height="42" alt=""><br>
+                                    <img src="{{url('/')}}/uploads/users/{{$item->avatar}}" class="rounded-circle" width="42" height="42" alt=""><br>
                                     <center>Edit({{$item->id}})</center>
                                 </a>
                             </td>
@@ -46,23 +46,17 @@
 
 
                             <td>
-                                @if(Auth::user()->role == "Supper User")
-                                    @if(Auth::user()->role == "Supper User")
-                                    <strong><a onclick="return confirm('Would you wish to switch user to Lower Admin')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/0" class="btn btn-outline-danger">Supper Admin</a></strong>
+
+                                    @if($item->role == "Super Admin")
+                                    <strong><a onclick="return confirm('Would you wish to switch user to Lower Admin')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/{{$item->role}}" class="btn btn-outline-danger">Supper Admin</a></strong>
                                     @else
-                                    <a onclick="return confirm('Upgrade User To Supper Admin')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/1" class="btn btn-outline-success">Admin</a>
+                                    <a onclick="return confirm('Upgrade User To Supper Admin')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/{{$item->role}}" class="btn btn-outline-success">Admin</a>
                                     @endif
-                                @else
-                                    @if(Auth::user()->role == "Supper User")
-                                    <strong><a onclick="return confirm('Permission Denied! Contact System Adminitrator')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/0" class="btn btn-outline-danger">Supper Admin</a></strong>
-                                    @else
-                                    <a onclick="return confirm('Permission Denied! Contact System Adminitrator')" href="{{url('/')}}/billings/switch-user/{{$item->id}}/1" class="btn btn-outline-success">Admin</a>
-                                    @endif
-                                @endif
+
                             </td>
-                            @if(Auth::user()->role == "Supper User")
+                            @if($item->role == "Super Admin")
                             <td>
-                                <span class="badge badge-success">Supper Admin</span>
+                                <span class="badge badge-success">Super Admin</span>
                             </td>
                             @else
                             <td>

@@ -49,8 +49,8 @@
             <div class="cs-invoice_in" id="download_section">
                 <div class="cs-invoice_head cs-type1 cs-mb25">
                 <div class="cs-invoice_left">
-                    <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16"><b class="cs-primary_color">Invoice No:</b> #{{$Billing->reference}}</p>
-                    <p class="cs-invoice_date cs-primary_color cs-m0"><b class="cs-primary_color">Date Printed: </b>{{date('Y:M:d')}}</p>
+                    <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16"><b class="cs-primary_color">Receipt No:</b> #{{$Billing->reference}}</p>
+                    <p class="cs-invoice_date cs-primary_color cs-m0"><b class="cs-primary_color">Date: </b>{{date('Y:M:d')}}</p>
                 </div>
                 <div class="cs-invoice_right cs-text_right">
                     <div class="cs-logo cs-mb5"><img width="200" src="{{url('/')}}/uploads/logo/{{$set->logo}}" alt="Atlas"></div>
@@ -76,7 +76,7 @@
                     </p>
                 </div>
                 </div>
-                <div class="cs-invoice_head cs-type1 cs-mb25"></div>
+                <div class="cs-invoice_head cs-type1 cs-mb25 correct-print-margin"></div>
 
                 <div class="cs-table cs-style1">
                 <div class="cs-round_border bordering">
@@ -101,8 +101,8 @@
                     </div>
                     <div class="cs-invoice_footer cs-border_top ">
                     <div class="cs-left_footer cs-mobile_hide">
-                        <p class="cs-mb0"><b class="cs-primary_color">Additional Information:</b></p>
-                        <p class="cs-m0 additional">At check in you may need to present the credit card used for payment of this ticket At check in you may need to present the credit card used for payment of this ticket .</p>
+                        {{-- <p class="cs-mb0"><b class="cs-primary_color">Additional Information:</b></p> --}}
+                        {{-- <p class="cs-m0 additional">At check in you may need to present the credit card used for payment of this ticket At check in you may need to present the credit card used for payment of this ticket .</p> --}}
                     </div>
                     <div class="cs-right_footer">
                         <table>
@@ -136,21 +136,23 @@
                 </div>
 
                 <div class="cs-invoice_head cs-type1 cs-mb25"></div>
-                <br>
-                <div class="">
+                {{-- <br> --}}
+                <div class="signature">
                     <h6>{{$set->name}}</h6>
                     <p>Confirmed and Approved By:</p>
                     <p><u>{{Auth::User()->name}}</u></p>
                 </div>
 
-                <div class="cs-invoice_head cs-type1 cs-mb25"></div>
+                <div class="cs-invoice_head cs-type1 cs-mb25 correct-print-margin"></div>
                 <div class="cs-note">
                 <div class="cs-note_left">
                     <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
                 </div>
                 <div class="cs-note_right">
                     <p class="cs-mb0"><b class="cs-primary_color cs-bold">Note:</b></p>
-                    <p class="cs-m0 additional">This receipt was generated on {{date('Y-M-d')}} at {{date('H:i:s')}} for the above listed bill(s), should you have issues with the information herein, Feel free to call us on {{$set->mobile}}, Or write us an email at {{$set->email}}<br><br><center>Thank You For Choosing {{$set->name}}</center></p>
+                    <p class="cs-m0 additional">This receipt was generated on {{date('Y-M-d')}} at {{date('H:i:s')}} for the above listed bill(s), should you have issues with the information herein, Feel free to call us on <strong>{{$set->mobile}}</strong>, Or write us an email at <strong>{{$set->email}}</strong>, Or Visit us at <strong>{{$set->location}}</strong><br><br></p>
+
+                    <center>Thank You For Choosing {{$set->name}}</center>
                 </div>
                 </div><!-- .cs-note -->
             </div>

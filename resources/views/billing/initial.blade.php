@@ -78,7 +78,7 @@
                         <div class="col-lg-10">
                             <div class="form-group" data-select2-id="207">
                                 <select name="course" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true" required>
-                                    <optgroup label="Students" data-select2-id="208">
+                                    <optgroup label="Courses" data-select2-id="208">
                                         @if(Session::has('user'))
                                         <?php $u = Session::get('user'); $Studs = DB::table('students')->where('email',$u)->get(); ?>
                                         @foreach ($Studs as $studs)
