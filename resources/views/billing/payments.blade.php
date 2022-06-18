@@ -22,9 +22,9 @@
                     <thead>
                         <tr>
                             <th style="min-width:100px;">#</th>
-                            <th>Period</th>
+                            {{-- <th>Period</th> --}}
                             <th>Issued to</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Payment date</th>
                             <th style="min-width:300px;">Instalments</th>
                             <th>Amount</th>
@@ -47,7 +47,7 @@
                         ?>
                         <tr>
                             <td>#{{$Billing->reference}}</td>
-                            <td>{{$Month}} {{$Year}}</td>
+                            {{-- <td>{{$Month}} {{$Year}}</td> --}}
                             <td>
                                 <h6 class="mb-0">
                                     <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
@@ -63,7 +63,7 @@
                                     {{-- <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span> --}}
                                 </h6>
                             </td>
-                            <td>
+                            {{-- <td>
                                 @if($Billing->balance == 0)
                                    <select name="status" class="custom-select alert-success" >
                                 @else
@@ -77,7 +77,7 @@
                                     <option value="hold">Paid</option>
                                     @endif
                                 </select>
-                            </td>
+                            </td> --}}
                             <td>
                                 {{$Month}} {{$date}}, {{$Year}} {{$Hour}}:{{$min}}:{{$Sec}}
                             </td>
