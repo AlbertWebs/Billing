@@ -624,7 +624,7 @@ public function create_bill_post(Request $request){
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
-        // $this->sendSMS($Message,$phoneNumber);
+        $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
     }
 }
