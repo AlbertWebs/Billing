@@ -23,8 +23,8 @@
                         <tr>
                             <th style="min-width:100px;">#</th>
                             {{-- <th>Period</th> --}}
-                            <th>Issued to</th>
-                            {{-- <th>Status</th> --}}
+                            <th>Issued on</th>
+                            <th>Mode</th>
                             <th>Payment date</th>
                             <th style="min-width:300px;">Instalments</th>
                             <th>Amount</th>
@@ -62,6 +62,13 @@
                                     @endforeach
                                     {{-- <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span> --}}
                                 </h6>
+                            </td>
+                            <td>
+                                @if($Billing->type == 1)
+                                MPESA ID: {{$Billing->m_pesa}}
+                                @else
+                                Cash
+                                @endif
                             </td>
                             {{-- <td>
                                 @if($Billing->balance == 0)

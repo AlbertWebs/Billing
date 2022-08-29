@@ -75,6 +75,8 @@ Route::group(['prefix'=>'billings'], function(){
 
     Route::get('/checkID', [App\Http\Controllers\BillingController::class, 'checkID'])->name('checkID');
 
+    Route::get('/check-id-refresh', [App\Http\Controllers\BillingController::class, 'checkIDRefresh'])->name('checkID');
+    
     Route::get('/system-settings', [App\Http\Controllers\BillingController::class, 'system_settings'])->name('system-settings');
 
     Route::get('/system-settings/{id}', [App\Http\Controllers\BillingController::class, 'system_settings_single'])->name('system-settings');

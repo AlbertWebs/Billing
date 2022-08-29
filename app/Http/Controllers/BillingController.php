@@ -602,11 +602,18 @@ public function create_bill_post(Request $request){
         DB::table('notifies')->where('user_id',$user)->delete();
     }
 
+    if($request->billType == 1){
+       $EnterTransaction = $request->transID;
+    }else{
+        $EnterTransaction = "0";
+    }
     $Billing = new Billing;
     $Billing->student = $user;
+    $Billing->type = $request->billType;
     $Billing->original_payment = $original_payment;
     $Billing->group_id = $group_id;
     $Billing->group_role = $group_role;
+    $Billing->m_pesa = $EnterTransaction;
     $Billing->note = $note;
     $Billing->reference = $reference;
     $Billing->balance = $Balance;
@@ -624,6 +631,7 @@ public function create_bill_post(Request $request){
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
+        Session::put('billing', $Billing->id);
         $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
     }
@@ -1262,6 +1270,18 @@ public function checkID(Request $request){
         return response()->json(array("exists" => false));
     }
 }
+
+public function checkIDRefresh(Request $request){
+    $transID = $request->input('transID');
+    $isExists = MpesaTransaction::where('status','0')->first();
+    if($isExists){
+        return response()->json(array("exists" => true, "amount"=>$isExists->TransAmount, "transID"=>$isExists->TransID));
+    }else{
+        return response()->json(array("exists" => false));
+    }
+}
+
+
 
 public function c2b_status_update(Request $request){
         $updateDetails = array(

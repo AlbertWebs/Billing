@@ -168,6 +168,55 @@
             });
         }
 
+        function checkc2b(element){
+            // e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: '{{url('billings/check-id-refresh')}}',
+                dataType: "json",
+                success: function(data) {
+                    if(confirm('Check Transaction?')){
+                        if(data.exists){
+                            $("#transID").val(data.transID);
+                            if(confirm('Clear This Transaction? You cannot undo this process')){
+                                // 
+                                $("#fetchAmount").val(data.amount);
+                                $.ajax({
+                                    headers: {
+                                        'X-CSRF-TOKEN': "{{csrf_token()}}",
+                                    },
+                                    type: "post",
+                                    url: '{{url('billings/c2b-status-update')}}',
+                                    data: {transID:data.transID},
+                                    success: function (data) {
+                                    //
+                                    if(data.exists){
+                                      
+                                          $('#transSuccess').show();
+                                        }else{
+                                            $('#transIDResponse').show();
+                                        }
+                                    //
+                                    }
+                                });
+                                // 
+                                
+                            }
+                        }
+                    }else{
+                         alert('You Have To Confirm This Transaction')
+                         $('#transID').val('');
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                }
+                
+            });
+            element.stopImmediatePropagation();
+            return false;
+        }
+
         function checkTransaction(element){
             var transID = $(element).val();
             $('#transIDResponse').hide();

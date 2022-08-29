@@ -53,6 +53,14 @@
                                         {{$student->name}}
                                     </a>
                                     @endforeach
+                                    
+                                    <span class="d-block font-size-sm text-muted">
+                                        @if($Billing->type == 1)
+                                           MPESA ID: {{$Billing->m_pesa}}
+                                        @else
+                                        Cash
+                                        @endif
+                                    </span>
                                     <span class="d-block font-size-sm text-muted">{{$Billing->description}}</span>
                                 </h6>
                             </td>

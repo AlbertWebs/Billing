@@ -44,7 +44,7 @@
                                             </div>
                                         </div>
                                         <hr>
-
+                                        <input type="hidden" name="billType" value="1">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group row">
@@ -77,25 +77,47 @@
                                             <div class="form-group" data-select2-id="207">
                                                 <div class="form-group row">
                                                     <label class="col-lg-2 col-form-label">Transaction ID:</label>
-                                                    <div class="col-lg-10">
-                                                        <input type="text" onblur="checkTransaction(this)" class="form-control" name="transID" id="transID"  placeholder="P3XDAAKK4DS" autocomplete="students-name" required>
+                                                    <div class="col-lg-5">
+                                                        <input type="text" onblur="acheckTransaction(this)" class="form-control" name="transID" id="transID"  placeholder="P3XDAAKK4DS" autocomplete="students-name" required>
                                                         <p id="transIDResponse" style="padding:10px" class="alert-danger">The transaction has not been recieved <a class="btn btn-outline-primary" href=""> <i class="fas fa-recycle"></i> Refresh </a></p>
                                                         <small id="transSuccess" style="padding:5px" class="alert-success transSuccess">Transaction Has Been Received</small>
                                                         <input type="text" class="form-control transSuccess" name="amount"  autocomplete="students-name" required>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="col-lg-12">
-                                            <div class="form-group" data-select2-id="207">
-                                                <div class="form-group row">
-                                                    <label class="col-lg-2 col-form-label">Amount:</label>
-                                                    <div class="col-lg-10">
-                                                        <input id="fetchAmount" type="text" class="form-control" name="amount"  autocomplete="students-name" required>
+
+                                                    <div class="col-lg-5">
+                                                        
+                                                        <p id="transIDResponses" class="alert-info">
+                                                            <button type="button" onclick="checkc2b(this)" class="btn btn-outline-primary" href=""> <i class="fas fa-recycle"></i> Check Transaction </button>
+                                                        </p>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                                                               
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group" data-select2-id="207">
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">Amount:</label>
+                                                        <div class="col-lg-10">
+                                                            <input id="fetchAmount" type="text" class="form-control" name="amount"  autocomplete="students-name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="col-lg-6">
+                                                <div class="form-group" data-select2-id="207">
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">Discount?:</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="checkbox" name="discount" class="form-control">
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div> --}}
                                         </div>
                                         <hr>
                                         <div class="row">
