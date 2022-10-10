@@ -632,7 +632,7 @@ public function create_bill_post(Request $request){
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
         Session::put('billing', $Billing->id);
-        $this->sendSMS($Message,$phoneNumber);
+        // $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
     }
 }
