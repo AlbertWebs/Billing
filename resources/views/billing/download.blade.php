@@ -50,7 +50,7 @@
                 <div class="cs-invoice_head cs-type1 cs-mb25">
                 <div class="cs-invoice_left">
                     <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16"><b class="cs-primary_color">Receipt No:</b> #{{$Billing->reference}}</p>
-                    <p class="cs-invoice_date cs-primary_color cs-m0"><b class="cs-primary_color">Date: </b>{{date('Y:M:d')}}</p>
+                    <p class="cs-invoice_date cs-primary_color cs-m0"><b class="cs-primary_color">Date: </b>{{date('d-M-Y')}}</p>
                 </div>
                 <div class="cs-invoice_right cs-text_right">
                     <div class="cs-logo cs-mb5"><img width="200" src="{{url('/')}}/uploads/logo/{{$set->logo}}" alt="Atlas"></div>
@@ -61,8 +61,9 @@
                 <div class="cs-invoice_left">
                     <b class="cs-primary_color">Invoice To:</b>
                     <p>
-                    {{$user->name}}<br>
-                    {{$set->location}} <br>Nairobi <br>
+                    {{$user->name}}
+                    {{-- {{$set->location}} --}}
+                    <br>Nairobi<br>
                     Kenya
                     </p>
                 </div>
@@ -84,7 +85,7 @@
                     <table>
                         <thead>
                         <tr>
-                            <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Item</th>
+                            <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Course</th>
                             <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">Description</th>
 
                             <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right">Total</th>
@@ -142,6 +143,9 @@
                     <p>Confirmed and Approved By:</p>
                     <p><u>{{Auth::User()->name}}</u></p>
                 </div>
+                <center>
+                <p class="cs-m0 additional text-center"><strong>Money once paid is neither refundable nor transferable</strong></p>
+                </center>
 
                 <div class="cs-invoice_head cs-type1 cs-mb25 correct-print-margin"></div>
                 <div class="cs-note">
@@ -150,6 +154,7 @@
                 </div>
                 <div class="cs-note_right">
                     <p class="cs-mb0"><b class="cs-primary_color cs-bold">Note:</b></p>
+
                     <p class="cs-m0 additional">This receipt was generated on {{date('Y-M-d')}} at {{date('H:i:s')}} for the above listed bill(s), should you have issues with the information herein, Feel free to call us on <strong>{{$set->mobile}}</strong>, Or write us an email at <strong>{{$set->email}}</strong>, Or Visit us at <strong>{{$set->location}}</strong><br><br></p>
 
                     <center>Thank You For Choosing {{$set->name}}</center>

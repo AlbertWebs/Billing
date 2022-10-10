@@ -16,6 +16,7 @@ class CreateBillingsTable extends Migration
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
             $table->string('student');
+            $table->string('discount');
             $table->text('note');
             $table->integer('balance');
             $table->integer('amount');

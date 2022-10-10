@@ -39,7 +39,7 @@
                                 </a>
                             </td>
                             <td>
-                                {{$item->name}} <span style="visibility: hidden; line-height:0px !important;">{{$item->mobile}}</span><br>
+                                {{$item->name}} <span style="visibility: visible; line-height:0px !important;">: {{$item->email}}</span><br>
 
                                 <small>
                                     @if($item->course_id == null)
@@ -78,13 +78,23 @@
                             </td>
                             @endif
                             <td>
-                                <?php $Billings = DB::table('billings')->where('student',$item->id)->get(); ?>
-                                <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i> (<?php echo count($Billings); ?>)
-                                </a>
+                                <?php
+                                   $Billings = DB::table('billings')->where('student',$item->id)->get();
+                                   $BillingLatest = DB::table('billings')->where('student',$item->id)->orderBy('id','DESC')->first();
+                                ?>
+
+                                   @if(isset($BillingLatest->balance))
+                                        <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-print"></i>Statement (<?php echo count($Billings); ?>)
+                                        </a>
+                                   @else
+                                   <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i>Statement (<?php echo count($Billings); ?>)
+                                   </a>
+                                   @endif
+
                                 {{-- <a title="Initiate Payment" href="{{url('/')}}/billings/m-pesa/{{$item->email}}" class="btn btn-outline-info">  <i class="fas fa-money-bill-wave"></i> Pay
                                 </a> --}}
-                                <a href="{{url('/')}}/billings/record-c2b/{{$item->email}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> C2B
-                                </a>
+                                {{-- <a href="{{url('/')}}/billings/record-c2b/{{$item->email}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> C2B
+                                </a> --}}
                                 <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
                                 </a>
                                 {{-- <?php $Billings = DB::table('billings')->where('student',$item->id)->get(); ?>

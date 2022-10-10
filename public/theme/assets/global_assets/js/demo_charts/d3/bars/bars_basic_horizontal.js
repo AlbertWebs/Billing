@@ -99,9 +99,7 @@ var D3BarHorizontal = function() {
             // Load data
             // ------------------------------
 
-            var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/d3/bars/bars_horizontal.csv";
-          
-            d3.csv(newURL, function(data) {
+            d3.csv("../../../../global_assets/demo_data/d3/bars/bars_horizontal.csv", function(data) {
 
                 // Parse numbers, and sort by value.
                 data.forEach(function(d) { d.value = +d.value; });

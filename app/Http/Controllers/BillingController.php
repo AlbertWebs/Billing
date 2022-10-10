@@ -356,6 +356,7 @@ class BillingController extends Controller
         $Title = "All Users";
         $Active = "my-payments";
         $Billings = DB::table('billings')->where('group_id',null)->where('campus' ,Auth::User()->campus)->get();
+        // dd($Billings);
         return view('billing.payments',compact('Billings','Group','Title','Active'));
    }
 
@@ -521,6 +522,12 @@ public function create_bill_post(Request $request){
         $CurrentBalance = $IncomeBalance->balance;
         $TheBalance = $CurrentBalance+$price;
     }
+    if(isset($request->discount)){
+        $discount = $request->discount;
+        $TheBalance = $TheBalance-$discount;
+    }else{
+        $discount == "0";
+    }
     // Create Cases
     $Cash = new Cash;
     $Cash->amount = $amount;
@@ -610,6 +617,7 @@ public function create_bill_post(Request $request){
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->type = $request->billType;
+    $Billing->discount = $discount;
     $Billing->original_payment = $original_payment;
     $Billing->group_id = $group_id;
     $Billing->group_role = $group_role;

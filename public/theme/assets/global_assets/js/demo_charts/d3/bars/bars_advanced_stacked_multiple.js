@@ -120,8 +120,8 @@ var D3BarStackedMultiple = function() {
 
             // Load data
             // ------------------------------
-            var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/d3/bars/bars_stacked_multiple.tsv";
-            d3.tsv(newURL, function(error, data) {
+
+            d3.tsv("../../../../global_assets/demo_data/d3/bars/bars_stacked_multiple.tsv", function(error, data) {
 
                 // Pull out values
                 data.forEach(function(d) {

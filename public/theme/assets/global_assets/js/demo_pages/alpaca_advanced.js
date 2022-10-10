@@ -108,12 +108,10 @@ var AlpacaAdvanced = function() {
             }
         });
 
-        var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/alpaca/optiontree-custom-schema.json";
-        var newURLs = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/alpaca/optiontree-custom-options.json";
         // Using connector
         $('#alpaca-option-tree-connector').alpaca({
-            schemaSource: newURL,
-            optionsSource: newURLs,
+            schemaSource: '../../../../global_assets/demo_data/alpaca/optiontree-custom-schema.json',
+            optionsSource: '../../../../global_assets/demo_data/alpaca/optiontree-custom-options.json',
             options: {
                 focus: false
             }

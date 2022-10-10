@@ -8,7 +8,8 @@
 	<title>{{$Title}} - Atlas Educational Center</title>
 
 	<!-- Global stylesheets -->
-	<link href="{{asset('theme/assets/fonts.googleapis.com/css1381.css?family=Roboto:400,300,100,500,700,900')}}" rel="stylesheet" type="text/css">
+	{{-- <link href="{{asset('theme/assets/fonts.googleapis.com/css1381.css?family=Roboto:400,300,100,500,700,900')}}" rel="stylesheet" type="text/css"> --}}
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="{{asset('theme/assets/global_assets/css/icons/icomoon/styles.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('theme/assets/global_assets/css/icons/fontawesome/styles.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('theme/assets/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -20,9 +21,6 @@
 	<script src="{{asset('theme/assets/global_assets/js/main/jquery.min.js')}}"></script>
 	<script src="{{asset('theme/assets/global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
 	<!-- /core JS files -->
-
-    	<!-- Theme JS files -->
-
 
 	<!-- Theme JS files -->
 	<script src="{{asset('theme/assets/global_assets/js/plugins/visualization/d3/d3.min.js')}}"></script>

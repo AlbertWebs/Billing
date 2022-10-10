@@ -1,3 +1,4 @@
+
 @extends('billing.master-forms')
 @section('content')
 <!-- Main content -->
@@ -23,6 +24,16 @@
                                 {{csrf_field()}}
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Admission Number:</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" name="SEmail" autocomplete="off" class="form-control" value="{{$Student->email}}"  placeholder="ADM101">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <div class="col-lg-12">
                                         {{--  --}}
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Name:</label>
@@ -34,16 +45,7 @@
 
                                     <hr>
 
-                                    <div class="col-lg-12">
-                                        <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Email:</label>
-                                            <div class="col-lg-10">
-                                                <input type="email" name="SEmail" autocomplete="off" class="form-control" value="{{$Student->email}}"  placeholder="name@domain.com">
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <hr>
 
                                     <div class="col-lg-12">
                                         <div class="form-group row">

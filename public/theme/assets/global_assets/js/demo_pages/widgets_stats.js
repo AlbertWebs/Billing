@@ -79,9 +79,7 @@ var StatisticWidgets = function() {
             // Load data
             // ------------------------------
 
-            var newURL = window.location.protocol + "//" + window.location.host + "/theme/assets/global_assets/demo_data/dashboard/monthly_sales.json";
-
-            d3.json(newURL, function (error, data) {
+            d3.json("../../../../global_assets/demo_data/dashboard/monthly_sales.json", function (error, data) {
 
                 // Show what's wrong if error
                 if (error) return console.error(error);

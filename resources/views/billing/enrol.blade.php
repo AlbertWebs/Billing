@@ -24,6 +24,16 @@
                                 {{csrf_field()}}
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Admission Number:</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" onblur="duplicateEmail(this)" name="SEmail" autocomplete="off" class="form-control" placeholder="ADM101">
+                                                <p id="exists" style="padding:10px" class="alert-danger">The User Already Exists</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
                                         {{--  --}}
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Name:</label>
@@ -33,15 +43,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
-                                        <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Email:</label>
-                                            <div class="col-lg-10">
-                                                <input type="email" onblur="duplicateEmail(this)" name="SEmail" autocomplete="off" class="form-control" placeholder="name@domain.com">
-                                                <p id="exists" style="padding:10px" class="alert-danger">The User Already Exists</p>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                                     <div class="col-lg-12">
                                         <div class="form-group row">
