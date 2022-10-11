@@ -26,7 +26,8 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->source}}<br>Code:{{$item->code}}</td>
                             <td>
-                                {{$item->reason}}
+                                {{$item->reason}}<br>
+                                <small><strong>Timestamp:{{date('Y-M-d h:s:i', strtotime($item->created_at))}}</strong></small>
                             </td>
                             <td>
                                 @if($item->balance < 0)

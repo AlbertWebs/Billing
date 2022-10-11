@@ -60,10 +60,10 @@ class sendMailDaily extends Command
                 $IncomeTotal = Cash::whereDate('created_at', Carbon::today())->where('campus',$Set->id)->sum('amount');
                 $Subject = "$Set->name Daily Reports";
                 $Counts = count($Student);
-                $Url = url('/email');
+                $Url = url('/billings/students');
                 // Send Emails
                 $campus = $Set->id;
-                $msg = "This is automatically generated daily Update for $Set->name <br> Total Income is $IncomeTotal, Total Expenses $ExpenseTotal, Total Enrolment: $Counts. <br> Find a detailed report at $Url/email/$Set->id";
+                $msg = "This is automatically generated daily Update for $Set->name <br> Total Income is $IncomeTotal, Total Expenses $ExpenseTotal, Total Enrolment: $Counts. <br> Find a detailed report at $Url";
                 $CampusName = $Set->name;
                 $data = array(
                     'campus'=>$campus,
@@ -71,7 +71,7 @@ class sendMailDaily extends Command
                 );
                 Mail::send('dailyReports', $data, function($message) use ($a,$Subject,$CampusName)
                 {
-                    $message->from('atlascollege@gmail.com',$CampusName);
+                    $message->from('albertmuhatia@gmail.com',$CampusName);
                     $message->to($a->email,'Super Admin')->subject($Subject);
                 });
             }

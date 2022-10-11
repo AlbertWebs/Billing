@@ -20,8 +20,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('daily:mail_send')->daily();
-        $schedule->command('daily:sms_send')->daily();
+        $schedule->command('daily:mail_send')->everyMinute();
+        // $schedule->command('daily:sms_send')->everyMinute();
         $schedule->command('monthly:recordBalance')->monthlyOn(30, '15:00');
     }
 

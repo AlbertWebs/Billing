@@ -950,12 +950,16 @@ public function save_pic(Request $request, $id){
 }
 
 public function my_statements($id){
+    $Student = Student::find($id);
+    $name = $Student->name;
     $Group = "income";
-    $Title = "Record Expenses";
+    $Title = "Statements For ".$name."";
     $Active = "m-pesa";
     $Student = Student::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     $Billings = Billing::where('student',$id)->where('campus' ,Auth::User()->campus)->get();
-    return view('billing.statements', compact('Billings','Student','Group','Title','Active'));
+    $Total = Billing::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('amount');
+    return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total'));
+
 }
 
 public function user($id){

@@ -80,7 +80,9 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/income" class="nav-link @if($Active == "income") active @endif">Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/expenses" class="nav-link @if($Active == "expenses") active @endif">Expenses</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/record-expenses" class="nav-link @if($Active == "expenses") active @endif">Record Expenses</a></li>
+                @if(Auth::User()->role == "Super Admin")
                 <li class="nav-item"><a href="{{url('/')}}/billings/correct-books" class="nav-link @if($Active == "expenses") active @endif">Correct Books</a></li>
+                @endif
             </ul>
         </li>
         <li class="nav-item-divider"></li>
