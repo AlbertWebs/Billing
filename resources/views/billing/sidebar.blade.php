@@ -67,7 +67,7 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-this-month" class="nav-link @if($Active == "month") active @endif">Monthly Fees Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-search" class="nav-link @if($Active == "search") active @endif">Search Date</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link @if($Active == "search-r") active @endif">Search Date Range</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/total-receivable" class="nav-link @if($Active == "receivable") active @endif">Total Receivable</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/total-receivable" class="nav-link @if($Active == "receivable") active @endif">Balance</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/total-overpayed" class="nav-link @if($Active == "overpayed") active @endif">Total Overpayed</a></li>
             </ul>
         </li>
@@ -96,6 +96,12 @@
         @if(Session::has('partials') OR Session::has('billing') OR Session::has('user'))
         <li class="nav-item ">
             <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span class="fas fa-recycle mr-3"> Reset All Forms</span></a>
+        </li>
+        @endif
+
+        @if(Auth::User()->role == "Super Admin")
+        <li class="nav-item @if($Group == "activity") nav-item-expanded nav-item-open @endif">
+            <a href="{{url('/billings/activity')}}" class="nav-link"><i class="icon-eye4"></i> <span> Activity Log </span></a>
         </li>
         @endif
 

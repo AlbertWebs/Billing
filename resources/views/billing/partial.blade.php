@@ -69,7 +69,7 @@
                     <div class="form-group row">
                         <label class="col-lg-2 col-form-label">Discount:</label>
                         <div class="col-lg-10">
-                            <input type="number" class="form-control" name="discount"  placeholder="2000" autocomplete="student-name" required>
+                            <input type="number" class="form-control" name="discount"  placeholder="2000" autocomplete="student-name">
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
     <div class="form-group row">
         <label class="col-form-label col-lg-2">Description</label>
         <div class="col-lg-10">
-            <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="description" required>{{$Billing->description}}</textarea>
+            <textarea rows="3" cols="3" class="form-control" value="Fee Payment" placeholder="Default textarea" name="description" required>{{$Billing->description}}</textarea>
         </div>
     </div>
     <hr>

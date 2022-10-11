@@ -11,6 +11,8 @@ use App\Models\Expense;
 use App\Models\Billing;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Activity;
+
 use App\Models\Cash;
 use App\Models\MpesaTransaction;
 use App\Models\STKMpesaTransaction;
@@ -91,6 +93,9 @@ class BillingController extends Controller
          $Student->gender = $gender;
          $Student->avatar = "avatar.jpg";
          $Student->campus = Auth::User()->campus;
+
+         $UserSession = Auth::User()->name;
+         activity()->log(''.$name.' has been Enrolled By '.$UserSession.'');
 
          $User = Student::where('email',$email)->get();
          if($Student->save()){
@@ -239,11 +244,30 @@ class BillingController extends Controller
         return view('billing.tutor', compact('Tutor'));
     }
 
+    public function activity(){
+        $Group = "activity";
+        $Title = "activity";
+        $Active = "activity";
+        $Activity = DB::table('activity_log')->get();
+        return view('billing.activity', compact('Activity','Group','Title','Active'));
+    }
+
+
     public function delete_campus($id){
+        $Campus = Setting::find($id);
+        $UserSession = Auth::User()->name;
+        activity()->log('Campus:'.$Campus->name.' has been Deleted By '.$UserSession.'');
         DB::table('settings')->where('id',$id)->delete();
         return Redirect::back();
     }
 
+    public function delete_expenses($id){
+        $Expense = Expense::find($id);
+        $UserSession = Auth::User()->name;
+        activity()->log('Expense:'.$Expense->reason.' has been Deleted By '.$UserSession.'');
+        DB::table('expenses')->where('id',$id)->delete();
+        return Redirect::back();
+    }
 
     public function save_campus(Request $request){
         $path = 'uploads/logo';
@@ -306,6 +330,10 @@ class BillingController extends Controller
 
 
     public function course_delete($id){
+        $Course = Course::find(id);
+        $UserSession = Auth::User()->name;
+        activity()->log('Course:'.$Course->title.' has been Deleted By '.$UserSession.'');
+
         DB::table('courses')->where('id',$id)->where('campus' ,Auth::User()->campus)->delete();
         return Redirect::back();
     }
@@ -522,12 +550,7 @@ public function create_bill_post(Request $request){
         $CurrentBalance = $IncomeBalance->balance;
         $TheBalance = $CurrentBalance+$price;
     }
-    if(isset($request->discount)){
-        $discount = $request->discount;
-        $TheBalance = $TheBalance-$discount;
-    }else{
-        $discount == "0";
-    }
+
     // Create Cases
     $Cash = new Cash;
     $Cash->amount = $amount;
@@ -614,6 +637,16 @@ public function create_bill_post(Request $request){
     }else{
         $EnterTransaction = "0";
     }
+
+    if(isset($request->discount)){
+        $discount = $request->discount;
+        $Balance = $Balance-$discount;
+    }else{
+        $discount = "0";
+
+    }
+
+
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->type = $request->billType;
@@ -632,6 +665,10 @@ public function create_bill_post(Request $request){
     $Billing->campus = Auth::User()->campus;
     $Billing->paid = $paid;
     $Course  = Course::find($course_id);
+    $Stude = Student::find($user);
+
+        $UserSession = Auth::User()->name;
+        activity()->log('Student:'.$Stude->name.' has paid '.$amount.' For '.$Course->title.'  Recorded By '.$UserSession.'');
     if($Billing->save()){
         $Billing = DB::table('billings')->orderBy('created_at', 'desc')->where('campus' ,Auth::User()->campus)->first();
         $Message = "Hello $TheStudent->name, Your Payment of $amount, For $Course->title has been recorded successfully";
@@ -639,6 +676,7 @@ public function create_bill_post(Request $request){
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
+
         Session::put('billing', $Billing->id);
         // $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
@@ -720,11 +758,7 @@ public function edit_bill($id) {
 
 }
 
-public function reports() {
-    // $Billing = Billing::find($id);
-    return view('billing.reports');
 
-}
 
 
 public function checkEmail(Request $request){
@@ -948,6 +982,10 @@ public function add_user(){
 }
 
 public function delete_user($id){
+    $User = User::find($id);
+    $UserSession = Auth::User()->name;
+    activity()->log('Admin:'.$User->name.' has been Deleted By '.$UserSession.'');
+
     DB::table('users')->where('id',$id)->where('campus' ,Auth::User()->campus)->delete();
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
@@ -964,6 +1002,8 @@ public function add_user_post(Request $request){
     $User->password = Hash::make($request->password);
     $User->is_admin = "1";
     $User->save();
+    $UserSession = Auth::User()->name;
+    activity()->log('Admin:'.$request->name.' has been added By '.$UserSession.'');
     Session::flash('message', "Changes have Been Saved");
     return Redirect::back();
 
@@ -977,6 +1017,9 @@ public function save_user(Request $request, $id){
 
       'is_admin'=> $request->is_admin,
    );
+   $UserSession = Auth::User()->name;
+   activity()->log('Admin:'.$request->name.' has been updated By '.$UserSession.'');
+
    DB::table('users')->where('id',$id)->update($updateDetails);
    Session::flash('message', "Changes have Been Saved");
    return Redirect::back();
@@ -1127,6 +1170,7 @@ public function total_overpayed(){
     $Title = "Total Overpayed";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
+
 public function income(){
     $Group = "income";
     $Title = "All Income";
@@ -1144,6 +1188,22 @@ public function record_expenses(){
     return view('billing.record-expenses',compact('Group','Title','Active','Cash'));
 }
 
+public function reports(){
+    $Group = "reports";
+    $Active = "today";
+    $Title = "Expenses";
+    $Billings = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->get();
+    $Total = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Balance = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('balance');
+    $Expense = Expense::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->get();
+    return view('billing.reports', compact('Expense','Title','Total','Group','Active'));
+}
+
+// public function reports() {
+//     $Billing = Billing::find($id);
+//     return view('billing.reports');
+
+// }
 
 public function correct_accounts(Request $request){
     $Cash = DB::table('cashes')->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();

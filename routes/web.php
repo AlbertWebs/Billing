@@ -76,7 +76,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/checkID', [App\Http\Controllers\BillingController::class, 'checkID'])->name('checkID');
 
     Route::get('/check-id-refresh', [App\Http\Controllers\BillingController::class, 'checkIDRefresh'])->name('checkID');
-    
+
     Route::get('/system-settings', [App\Http\Controllers\BillingController::class, 'system_settings'])->name('system-settings');
 
     Route::get('/system-settings/{id}', [App\Http\Controllers\BillingController::class, 'system_settings_single'])->name('system-settings');
@@ -128,10 +128,9 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/add-campus', [App\Http\Controllers\BillingController::class, 'add_campus'])->name('add-campus');
    Route::post('/save-campus', [App\Http\Controllers\BillingController::class, 'save_campus'])->name('save-campus');
    Route::get('/delete-campus/{id}', [App\Http\Controllers\BillingController::class, 'delete_campus'])->name('delete-campus');
+   Route::get('/expenses-delete/{id}', [App\Http\Controllers\BillingController::class, 'delete_expenses'])->name('expenses-delete');
 
-
-
-
+   Route::get('/activity', [App\Http\Controllers\BillingController::class, 'activity'])->name('activity');
 
    Route::get('/income', [App\Http\Controllers\BillingController::class, 'income'])->name('income');
    Route::get('/expenses', [App\Http\Controllers\BillingController::class, 'expenses'])->name('expenses');

@@ -105,8 +105,8 @@
                                         </a>
                                     @endif
                                   </span>
-                                  <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$student->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
-                                  </a>
+                                  {{-- <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$student->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
+                                  </a> --}}
                                 @endif
                             </td>
                             <td>

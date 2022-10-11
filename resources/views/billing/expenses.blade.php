@@ -46,7 +46,7 @@
                             </td>
 
                             <td>
-                                @if(Auth::user()->is_admin == 1)
+                                {{-- @if(Auth::user()->is_admin == 1)
                                 <a href="{{url('/')}}/billings/expenses/{{$item->id}}" class="btn btn-outline-info">
                                     <i class="fas fa-pen"></i>
                                 </a>
@@ -54,7 +54,7 @@
                                 <a onclick="return confirm('Limited Access Rights')" href="#" class="btn btn-outline-info">
                                     <i class="fas fa-pen"></i>
                                 </a>
-                                @endif
+                                @endif --}}
                                 @if(Auth::user()->is_admin == 1)
                                 <a onclick="return confirm('Do you wish to delete this course?')" href="{{url('/')}}/billings/expenses-delete/{{$item->id}}" class="btn btn-outline-danger">
                                     <i class="fas fa-trash"></i>
