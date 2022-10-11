@@ -56,7 +56,7 @@ class sendMontly extends Command
             );
             Mail::send('dailyReports', $data, function($message) use ($a,$Subject,$CampusName)
             {
-                $message->from('atlascollege@gmail.com',$CampusName);
+                $message->from('ookiyaale2022@gmail.com',$CampusName);
                 $message->to($a->email,'Super Admin')->subject($Subject);
             });
         }

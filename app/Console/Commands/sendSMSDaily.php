@@ -62,7 +62,7 @@ class sendSMSDaily extends Command
                     );
                     Mail::send('dailyReminders', $data, function($message) use ($Subject,$CampusName,$UserName,$UserEmail)
                     {
-                        $message->from('albertmuhatia@gmail.com',$CampusName);
+                        $message->from('ookiyaale2022@gmail.com',$CampusName);
                         $message->to($UserEmail,$UserName)->subject($Subject);
                     });
                     //*******Send SMS HERE*********/
