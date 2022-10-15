@@ -1377,5 +1377,19 @@ public function verify(){
     return view('billing.create-bill-stk',compact('Group','Title','Active','Amount','Email'));
 }
 
+public function deposits_to_bank(){
+    $Cash = DB::table('cashes')->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();
+    $Group = "income";
+    $Title = "Record Expenses";
+    $Active = "m-pesa";
+    return view('billing.record-expenses',compact('Group','Title','Active','Cash'));
+}
 
+public function bank_deposits(){
+    $Cash = DB::table('deposits')->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();
+    $Group = "income";
+    $Title = "Record Expenses";
+    $Active = "m-pesa";
+    return view('billing.record-expenses',compact('Group','Title','Active','Cash'));
+}
 }

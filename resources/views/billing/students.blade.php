@@ -93,8 +93,8 @@
 
                                 {{-- <a title="Initiate Payment" href="{{url('/')}}/billings/m-pesa/{{$item->email}}" class="btn btn-outline-info">  <i class="fas fa-money-bill-wave"></i> Pay
                                 </a> --}}
-                                {{-- <a href="{{url('/')}}/billings/record-c2b/{{$item->email}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> C2B
-                                </a> --}}
+                                <a href="{{url('/')}}/billings/record-c2b/{{$item->email}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> C2B
+                                </a>
                                 <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
                                 </a>
                                 {{-- <?php $Billings = DB::table('billings')->where('student',$item->id)->get(); ?>

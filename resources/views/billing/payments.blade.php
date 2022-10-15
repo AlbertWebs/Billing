@@ -52,7 +52,14 @@
 
                             </td>
                             <td>
-                                Cash
+                                @if($Billing->m_pesa == null or $Billing->m_pesa == "0")
+                                  <strong>Cash</strong>
+                                @else
+                                <strong>M-PESA:</strong>
+                                    <span class="d-block font-size-sm text-muted">
+                                        {{$Billing->m_pesa}}
+                                    </span>
+                                @endif
                             </td>
                             <td>
                                 <h6 class="mb-0">

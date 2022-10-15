@@ -605,6 +605,8 @@ class ComposerStaticInitd888a407d091002e3aeee2d7a481cb97
         'App\\Models\\Billing' => __DIR__ . '/../..' . '/app/Models/Billing.php',
         'App\\Models\\Cash' => __DIR__ . '/../..' . '/app/Models/Cash.php',
         'App\\Models\\Course' => __DIR__ . '/../..' . '/app/Models/Course.php',
+        'App\\Models\\Deposit' => __DIR__ . '/../..' . '/app/Models/Deposit.php',
+        'App\\Models\\Deposit-m' => __DIR__ . '/../..' . '/app/Models/Deposit-m.php',
         'App\\Models\\Expense' => __DIR__ . '/../..' . '/app/Models/Expense.php',
         'App\\Models\\Income' => __DIR__ . '/../..' . '/app/Models/Income.php',
         'App\\Models\\MpesaReverseTransaction' => __DIR__ . '/../..' . '/app/Models/MpesaReverseTransaction.php',

@@ -85,16 +85,16 @@
                                                     </div>
 
                                                     <div class="col-lg-5">
-                                                        
+
                                                         <p id="transIDResponses" class="alert-info">
                                                             <button type="button" onclick="checkc2b(this)" class="btn btn-outline-primary" href=""> <i class="fas fa-recycle"></i> Check Transaction </button>
                                                         </p>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                                                               
+
                                         <hr>
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -114,10 +114,21 @@
                                                         <div class="col-lg-10">
                                                             <input type="checkbox" name="discount" class="form-control">
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div> --}}
+                                        </div>
+                                        <hr>
+                                        <div class="col-lg-12">
+                                            <div class="form-group" data-select2-id="207">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-2 col-form-label">Discount:</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="number" class="form-control" name="discount"  placeholder="2000" autocomplete="student-name">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <hr>
                                         <div class="row">

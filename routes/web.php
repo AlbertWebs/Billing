@@ -142,6 +142,10 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/total-overpayed', [App\Http\Controllers\BillingController::class, 'total_overpayed'])->name('total-overpayed');
 
    Route::get('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses'])->name('record-expenses');
+   Route::get('/deposits-to-bank', [App\Http\Controllers\BillingController::class, 'deposits_to_bank'])->name('deposits-to-bank');
+   Route::get('/ bank-deposits', [App\Http\Controllers\BillingController::class, ' bank_deposits'])->name(' bank-deposits');
+
+
    Route::post('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses_post'])->name('record-expenses-post');
    Route::post('/correct-accounts', [App\Http\Controllers\BillingController::class, 'correct_accounts'])->name('correct-accounts');
    Route::get('/correct-books', [App\Http\Controllers\BillingController::class, 'correct_books'])->name('correct-books');

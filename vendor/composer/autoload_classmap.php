@@ -37,6 +37,8 @@ return array(
     'App\\Models\\Billing' => $baseDir . '/app/Models/Billing.php',
     'App\\Models\\Cash' => $baseDir . '/app/Models/Cash.php',
     'App\\Models\\Course' => $baseDir . '/app/Models/Course.php',
+    'App\\Models\\Deposit' => $baseDir . '/app/Models/Deposit.php',
+    'App\\Models\\Deposit-m' => $baseDir . '/app/Models/Deposit-m.php',
     'App\\Models\\Expense' => $baseDir . '/app/Models/Expense.php',
     'App\\Models\\Income' => $baseDir . '/app/Models/Income.php',
     'App\\Models\\MpesaReverseTransaction' => $baseDir . '/app/Models/MpesaReverseTransaction.php',
