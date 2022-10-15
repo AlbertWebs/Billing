@@ -24,7 +24,18 @@
                         @foreach ($Income as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->source}}<br>Code:{{$item->code}}</td>
+                            <td>
+                                {{$item->source}}
+                                <br>
+                                @if($item->code == null or $item->code == "0")
+                                  <strong>Cash</strong>
+                                @else
+                                <strong>M-PESA:</strong>
+                                    <span class="d-block font-size-sm text-muted">
+                                        {{$item->code}}
+                                    </span>
+                                @endif
+                            </td>
                             <td>
                                 {{$item->reason}}<br>
                                 <small><strong>Timestamp:{{date('Y-M-d h:s:i', strtotime($item->created_at))}}</strong></small>

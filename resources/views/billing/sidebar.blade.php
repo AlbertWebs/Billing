@@ -80,11 +80,17 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/income" class="nav-link @if($Active == "income") active @endif">Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/expenses" class="nav-link @if($Active == "expenses") active @endif">Expenses</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/record-expenses" class="nav-link @if($Active == "expenses") active @endif">Record Expenses</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/deposits-to-bank" class="nav-link @if($Active == "expenses") active @endif">Deposit To Bank</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/bank-deposits" class="nav-link @if($Active == "expenses") active @endif">Bank Deposits</a></li>
                 @if(Auth::User()->role == "Super Admin")
                 <li class="nav-item"><a href="{{url('/')}}/billings/correct-books" class="nav-link @if($Active == "expenses") active @endif">Correct Books</a></li>
                 @endif
+            </ul>
+        </li>
+        <li class="nav-item-divider"></li>
+        <li class="nav-item  @if($Group == "income") nav-item-expanded nav-item-open @endif">
+            <a href="#" class="nav-link"><i class="icon-cash"></i> <span> Bank </span></a>
+            <ul class="nav nav-group-sub" data-submenu-title="Basic components">
+                <li class="nav-item"><a href="{{url('/')}}/billings/deposits-to-bank" class="nav-link @if($Active == "expenses") active @endif">Deposit To Bank</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/bank-deposits" class="nav-link @if($Active == "expenses") active @endif">Bank Deposits</a></li>
             </ul>
         </li>
         <li class="nav-item-divider"></li>
@@ -103,11 +109,13 @@
         </li>
         @endif
 
+
         @if(Auth::User()->role == "Super Admin")
         <li class="nav-item @if($Group == "activity") nav-item-expanded nav-item-open @endif">
             <a href="{{url('/billings/activity')}}" class="nav-link"><i class="icon-eye4"></i> <span> Activity Log </span></a>
         </li>
         @endif
+        <li class="nav-item-divider"></li>
 
         @if(Auth::User()->role == "Super Admin")
         <?php $Campuses = DB::table('settings')->get(); ?>

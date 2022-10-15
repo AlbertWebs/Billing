@@ -143,7 +143,8 @@ Route::group(['prefix'=>'billings'], function(){
 
    Route::get('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses'])->name('record-expenses');
    Route::get('/deposits-to-bank', [App\Http\Controllers\BillingController::class, 'deposits_to_bank'])->name('deposits-to-bank');
-   Route::get('/ bank-deposits', [App\Http\Controllers\BillingController::class, ' bank_deposits'])->name(' bank-deposits');
+   Route::post('/post-bank', [App\Http\Controllers\BillingController::class, 'post_banks'])->name('post-banks');
+   Route::get('/bank-deposits', [App\Http\Controllers\BillingController::class, 'bank_deposits'])->name(' bank-deposits');
 
 
    Route::post('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses_post'])->name('record-expenses-post');

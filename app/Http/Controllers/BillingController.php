@@ -12,7 +12,7 @@ use App\Models\Billing;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\Activity;
-
+use App\Models\Deposit;
 use App\Models\Cash;
 use App\Models\MpesaTransaction;
 use App\Models\STKMpesaTransaction;
@@ -558,7 +558,7 @@ public function create_bill_post(Request $request){
     $Cash->reason = "School Fees Paid By $TheStudent->name, Paying For $Course->title";
     $Cash->user = Auth::user()->id;
     $Cash->source = "Fees Payment";
-    $Cash->code = "";
+    $Cash->code = $request->transID;
     $Cash->balance = $TheBalance;
     $Cash->save();
 
@@ -1378,18 +1378,58 @@ public function verify(){
 }
 
 public function deposits_to_bank(){
-    $Cash = DB::table('cashes')->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();
+    $Cash = DB::table('cashes')->where('campus' ,Auth::User()->campus)->where('code',null)->orderBy('id','DESC')->first();
+    if($Cash == null){
+        echo "<script>alert('You Do Not have Cash at Hand To Deposit')</script>";
+        $Cash = DB::table('cashes')->where('campus' ,Auth::User()->campus)->where('code',null)->orderBy('id','DESC')->first();
+        $Deposits = Deposit::all();
+        $Group = "income";
+        $Title = "Record Expenses";
+        $Active = "m-pesa";
+        return view('billing.deposits',compact('Group','Title','Active','Deposits','Cash'));
+    }else{
+        $Group = "income";
+        $Title = "Bank Deposits";
+        $Active = "m-pesa";
+        return view('billing.add-deposit',compact('Group','Title','Active','Cash'));
+    }
+}
+
+public function post_banks(Request $request){
     $Group = "income";
-    $Title = "Record Expenses";
+    $Title = "Bank Deposits";
     $Active = "m-pesa";
-    return view('billing.record-expenses',compact('Group','Title','Active','Cash'));
+    $CashatHand = $request->balance;
+    $DepositAmount = $request->amount;
+    $NewBalance = $CashatHand-$DepositAmount;
+
+    // Add Balance
+    $Cash = new Cash;
+    $Cash->amount = "-$DepositAmount";
+    $Cash->campus = Auth::User()->campus;
+    $Cash->reason = "Deposited to Bank";
+    $Cash->user = Auth::user()->id;
+    $Cash->source = "Deposited to Bank";
+    $Cash->code = null;
+    $Cash->balance = $NewBalance;
+    $Cash->save();
+
+    $request->request->add(['balance' => $NewBalance]);
+    $data = $request->except(['_token']);
+    // dd($data);
+    $Deposit = Deposit::create($data);
+    $Deposits = Deposit::all();
+    return Redirect::Back();
+    // return view('billing.deposits',compact('Group','Title','Active','Deposits'));
 }
 
 public function bank_deposits(){
-    $Cash = DB::table('deposits')->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();
+    $Cash = DB::table('cashes')->where('campus' ,Auth::User()->campus)->where('code',null)->orderBy('id','DESC')->first();
+    $Deposits = Deposit::all();
     $Group = "income";
     $Title = "Record Expenses";
     $Active = "m-pesa";
-    return view('billing.record-expenses',compact('Group','Title','Active','Cash'));
+    return view('billing.deposits',compact('Group','Title','Active','Deposits','Cash'));
 }
+
 }
