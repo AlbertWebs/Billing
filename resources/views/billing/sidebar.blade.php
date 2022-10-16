@@ -114,8 +114,9 @@
         <li class="nav-item @if($Group == "activity") nav-item-expanded nav-item-open @endif">
             <a href="{{url('/billings/activity')}}" class="nav-link"><i class="icon-eye4"></i> <span> Activity Log </span></a>
         </li>
-        @endif
         <li class="nav-item-divider"></li>
+        @endif
+
 
         @if(Auth::User()->role == "Super Admin")
         <?php $Campuses = DB::table('settings')->get(); ?>
