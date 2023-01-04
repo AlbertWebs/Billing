@@ -52,6 +52,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill'])->name('create-bill');
     Route::get('/create-bill/{email}', [App\Http\Controllers\BillingController::class, 'create_bill_fetch'])->name('create-bill-fetch');
     Route::post('/create-bill', [App\Http\Controllers\BillingController::class, 'create_bill_post'])->name('create-bill-post');
+    Route::post('/edit-bill/{id}', [App\Http\Controllers\BillingController::class, 'edit_bill_post'])->name('edit-bill');
     Route::post('/create-bill-c2b', [App\Http\Controllers\BillingController::class, 'create_bill_post_c2b'])->name('create-bill-post-c2b');
     Route::get('/create-bill-partial/{id}', [App\Http\Controllers\BillingController::class, 'create_bill_partial'])->name('create-bill-partial');
 
@@ -63,6 +64,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/infos/{id}', [App\Http\Controllers\BillingController::class, 'getInfo'])->name('get-info');
     Route::get('/employee/pdf', [BillingController::class, 'createPDF']);
     Route::get('/download/{id}', [BillingController::class, 'download']);
+    Route::get('/edit/{id}', [BillingController::class, 'download_edit']);
 
     Route::get('/edit-bill/{id}', [App\Http\Controllers\BillingController::class, 'edit_bill'])->name('edit-bill');
     Route::post('/edit-bill', [App\Http\Controllers\BillingController::class, 'edit_bill_post'])->name('edit-bill-post');

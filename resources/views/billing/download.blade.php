@@ -113,8 +113,8 @@
                             <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right force-reduce">KES {{$Billing->amount}}</td>
                             </tr>
                             <tr class="cs-border_left">
-                            <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg force-reduce">Balance Due</td>
-                            <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right force-reduce">KES {{$Billing->balance}}</td>
+                            {{-- <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg force-reduce">Balance Due</td>
+                            <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right force-reduce">KES {{$Billing->balance}}</td> --}}
                             </tr>
                         </tbody>
                         </table>

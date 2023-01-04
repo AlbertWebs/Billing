@@ -57,6 +57,30 @@
 
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">Course:</label>
+                                            <div class="col-lg-10">
+                                                <div class="form-group" data-select2-id="207">
+                                                    <select name="course" class="form-control select-search select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true" required>
+                                                        <optgroup label="Courses" data-select2-id="208">
+                                                            <?php $Courses = DB::table('courses')->where('campus' ,Auth::user()->campus)->get(); ?>
+                                                            @foreach($Courses as $Stude)
+                                                            <?php
+                                                               $School = DB::table('schools')->where('id', $Stude->school)->get();
+                                                            ?>
+                                                            <option value="{{$Stude->id}}" data-select2-id="68{{$Stude->id}}">{{$Stude->title}} - {{$Stude->price}} -- @foreach ($School as $sch){{$sch->title}}@endforeach</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                                 <hr>
 
                                 <div class="row">

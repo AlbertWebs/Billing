@@ -22,7 +22,7 @@
                 {{-- <li class="nav-item"><a href="{{url('/')}}/billings/students" class="nav-link @if($Active == "students") active @endif">All Students</a></li> --}}
                 <li class="nav-item"><a href="{{url('/')}}/billings/students-enroll" class="nav-link @if($Active == "enroll") active @endif">Enroll</a></li>
                 @if(Auth::User()->role == "Super Admin")
-                <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link @if($Active == "users") active @endif">All Users</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/users" class="nav-link @if($Active == "users") active @endif">All Admins</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/add-user" class="nav-link @if($Active == "add user") active @endif">Add Admin</a></li>
                 @endif
             </ul>
@@ -31,7 +31,7 @@
 
 
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-graduation-cap mr-3"></span> Schools & Courses</div> <i class="icon-menu" title="Reports"></i></li> --}}
-
+        @if(Auth::User()->role == "Super Admin")
         <li class="nav-item  @if($Group == "courses") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"><i class="icon-graduation2"></i> <span> Schools & Courses</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
@@ -42,10 +42,11 @@
             </ul>
         </li>
         <li class="nav-item-divider"></li>
+        @endif
 
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-money-bill mr-3"></span> Billing</div> <i class="icon-menu" title="Reports"></i></li> --}}
         <li class="nav-item  @if($Group == "billings") nav-item-expanded nav-item-open @endif">
-            <a href="#" class="nav-link"> <i class="icon-cash"></i> <span> Billing</span></a>
+            <a href="#" class="nav-link"> <i class="icon-cash"></i> <span> Payments</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 {{-- <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link @if($Active == "create-bill") active @endif">Record Payment</a></li> --}}
                 <li class="nav-item"><a href="{{url('/')}}/billings/my-payments" class="nav-link @if($Active == "my-payments") active @endif">All Payments</a></li>
@@ -86,6 +87,7 @@
             </ul>
         </li>
         <li class="nav-item-divider"></li>
+        @if(Auth::User()->role == "Super Admin")
         <li class="nav-item  @if($Group == "income") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"><i class="icon-cash"></i> <span> Bank </span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
@@ -93,6 +95,8 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/bank-deposits" class="nav-link @if($Active == "expenses") active @endif">Bank Deposits</a></li>
             </ul>
         </li>
+        @endif
+        @if(Auth::User()->role == "Super Admin")
         <li class="nav-item-divider"></li>
         <li class="nav-item  @if($Group == "m-pesa") nav-item-expanded nav-item-open @endif">
             <a href="#" class="nav-link"> <i class="icon-cash4"></i> <span><span> M-PESA </span></a>
@@ -102,12 +106,20 @@
             </ul>
         </li>
         <li class="nav-item-divider"></li>
+        @endif
+
 
         @if(Session::has('partials') OR Session::has('billing') OR Session::has('user'))
         <li class="nav-item ">
             <a href="{{url('/')}}/billings/session-destroy" class="nav-link"><i class="icon-pencil3"></i> <span class="fas fa-recycle mr-3"> Reset All Forms</span></a>
         </li>
         @endif
+
+        <li class="nav-item @if($Group == "activity") nav-item-expanded nav-item-open @endif">
+            <a onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();" href="{{url('/logout')}}" class="nav-link"><i class="icon-switch2"></i> <span> Logout </span></a>
+        </li>
+        <li class="nav-item-divider"></li>
 
 
         @if(Auth::User()->role == "Super Admin")

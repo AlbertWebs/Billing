@@ -137,7 +137,9 @@
                             </td>
                             <td class="text-center">
                                 <div class="list-icons list-icons-extended">
-                                    {{-- <a href="#" class="list-icons-item" data-toggle="modal" data-target="#invoice"><i class="icon-file-eye"></i></a> --}}
+                                    @if(Auth::User()->role == "Super Admin")
+                                      <a href="{{url('/')}}/billings/edit/{{$Billing->id}}" class="list-icons-item"  title="Edit"><i class="icon-database-edit2 mr-3 fa-2x"></i></a>
+                                    @endif
                                     <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item" ><i class="fas fa-download mr-3 fa-2x"></i></a>
 
                                 </div>

@@ -85,8 +85,10 @@ class BillingController extends Controller
          $email = $request->SEmail;
          $mobile = $request->SMobile;
          $gender = $request->gender;
+         $course = $request->course;
 
          $Student = new Student;
+         $Student->course_id = $course;
          $Student->name = $name;
          $Student->email = $email;
          $Student->mobile = $mobile;
@@ -515,6 +517,45 @@ public function create_bill_posts(Request $request){
 
 }
 
+
+public function edit_bill_post(Request $request, $id){
+    $initial_amount = $request->initial_value;
+    $current_amount = $request->amount;
+    $amount = $request->amount;
+    if($initial_amount>$current_amount){
+        $new_amount = $initial_amount-$current_amount;
+        // Reduce income
+        $Cash = new Cash;
+        $Cash->amount = "-$new_amount";
+        $Cash->campus = Auth::User()->campus;
+        $Cash->reason = $request->description;
+        $Cash->user = Auth::user()->id;
+        $Cash->source = "Correction";
+        $Cash->code = null;
+        $Cash->balance = null;
+        $Cash->save();
+    }else{
+        $new_amount = $current_amount-$initial_amount;
+        $Cash = new Cash;
+        $Cash->amount = $new_amount;
+        $Cash->campus = Auth::User()->campus;
+        $Cash->reason = $request->description;
+        $Cash->user = Auth::user()->id;
+        $Cash->source = "Correction";
+        $Cash->code = null;
+        $Cash->balance = null;
+        $Cash->save();
+    }
+    // new table corrections
+
+    // update
+    $updateDetails = array(
+        'amount' => $request->amount,
+    );
+    $EditBilling = DB::table('billings')->where('id',$id)->update($updateDetails);
+    return Redirect::back();
+}
+
 public function create_bill_post(Request $request){
     // Check C2b is set
     if($request->has('c2b')){
@@ -750,8 +791,16 @@ public function download($id) {
     $Active = "m-pesa";
     $Billing = Billing::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     return view('billing.download', compact('Billing','Group','Title','Active'));
-
 }
+
+public function download_edit($id) {
+    $Group = "billings";
+    $Title = "All Students";
+    $Active = "m-pesa";
+    $Billing = Billing::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
+    return view('billing.download_edit', compact('Billing','Group','Title','Active'));
+}
+
 public function edit_bill($id) {
     $Billing = Billing::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     return view('billing.edit_bill', compact('Billing'));
