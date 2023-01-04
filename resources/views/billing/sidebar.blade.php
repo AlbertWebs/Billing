@@ -70,6 +70,13 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link @if($Active == "search-r") active @endif">Search Date Range</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/total-receivable" class="nav-link @if($Active == "receivable") active @endif">Balance</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/total-overpayed" class="nav-link @if($Active == "overpayed") active @endif">Total Overpayed</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/bank-deposit" class="nav-link @if($Active == "deposits") active @endif">Bank Deposits</a></li>
+                <?php $status = "Active" ?>
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-report/{{$status}}" class="nav-link @if($Active == "deposits") active @endif">Student {{$status}}</a></li>
+                <?php $status = "Graduated" ?>
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-report/{{$status}}" class="nav-link @if($Active == "deposits") active @endif">Student {{$status}}</a></li>
+                <?php $status = "Left" ?>
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-report/{{$status}}" class="nav-link @if($Active == "deposits") active @endif">Student {{$status}}</a></li>
             </ul>
         </li>
         <li class="nav-item-divider"></li>

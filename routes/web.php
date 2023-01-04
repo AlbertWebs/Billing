@@ -20,13 +20,13 @@ use App\Http\Controllers\MpesaController;
 // });
 // Auth::routes();
 Auth::routes(['register' => false]);
-Route::get('/', [App\Http\Controllers\BillingController::class, 'index'])->name('admin.home')->middleware('is_admin');
+Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('admin.home')->middleware('is_admin');
 Route::get('/email/{campus}', [App\Http\Controllers\BillingController::class, 'email'])->name('admin.email')->middleware('is_admin');
 
 //Group
 // Products
 Route::group(['prefix'=>'billings'], function(){
-    Route::get('/', [App\Http\Controllers\BillingController::class, 'all'])->name('all');
+    Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('all');
     Route::get('/students', [App\Http\Controllers\BillingController::class, 'students'])->name('all-students');
     Route::get('/student/{id}', [App\Http\Controllers\BillingController::class, 'student'])->name('student');
     Route::get('/students-enroll', [App\Http\Controllers\BillingController::class, 'enroll'])->name('enroll');
@@ -141,7 +141,9 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/income-x-months/{days}', [App\Http\Controllers\BillingController::class, 'income_x_months'])->name('income-x-months');
    Route::get('/income-x-range/{days}', [App\Http\Controllers\BillingController::class, 'income_x_range'])->name('income-x-range');
    Route::get('/total-receivable', [App\Http\Controllers\BillingController::class, 'total_receivable'])->name('total-receivable');
+   Route::get('/bank-deposit', [App\Http\Controllers\BillingController::class, 'bank_deposit'])->name('bank-deposite');
    Route::get('/total-overpayed', [App\Http\Controllers\BillingController::class, 'total_overpayed'])->name('total-overpayed');
+   Route::get('/students-report/{id}', [App\Http\Controllers\BillingController::class, 'students_reports'])->name('students-reports');
 
    Route::get('/record-expenses', [App\Http\Controllers\BillingController::class, 'record_expenses'])->name('record-expenses');
    Route::get('/deposits-to-bank', [App\Http\Controllers\BillingController::class, 'deposits_to_bank'])->name('deposits-to-bank');

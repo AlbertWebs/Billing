@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Expense;
 use App\Models\Billing;
+use App\Models\Enrolment;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\Activity;
@@ -17,6 +18,7 @@ use App\Models\Cash;
 use App\Models\MpesaTransaction;
 use App\Models\STKMpesaTransaction;
 use Carbon\Carbon;
+use App\Models\SendMail;
 use App\Models\Notify;
 use Session;
 use Auth;
@@ -73,6 +75,19 @@ class BillingController extends Controller
         return view('billing.students', compact('Student','Group','Title','Active'));
     }
 
+    public function students_reports($status){
+        Session::forget('billing');
+        Session::forget('user');
+        Session::forget('partials');
+        $Group = "students";
+        $Title = "Students $status";
+        $Active = "students";
+        // $Student = Student::all();
+        $Student = DB::table('students')->where('status', $status)->where('campus' ,Auth::User()->campus)->get();
+        return view('billing.students_report', compact('Student','Group','Title','Active'));
+    }
+
+
     public function enroll(){
         $Group = "students";
         $Title = "All Users";
@@ -91,6 +106,7 @@ class BillingController extends Controller
          $Student->course_id = $course;
          $Student->name = $name;
          $Student->email = $email;
+         $Student->email_address = $request->email_address;
          $Student->mobile = $mobile;
          $Student->gender = $gender;
          $Student->avatar = "avatar.jpg";
@@ -169,6 +185,7 @@ class BillingController extends Controller
             'email' => $email,
             'mobile' => $mobile,
             'gender' => $gender,
+            'email_address' =>  $request->email_address,
             'status' => $request->status
          );
 
@@ -570,15 +587,25 @@ public function create_bill_post(Request $request){
         'course_id' =>$request->course,
     );
     DB::table('students')->where('id',$request->user)->update($updateCourse);
+
+
+    $Enrolments = DB::table('enrolments')->where('course_id',$request->course)->where('student_id',$request->user)->get();
+    if($Enrolments->isEmpty()){
+        $Enrolments = new Enrolments;
+        $Enrolments->course_id = $request->course;
+        $Enrolments->student_id = $request->user;
+        $Enrolments->save();
+    }
     //
+    $course_id = $request->course;
+    $Course = Course::find($course_id);
 
     $user = $request->user;
     $price = $request->amount;
     $amount = $request->amount;
-    $description = $request->description;
+    $description = "$request->description For $Course->title";
     $note = $request->note;
     $title = $request->title;
-    $course_id = $request->course;
     $reference = $request->reference;
     $group_id = $request->group_id;
 
@@ -719,14 +746,17 @@ public function create_bill_post(Request $request){
         //
 
         Session::put('billing', $Billing->id);
+        $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
         // $this->sendSMS($Message,$phoneNumber);
         return $this->download($Billing->id);
     }
 }
 
-public function sendSMS($Message,$TheStudent){
-    // echo $Message;
+public function sendEmail($Message,$email,$name){
+    SendMail::Send($Message,$email,$name);
+}
 
+public function sendSMS($Message,$TheStudent){
     $message = $Message;
     $phone =$TheStudent;
     $senderid = "DESIGNEKTA";
@@ -1222,6 +1252,17 @@ public function total_overpayed(){
     $Balance = DB::table('billings')->where('campus' ,Auth::User()->campus)->sum('balance');
     $Title = "Total Overpayed";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
+}
+
+public function bank_deposit(){
+    $Group = "reports";
+    $Active = "overpayed";
+    // Clear Session
+    Session::forget('search');
+    $Deposit = DB::table('deposits')->where('campus' ,Auth::User()->campus)->get();
+    $Balance = DB::table('billings')->where('campus' ,Auth::User()->campus)->sum('balance');
+    $Title = "Bank Deposits";
+    return view('billing.bank_deposit', compact('Title','Deposit','Group','Active'));
 }
 
 public function income(){
