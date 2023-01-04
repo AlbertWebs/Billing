@@ -64,17 +64,28 @@
     </div>
     <hr>
 
-            <div class="col-lg-12">
-                <div class="form-group" data-select2-id="207">
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Discount:</label>
-                        <div class="col-lg-10">
-                            <input type="number" class="form-control" name="discount"  placeholder="2000" autocomplete="student-name">
-                        </div>
-                    </div>
+    {{-- <div class="col-lg-12">
+        <div class="form-group" data-select2-id="207">
+            <div class="form-group row">
+                <label class="col-lg-2 col-form-label">Discount:</label>
+                <div class="col-lg-10">
+                    <input type="number" class="form-control" name="discount"  placeholder="2000" autocomplete="student-name">
                 </div>
             </div>
-            <hr>
+        </div>
+    </div>
+    <hr> --}}
+    <div class="col-lg-12">
+        <div class="form-group" data-select2-id="207">
+            <div class="form-group row">
+                <label class="col-lg-2 col-form-label">Balance:</label>
+                <div class="col-lg-10">
+                    <input type="number" class="form-control" name="temp_balance" value="0.00"  placeholder="2000" autocomplete="student-name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
     <input type="hidden" name="billType" value="0">
     <div class="row">
         <div class="col-lg-12">

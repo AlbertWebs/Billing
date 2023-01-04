@@ -591,7 +591,7 @@ public function create_bill_post(Request $request){
 
     $Enrolments = DB::table('enrolments')->where('course_id',$request->course)->where('student_id',$request->user)->get();
     if($Enrolments->isEmpty()){
-        $Enrolments = new Enrolments;
+        $Enrolments = new Enrolment;
         $Enrolments->course_id = $request->course;
         $Enrolments->student_id = $request->user;
         $Enrolments->save();
@@ -725,6 +725,7 @@ public function create_bill_post(Request $request){
     $Billing->m_pesa = $EnterTransaction;
     $Billing->note = $note;
     $Billing->reference = $reference;
+    $Billing->balance_temp = $request->balance_temp;
     $Billing->balance = $Balance;
     $Billing->course_id = $course_id;
     $Billing->amount = $amount;
