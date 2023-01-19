@@ -1095,11 +1095,16 @@ public function add_user_post(Request $request){
 
 public function save_user(Request $request, $id){
 
+   if($request->is_admin =="1"){
+      $role = "Super Admin";
+   }else{
+       $role = "Admin";
+   }
    $updateDetails = array(
       'name'=> $request->name,
       'email'=> $request->email,
-
       'is_admin'=> $request->is_admin,
+      'role'=>$role,
    );
    $UserSession = Auth::User()->name;
    activity()->log('Admin:'.$request->name.' has been updated By '.$UserSession.'');
