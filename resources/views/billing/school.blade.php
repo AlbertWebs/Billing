@@ -1,6 +1,9 @@
 @extends('billing.master-forms')
 @section('content')
 <!-- Main content -->
+@foreach ($School as $School)
+
+
 <div class="content-wrapper">
 
     <!-- Inner content -->
@@ -114,4 +117,5 @@
 
 </div>
 <!-- /main content -->
+@endforeach
 @endsection
