@@ -59,6 +59,7 @@
                                             <label class="col-lg-2 col-form-label">Email:</label>
                                             <div class="col-lg-10">
                                                 <input type="text" name="email_address" autocomplete="off" value="" class="form-control"  placeholder="username@domain.com" required>
+                                                <small style="color:#bbbbbb"><strong>Used to send notifications on payments, Default is students@atlascollege.ac.ke</strong></small>
                                             </div>
                                         </div>
                                     </div>

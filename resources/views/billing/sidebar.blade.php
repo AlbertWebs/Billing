@@ -10,8 +10,6 @@
         <li class="nav-item-divider"></li>
         {{-- <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs"><span class="fas fa-user mr-3"></span> Students & Users</div> <i class="icon-menu" title="Forms"></i></li> --}}
 
-
-
         <li class="nav-item @if($Group == "students") nav-item-expanded nav-item-open @endif">
             @if(Auth::User()->role == "Super Admin")
             <a href="#" class="nav-link"><i class="icon-user"></i> <span> Students & Users</span></a>

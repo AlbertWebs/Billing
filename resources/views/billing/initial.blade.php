@@ -82,7 +82,7 @@
                 </div>
             </div>
             <hr> --}}
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <div class="form-group" data-select2-id="207">
                     <div class="form-group row">
                         <label class="col-lg-2 col-form-label">Balance:</label>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <hr> --}}
 
 
             <input type="hidden" name="billType" value="0">

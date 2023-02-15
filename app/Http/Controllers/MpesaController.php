@@ -217,8 +217,8 @@ class MpesaController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode(array(
             'ShortCode' => "928732",
             'ResponseType' => 'Completed',
-            'ConfirmationURL' => "https://billing.designekta.com/api/v1/transaction/confirmation",
-            'ValidationURL' => "https://billing.designekta.com/api/v1/validation"
+            'ConfirmationURL' => "https://billing.atlascollege.ac.ke/api/v1/transaction/confirmation",
+            'ValidationURL' => "https://billing.atlascollege.ac.ke/api/v1/validation"
         )));
         $curl_response = curl_exec($curl);
         echo $curl_response;
