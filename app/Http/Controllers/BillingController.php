@@ -1271,6 +1271,19 @@ public function bank_deposit(){
     return view('billing.bank_deposit', compact('Title','Deposit','Group','Active'));
 }
 
+public function report_expenses(){
+    $Group = "reports";
+    $Active = "overpayed";
+    // Clear Session
+    Session::forget('search');
+    $Expeses = DB::table('expenses')->where('campus' ,Auth::User()->campus)->get();
+    $Balance = DB::table('billings')->where('campus' ,Auth::User()->campus)->sum('balance');
+    $Title = "Expenses";
+    return view('billing.report_expenses', compact('Title','Expeses','Group','Active'));
+}
+
+
+
 public function income(){
     $Group = "income";
     $Title = "All Income";
