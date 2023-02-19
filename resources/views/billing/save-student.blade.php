@@ -141,6 +141,101 @@
                         </div>
                     </div>
                     <!-- /basic layout -->
+                    <hr>
+
+                    {{-- List of Courses --}}
+                    <div class="table-responsive">
+                        <h6>List of Courses Taken</h6>
+                        <table class="table text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="w-100">Course name</th>
+                                    <th>Date Registered</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                     $Millage = DB::table('millages')->where('student_id',$Student->id)->get();
+                                ?>
+                                @foreach ($Millage as $Miles)
+                                <?php
+                                    $CourseCurrent = DB::table('courses')->where('id',$Student->course_id)->get();
+                                    $Course = DB::table('courses')->where('id',$Miles->course_id)->get();
+                                ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+
+
+                                                    @if($Student->course_id == $Miles->course_id)
+                                                        <div class="mr-3">
+                                                            <a href="#" class="btn btn-success rounded-pill btn-icon btn-sm">
+                                                                <span class="letter-icon"></span>
+                                                            </a>
+                                                        </div>
+                                                        @else
+                                                        <div class="mr-3">
+                                                            <a href="#" class="btn btn-primary rounded-pill btn-icon btn-sm">
+                                                                <span class="letter-icon"></span>
+                                                            </a>
+                                                        </div>
+                                                        @endif
+
+
+                                            <div>
+                                                <a href="#" class="text-body font-weight-semibold letter-icon-title">
+                                                    @foreach ($Course as $Courses)
+                                                    {{$Courses->title}}
+                                                    @endforeach
+                                                </a>
+                                                <div class="text-muted font-size-sm"><i class="icon-checkmark3 font-size-sm mr-1"></i>Current Active Course:
+                                                 {{--  --}}
+
+                                                @foreach ($CourseCurrent as $Current)
+                                                {{$Current->title}}
+                                                @endforeach
+                                                 {{--  --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted font-size-sm">{{$Miles->registred}}</span>
+                                    </td>
+                                    <td>
+                                        <h6 class="font-weight-semibold mb-0">
+                                            @if($Miles->status == "1")
+                                            <span class="text-success">
+                                                Done
+                                            </span>
+                                            @else
+                                            <span class="text-warning">
+                                                Ongoing
+                                            </span>
+                                            @endif
+                                        </h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="font-weight-semibold mb-0">
+                                            {{-- <a title="Switch Status Ongoing" href="http://localhost:8000/billings/switch-course/{{$Miles->id}}" class="btn btn-outline-warning">  <i class="fas fa-calendar"></i>
+                                            </a> --}}
+                                            @if($Miles->status == "1")
+                                            <a title="Switch Status Ongoing" href="http://localhost:8000/billings/switch-course/{{$Miles->id}}" class="btn btn-outline-warning">  <i class="fas fa-check"></i>
+                                            </a>
+                                            @else
+                                            <a title="Switch Status Complete" href="http://localhost:8000/billings/switch-course/{{$Miles->id}}" class="btn btn-outline-info">  <i class="fas fa-check"></i>
+                                            </a>
+                                            @endif
+                                        </h6>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- List of Courses --}}
                 </div>
             </div>
             <!-- /vertical form options -->

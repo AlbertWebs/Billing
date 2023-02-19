@@ -8,6 +8,7 @@ use App\Models\School;
 use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\Expense;
+use App\Models\Millage;
 use App\Models\Billing;
 use App\Models\Enrolment;
 use App\Models\Setting;
@@ -427,6 +428,12 @@ public function create_bill_post_c2b(Request $request){
 }
 
 public function create_bill_posts(Request $request){
+    // Update Millage
+    $Millage = new Millage;
+    $Millage->course_id = $request->course;
+    $Millage->student_id = $request->user;
+    $Millage->registred = now();
+    $Millage->save();
 
     $user = $request->user;
     $price = $request->amount;
@@ -536,6 +543,7 @@ public function create_bill_posts(Request $request){
 
 
 public function edit_bill_post(Request $request, $id){
+
     $initial_amount = $request->initial_value;
     $current_amount = $request->amount;
     $amount = $request->amount;
@@ -615,6 +623,11 @@ public function delete_payment($id){
 }
 
 public function create_bill_post(Request $request){
+    $Millage = new Millage;
+    $Millage->course_id = $request->course;
+    $Millage->student_id = $request->user;
+    $Millage->registred = now();
+    $Millage->save();
     // Check C2b is set
     if($request->has('c2b')){
          $UpdateUser = array(
@@ -994,6 +1007,23 @@ public function switch_status($id,$status){
     return Redirect::back();
 }
 
+public function switch_course($id){
+    $Millage = Millage::find($id);
+    if($Millage->status == "1"){
+        $status = "0";
+    }else{
+        $status = "1";
+    }
+    $updateDetails = array(
+        'status' => $status,
+    );
+    DB::table('millages')->where('id',$id)->update($updateDetails);
+    Session::flash('message', "Status Updated!");
+    return Redirect::back();
+}
+
+
+
 
 public function process_payment($Re){
 
@@ -1287,6 +1317,27 @@ public function income_this_month(){
 }
 
 
+public function income_statement(){
+    // Clear Session
+    $Group = "reports";
+    $Active = "search";
+    Session::forget('search');
+    $Billings = Billing::where('campus' ,Auth::User()->campus)->get();
+    $Title = "Search Income Date";
+    return view('billing.income_statement_search', compact('Title','Billings','Group','Active'));
+}
+
+public function income_statement_search(Request $request){
+    $Group = "reports";
+    $Active = "search";
+    $date = $request->date;
+    $Title = "Income Statement as of $request->date";
+    $datef = date('Y-m-d', strtotime($date));
+    $Cash = Cash::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->get();
+    $Total = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Balance = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('balance');
+    return view('billing.income_statement_search_results', compact('Cash','Title','Total','Balance','Group','Active'));
+}
 
 public function income_search(){
     // Clear Session

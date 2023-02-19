@@ -43,6 +43,7 @@ return array(
     'App\\Models\\Entrolment' => $baseDir . '/app/Models/Entrolment.php',
     'App\\Models\\Expense' => $baseDir . '/app/Models/Expense.php',
     'App\\Models\\Income' => $baseDir . '/app/Models/Income.php',
+    'App\\Models\\Millage' => $baseDir . '/app/Models/Millage.php',
     'App\\Models\\MpesaReverseTransaction' => $baseDir . '/app/Models/MpesaReverseTransaction.php',
     'App\\Models\\MpesaTransaction' => $baseDir . '/app/Models/MpesaTransaction.php',
     'App\\Models\\MpesaTransactionAccountBalance' => $baseDir . '/app/Models/MpesaTransactionAccountBalance.php',

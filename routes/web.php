@@ -57,6 +57,11 @@ Route::group(['prefix'=>'billings'], function(){
     Route::post('/edit-bill/{id}', [App\Http\Controllers\BillingController::class, 'edit_bill_post'])->name('edit-bill');
     Route::post('/create-bill-c2b', [App\Http\Controllers\BillingController::class, 'create_bill_post_c2b'])->name('create-bill-post-c2b');
     Route::get('/create-bill-partial/{id}', [App\Http\Controllers\BillingController::class, 'create_bill_partial'])->name('create-bill-partial');
+    Route::get('/switch-course/{id}', [App\Http\Controllers\BillingController::class, 'switch_course'])->name('switch-course');
+    Route::get('/income-statement', [App\Http\Controllers\BillingController::class, 'income_statement'])->name('income-statement');
+    Route::post('/income-statement-search', [App\Http\Controllers\BillingController::class, 'income_statement_search'])->name('income-statement-search');
+
+
 
     Route::get('/my-payments', [App\Http\Controllers\BillingController::class, 'my_payments'])->name('my-payments');
     Route::get('/my-payments/{ref}', [App\Http\Controllers\BillingController::class, 'my_payments_ref'])->name('my-payments-ref');
