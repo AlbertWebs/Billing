@@ -573,6 +573,47 @@ public function edit_bill_post(Request $request, $id){
     return Redirect::back();
 }
 
+public function delete_payment($id){
+    $Billing = Billing::find($id);
+    // Update Cases
+    $amount = $Billing->amount;
+    // Fetch Last Cashes
+    $Cash = Cash::latest()->first();
+    $CurrentAmount = $Cash->balance;
+    $NewAmount = $CurrentAmount - $amount;
+    // dd($NewAmount);
+
+    if($CurrentAmount>$NewAmount){
+
+        // Reduce income
+        $Cash = new Cash;
+        $Cash->amount = "-$NewAmount";
+        $Cash->campus = Auth::User()->campus;
+        $Cash->reason = "Books Correction";
+        $Cash->user = Auth::user()->id;
+        $Cash->source = "Correction";
+        $Cash->code = null;
+        $Cash->balance = $NewAmount;
+        $Cash->save();
+    }else{
+
+        $Cash = new Cash;
+        $Cash->amount = $NewAmount;
+        $Cash->campus = Auth::User()->campus;
+        $Cash->reason = "Books Correction";
+        $Cash->user = Auth::user()->id;
+        $Cash->source = "Correction";
+        $Cash->code = null;
+        $Cash->balance = $NewAmount;
+        $Cash->save();
+    }
+    // new table corrections
+
+
+    $DeleteBilling = DB::table('billings')->where('id',$id)->delete();
+    return Redirect::back();
+}
+
 public function create_bill_post(Request $request){
     // Check C2b is set
     if($request->has('c2b')){
@@ -1163,6 +1204,66 @@ public function income_today(){
     return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
+public function students_registered(){
+    $Group = "reports";
+    $Active = "today";
+    $Title = "Students Registred Today";
+    $Billings = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->get();
+    $Total = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Student = Student::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->get();
+    // $Student = DB::table('students')->where('status', $status)->where('campus' ,Auth::User()->campus)->get();
+    return view('billing.students_report', compact('Student','Title','Total','Group','Active'));
+}
+
+public function students_registered_week(){
+    $Group = "reports";
+    $Active = "today";
+    $Title = "Students Registred Last 7 Days";
+    $date = Carbon::now()->subDays(7);
+    $Billings = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->get();
+    $Total = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Student = Student::where('created_at', '>=', $date)->where('campus' ,Auth::User()->campus)->get();
+    // $Student = DB::table('students')->where('status', $status)->where('campus' ,Auth::User()->campus)->get();
+    return view('billing.students_report', compact('Student','Title','Total','Group','Active'));
+}
+
+public function students_registered_month(){
+    $Group = "reports";
+    $Active = "today";
+    $Title = "Students Registred 30 Days Ago";
+    $date = Carbon::now()->subDays(30);
+    $Billings = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->get();
+    $Total = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Student = Student::where('created_at', '>=', $date)->where('campus' ,Auth::User()->campus)->get();
+    // $Student = DB::table('students')->where('status', $status)->where('campus' ,Auth::User()->campus)->get();
+    return view('billing.students_report', compact('Student','Title','Total','Group','Active'));
+}
+
+public function students_registered_date(Request $request){
+    $Group = "reports";
+    $Active = "search";
+    Session::forget('search');
+    $date = $request->date;
+    $Title = "Student Registered as of $request->date";
+    $datef = date('Y-m-d', strtotime($date));
+    $Student = Student::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->get();
+    Session::put('search', $date);
+    $Total = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Balance = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('balance');
+    return view('billing.students_report', compact('Student','Title','Total','Balance','Group','Active'));
+}
+
+
+public function students_registered_dates(){
+    // Clear Session
+    $Group = "reports";
+    $Active = "search";
+    Session::forget('search');
+    $Billings = Billing::where('campus' ,Auth::User()->campus)->get();
+    $Title = "Search Income Date";
+    return view('billing.student_search', compact('Title','Billings','Group','Active'));
+}
+
 public function income_week(){
     $Group = "reports";
     $Active = "today";
@@ -1184,6 +1285,8 @@ public function income_this_month(){
     $Balance = Billing::where('created_at', '>=', $date)->where('campus' ,Auth::User()->campus)->sum('balance');
     return view('billing.income_today', compact('Billings','Title','Total','Balance','Group','Active'));
 }
+
+
 
 public function income_search(){
     // Clear Session
@@ -1208,6 +1311,10 @@ public function income_x_days(Request $request){
     $Balance = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('balance');
     return view('billing.income_search', compact('Billings','Title','Total','Balance','Group','Active'));
 }
+
+
+
+
 
 public function income_search_range(){
     $Group = "reports";

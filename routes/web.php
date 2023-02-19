@@ -42,6 +42,8 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/courses', [App\Http\Controllers\BillingController::class, 'courses'])->name('courses-list');
     Route::get('/course-delete/{id}', [App\Http\Controllers\BillingController::class, 'course_delete'])->name('course-delete');
     Route::get('/tutor-delete/{id}', [App\Http\Controllers\BillingController::class, 'tutor_delete'])->name('tutor-delete');
+    Route::get('/delete-payment/{id}', [App\Http\Controllers\BillingController::class, 'delete_payment'])->name('delete-payment');
+
     Route::POST('/save-course-post/{id}', [App\Http\Controllers\BillingController::class, 'save_course_post'])->name('save-course-post');
     Route::POST('/enroll-student', [App\Http\Controllers\BillingController::class, 'enroll_student'])->name('enroll-post');
     Route::POST('/save-student-post/{id}', [App\Http\Controllers\BillingController::class, 'save_student'])->name('save-student');
@@ -125,6 +127,13 @@ Route::group(['prefix'=>'billings'], function(){
    Route::get('/income-search-range', [App\Http\Controllers\BillingController::class, 'income_search_range'])->name('income-search-range');
    Route::post('/income-x-days-range', [App\Http\Controllers\BillingController::class, 'income_x_days_range'])->name('income_x_days_range');
    Route::get('/income-this-month', [App\Http\Controllers\BillingController::class, 'income_this_month'])->name('income-this-month');
+
+   Route::get('/students-registered', [App\Http\Controllers\BillingController::class, 'students_registered'])->name('students-registered');
+   Route::get('/students-registered-week', [App\Http\Controllers\BillingController::class, 'students_registered_week'])->name('students-registered-week');
+   Route::get('/students-registered-date', [App\Http\Controllers\BillingController::class, 'students_registered_dates'])->name('students-registered-date');
+   Route::post('/students-registered-dates', [App\Http\Controllers\BillingController::class, 'students_registered_date'])->name('students-registered-date');
+   Route::get('/students-registered-month', [App\Http\Controllers\BillingController::class, 'students_registered_month'])->name('students_registered_month');
+
 
    Route::get('/switch-campus/{id}', [App\Http\Controllers\BillingController::class, 'switch_campus'])->name('switch-campus');
    Route::get('/add-campus', [App\Http\Controllers\BillingController::class, 'add_campus'])->name('add-campus');

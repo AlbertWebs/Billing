@@ -76,6 +76,16 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/students-report/{{$status}}" class="nav-link @if($Active == "deposits") active @endif">Student {{$status}}</a></li>
                 <?php $status = "Left" ?>
                 <li class="nav-item"><a href="{{url('/')}}/billings/students-report/{{$status}}" class="nav-link @if($Active == "deposits") active @endif">Student {{$status}}</a></li>
+
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-registered" class="nav-link @if($Active == "deposits") active @endif">Student Registered Today</a></li>
+
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-registered-week" class="nav-link @if($Active == "deposits") active @endif">Student Registered This Week</a></li>
+
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-registered-date" class="nav-link @if($Active == "deposits") active @endif">Student Registered on Date</a></li>
+
+                <li class="nav-item"><a href="{{url('/')}}/billings/students-registered-month" class="nav-link @if($Active == "deposits") active @endif">Students Registered 30 Days Ago</a></li>
+
+
             </ul>
         </li>
         <li class="nav-item-divider"></li>

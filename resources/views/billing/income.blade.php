@@ -58,12 +58,12 @@
                             </td>
 
                             <td>
-                                <a href="{{url('/')}}/billings/income/{{$item->id}}" class="btn btn-outline-info">
+                                {{-- <a href="{{url('/')}}/billings/income/{{$item->id}}" class="btn btn-outline-info">
                                     <i class="fas fa-pen"></i>
                                 </a>
                                 <a onclick="return confirm('Do you wish to delete this course?')" href="{{url('/')}}/billings/income-delete/{{$item->id}}" class="btn btn-outline-danger">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
                         @endforeach

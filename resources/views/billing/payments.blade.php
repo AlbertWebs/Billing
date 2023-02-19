@@ -139,8 +139,10 @@
                                 <div class="list-icons list-icons-extended">
                                     @if(Auth::User()->role == "Super Admin")
                                       <a href="{{url('/')}}/billings/edit/{{$Billing->id}}" class="list-icons-item"  title="Edit"><i class="icon-database-edit2 mr-3 fa-2x"></i></a>
+
+                                      <a title="Delete this payment" onclick="return confirm('Do you wish to delete this payment? You cannot undo this process')" href="{{url('/')}}/billings/delete-payment/{{$Billing->id}}" class="list-icons-item text-danger"  title="Edit"><i class="icon-trash-alt mr-3 fa-2x"></i></a>
                                     @endif
-                                    <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item" ><i class="fas fa-download mr-3 fa-2x"></i></a>
+                                    <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item text-success" ><i class="fas fa-download mr-3 fa-2x"></i></a>
 
                                 </div>
                             </td>
