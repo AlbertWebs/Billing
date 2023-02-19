@@ -1,234 +1,195 @@
-@extends('billing.master-datatables-print')
-@section('content')
 
-@if(Session::has('search'))
-<style>
-    .dt-buttons{
-         display: none;
-     }
-     .header{
-         padding: 10px;
-         text-align: center;
-     }
-     .header h2{
-         line-height: 0;
-         margin-top:5px;
-         font-weight: 900;
-     }
-     .header h5{
-         line-height: 0.8;
-         padding-top:5px;
-         font-weight: 600;
-     }
-     .header h6{
-         line-height: 0.5;
-         padding-top:1px;
-         font-weight: 600;
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+    <?php $Settings = DB::table('settings')->where('id','1')->get() ?>
+    @foreach ($Settings as $set)
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="ThemeMarch">
+  <!-- Site Title -->
+  <title>Print Receipt</title>
+  <link rel="stylesheet" href="{{asset('receipts.app/assets/css/style.css')}}">
+  <style>
+
+     .additional{
+        font-size:9px;
      }
 
-    .card-body{
-        display: none
-    }
-
- @media print {
-     .dataTables_filter input{
-         display: none;
+     .cs-invoice_head {
+        font-size:11px;
      }
-     .dataTables_filter{
-         display: none;
+     .details td{
+        font-size:10px;
      }
-     .cs-invoice_btn{
-         display: none;
+     .force-reduce{
+        font-size:12px;
      }
-     .dataTables_length{
-         display: none;
+     .cs-container{
+        /* border: 5px solid #000000; */
      }
-     .dt-buttons{
-         display: none;
+     .bordering{
+        border: 3px solid #666;
      }
-     .datatable-footer{
-         display: none;
-     }
-     .dt-button{
-         display: none;
-     }
- }
-</style>
- @else
-<style>
-    .header{
-        display: none;
-    }
-</style>
- @endif
-	<!-- Main content -->
-    <div class="content-wrapper">
 
-        <!-- Inner content -->
-        <div class="content-inner">
+  </style>
+</head>
+
+<body>
 
 
+        <div class="cs-container">
+            <div class="cs-invoice cs-style1">
+            <div class="cs-invoice_in" id="download_section">
+                <div class="cs-invoice_head cs-type1 cs-mb25">
+                <div class="cs-invoice_left">
+                    <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16"><b class="cs-primary_color">Income Statemen No</b> </p>
+                    <p class="cs-invoice_date cs-primary_color cs-m0"><b class="cs-primary_color">Date: </b>{{date('d-M-Y')}}</p>
+                </div>
+                <div class="cs-invoice_right cs-text_right">
+                    <div class="cs-logo cs-mb5"><img width="200" src="{{url('/')}}/uploads/logo/{{$set->logo}}" alt="Atlas"></div>
+                </div>
+                </div>
 
+                <div class="cs-invoice_head cs-mb10 borderinsg">
+                <div class="cs-invoice_left">
 
-            <!-- Content area -->
-            <div class="content">
-                <a href="javascript:window.print()" class="dt-button buttons-print btn btn-primary"><span><i class="icon-printer mr-2"></i> Print Report</span></a>
+                </div>
+                <div class="cs-invoice_right cs-text_right">
+                    <b class="cs-primary_color">Institution</b>
+                    <p>
+                        {{$set->name}} <br>
+                        {{$set->location}} <br>Nairobi,Kenya<br>
 
+                    {{$set->email}}
+                    </p>
+                </div>
+                </div>
+                <div class="cs-invoice_head cs-type1 cs-mb25 correct-print-margin"></div>
 
-                <!-- Search field --><br><br><br>
-                <div class="card">
-                    <?php $Settings = DB::table('settings')->where('id',Auth::User()->campus)->get(); ?>
-                    @foreach ($Settings as $Setting)
-                      <div class="header">
-                          <img width="200" src="{{url('/')}}/uploads/logo/{{$Setting->logo}}" alt="Atlas">
-                          <h2>{{$Setting->name}}</h2>
-                          <h5>{{$Setting->address}}</h5>
-                          <h6>{{$Setting->mobile}}</h6>
-                          {{-- <h6>{{$Setting->email}}</h6> --}}
-                          <h6><u>{{$Title}}</u></h6>
+                <div class="cs-table cs-style1">
+                <div class="cs-round_border bordering">
+                    <div class="cs-table_responsive">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Income</th>
+                            <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg"></th>
 
-                      </div>
+                            <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="details">
+                            <td class="cs-width_3">Total Income</td>
+                            <td class="cs-width_4">{{$Title}}</td>
+                            <td class="cs-width_2 cs-text_right">KES {{$Total}}</td>
+                        </tr>
 
-                    @endforeach
-                    <div class="card-body">
-                        <form action="{{url('/')}}/billings/income-statement-search" method="POST">
-                            @csrf
-                            <div class="d-sm-flex">
-                                <div class="form-group-feedback form-group-feedback-left flex-grow-1 mb-3 mb-sm-0">
-                                    <input type="text" name="date" class="form-control form-control-lg daterange-single" id="date_timepicker_end" placeholder="Search">
-                                    <div class="form-control-feedback form-control-feedback-lg">
-                                        <i class="fas fa-search text-muted"></i>
-                                    </div>
-                                </div>
-                                <div class="ml-sm-3">
-                                    <button type="submit" class="btn btn-primary btn-lg w-100 w-sm-auto">Get Statement</button>
-                                </div>
-                            </div>
-                        </form>
+                        <thead>
+                            <tr>
+                                <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Expenses</th>
+                                <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg"></th>
+
+                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right"></th>
+                            </tr>
+                        </thead>
+                        <tr class="details">
+                            <td class="cs-width_3">Total Expenses</td>
+                            <td class="cs-width_4"></td>
+                            <td class="cs-width_2 cs-text_right">KES {{$Expense}}</td>
+                        </tr>
+                        <thead>
+                            <tr>
+                                <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Bank Deposits</th>
+                                <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg"></th>
+
+                                <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right"></th>
+                            </tr>
+                        </thead>
+                        <tr class="details">
+                            <td class="cs-width_3">Total Bank Deposit</td>
+                            <td class="cs-width_4"></td>
+                            <td class="cs-width_2 cs-text_right">KES {{$Deposit}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="cs-invoice_footer cs-border_top ">
+                    <div class="cs-left_footer cs-mobile_hide">
+                        {{-- <p class="cs-mb0"><b class="cs-primary_color">Additional Information:</b></p> --}}
+                        {{-- <p class="cs-m0 additional">At check in you may need to present the credit card used for payment of this ticket At check in you may need to present the credit card used for payment of this ticket .</p> --}}
+                    </div>
+                    <div class="cs-right_footer">
+                        <table>
+                        <tbody>
+                            <tr class="cs-border_left">
+                            <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg force-reduce">Gross Income</td>
+                            <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right force-reduce">KES {{$Total-$Expense}}</td>
+                            </tr>
+                            <tr class="cs-border_left">
+                            {{-- <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg force-reduce">Balance Due</td>
+                            <td class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right force-reduce">KES {{$Billing->balance}}</td> --}}
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
-                <!-- /search field -->
+                <div class="cs-invoice_footer">
+                    <div class="cs-left_footer cs-mobile_hide"></div>
+                    <div class="cs-right_footer">
+                    <table>
+                        <tbody>
+                        <tr class="cs-border_none">
+                            <td class="cs-width_3 cs-border_top_0 cs-bold cs-f16 cs-primary_color force-reduce">Net Income</td>
+                            <td class="cs-width_3 cs-border_top_0 cs-bold cs-f16 cs-primary_color cs-text_right force-reduce">KES {{$Total-$Expense}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>
 
-                @if(Session::has('search'))
-                <!-- Basic initialization -->
-					<div class="card">
-						<table class="table datatable-button-print-basic">
-							<thead>
-								<tr>
-                                    <th>Ref</th>
-                                    {{-- <th>Period</th> --}}
-                                    <th>Issued to</th>
-                                    <th>For</th>
-                                    {{-- <th>Status</th> --}}
-                                    <th>Payment date</th>
-                                    <th>Amount</th>
-                                    <th class="text-center">
-
-                                    </th>
-                                </tr>
-							</thead>
-							<tbody>
-
-                                @foreach ($Billings as $Billing)
-                                <?php
-                                    $RawDate = $Billing->created_at;
-                                    $FormatDate = strtotime($RawDate);
-                                    $Month = date('M',$FormatDate);
-                                    $Date = date('D',$FormatDate);
-                                    $Year = date('Y',$FormatDate);
-                                    $date = date('d',$FormatDate);
-                                    $Hour = date('h',$FormatDate);
-                                    $min = date('i',$FormatDate);
-                                    $Sec = date('s',$FormatDate);
-                                ?>
-                                <tr>
-                                    <td>#{{$Billing->reference}}</td>
-                                    {{-- <td>{{$Month}} {{$Year}}</td> --}}
-                                    <td>
-                                        <h6 class="mb-0">
-                                            <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
-                                            @foreach ($Student as $student)
-                                            <a target="new" href="{{url('/')}}/billings/profile/{{$student->id}}">
-                                                {{$student->name}}
-                                            </a>
-                                            @endforeach
-                                        </h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-0">
-                                            <span class="d-block">{{$Billing->description}}</span>
-                                        </h6>
-                                    </td>
-                                    {{-- <td>
-                                        @if($Billing->balance == 0)
-                                           <select name="status" class="custom-select alert-success" >
-                                        @else
-                                           <select name="status" class="custom-select alert-info" >
-                                        @endif
-                                            @if($Billing->balance == 0)
-                                            <option value="hold" selected>Fully Paid</option>
-                                            @else
-                                            <option value="overdue" selected>Partially Paid</option>
-                                            @endif
-                                        </select>
-                                    </td> --}}
-                                    <td>
-                                        {{$Month}} {{$date}}, {{$Year}} at {{$Hour}}:{{$min}}:{{$Sec}}
-                                    </td>
-
-                                    <td>
-                                        <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} </h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="d-block">Balance: KES {{$Billing->balance}}</h6>
-                                    </td>
-                                </tr>
-                                @endforeach
-
-                                <tr>
+                <div class="cs-invoice_head cs-type1 cs-mb25"></div>
+                {{-- <br> --}}
+                <div class="signature">
+                    <h6>{{$set->name}}</h6>
+                    <p>Generated By:</p>
+                    <p><u>{{Auth::User()->name}}</u></p>
+                </div>
 
 
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-
-                                    <td>
-
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="d-block"><strong><u>Total: {{$Total}}</u></strong></h6>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-						</table>
-					</div>
-					<!-- /basic initialization -->
-                @else
-
-                @endif
-
-
-
+                <div class="cs-invoice_head cs-type1 cs-mb25 correct-print-margin"></div>
 
             </div>
-            <!-- /content area -->
 
+            <div class="cs-invoice_head cs-type1 cs-mb25"></div>
+            <div class="cs-invoice_btns cs-hide_print">
+                <a href="javascript:window.print()" class="cs-invoice_btn cs-color1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><circle cx="392" cy="184" r="24"/></svg>
+                <span>Print</span>
+                </a>
+                <button id="download_btn" class="cs-invoice_btn cs-color2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Download</title><path d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M176 272l80 80 80-80M256 48v288"/></svg>
+                <span>Download</span>
+                </button>
+                <a href="{{'/'}}" id="download_btn" class="cs-invoice_btn cs-color3">
 
-           @include('billing.footer')
-
+                    <span>Home</span>
+                </a>
+            </div>
+            </div>
         </div>
-        <!-- /inner content -->
 
-    </div>
-    <!-- /main content -->
-@endsection
+  <script src="{{asset('receipts.app/assets/js/jquery.min.js')}}"></script>
+  <script src="{{asset('receipts.app/assets/js/jspdf.min.js')}}"></script>
+  <script src="{{asset('receipts.app/assets/js/html2canvas.min.js')}}"></script>
+  <script src="{{asset('receipts.app/assets/js/main.js')}}"></script>
+</body>
+@endforeach
+</html>

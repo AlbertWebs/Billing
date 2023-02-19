@@ -1328,6 +1328,10 @@ public function income_statement(){
 }
 
 public function income_statement_search(Request $request){
+    $date = Carbon::now()->subDays(30);
+    $Total = Billing::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Expense = Expense::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Deposit = Deposit::whereDate('created_at', Carbon::today())->where('campus' ,Auth::User()->campus)->sum('amount');
     $Group = "reports";
     $Active = "search";
     $date = $request->date;
@@ -1336,7 +1340,7 @@ public function income_statement_search(Request $request){
     $Cash = Cash::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->get();
     $Total = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('amount');
     $Balance = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('balance');
-    return view('billing.income_statement_search_results', compact('Cash','Title','Total','Balance','Group','Active'));
+    return view('billing.income_statement_search_results', compact('Cash','Title','Total','Expense','Group','Active','Deposit'));
 }
 
 public function income_search(){
