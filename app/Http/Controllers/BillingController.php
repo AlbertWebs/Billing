@@ -684,7 +684,13 @@ public function create_bill_post(Request $request){
     $Cash->balance = $TheBalance;
     $Cash->save();
 
-    $Course_price = $Course->price;
+    if(isset($request->agreed_amount)){
+        $Course_price = $request->agreed_amount;
+    }else{
+        $Course_price = $Course->price;
+    }
+
+
     $Amount_paid = $amount;
     // Check if payment exists
     $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();
@@ -737,6 +743,14 @@ public function create_bill_post(Request $request){
         }
     }
 
+    if(isset($request->discount)){
+        $discount = $request->discount;
+        $Balance = $Balance-$discount;
+    }else{
+        $discount = "0";
+
+    }
+
     Session::forget('billing');
     Session::save();
     Session::forget('user');
@@ -760,13 +774,7 @@ public function create_bill_post(Request $request){
         $EnterTransaction = "0";
     }
 
-    if(isset($request->discount)){
-        $discount = $request->discount;
-        $Balance = $Balance-$discount;
-    }else{
-        $discount = "0";
 
-    }
 
 
     $Billing = new Billing;
@@ -778,6 +786,7 @@ public function create_bill_post(Request $request){
     $Billing->group_role = $group_role;
     $Billing->m_pesa = $EnterTransaction;
     $Billing->note = $note;
+    $Billing->agreed_amount = $request->agreed_amount;
     $Billing->reference = $reference;
     $Billing->balance_temp = $request->balance_temp;
     $Billing->balance = $Balance;

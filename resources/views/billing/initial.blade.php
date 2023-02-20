@@ -68,6 +68,13 @@
                             <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Agreed Amount:</label>
+                        <div class="col-lg-10">
+                            <input type="number" class="form-control" name="agreed_amount"  placeholder="10000" autocomplete="student-name">
+                            <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price</strong></small>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>
