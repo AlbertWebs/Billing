@@ -145,7 +145,31 @@
                 }
             });
         });
+
+        $("#other-Payments").submit(function(e) {
+            e.preventDefault(); // prevent actual form submit
+            $('#Loading').show();
+            var form = $(this);
+            var url = form.attr('action'); //get submit url [replace url here if desired]
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(), // serializes form input
+                success: function(data){
+                    console.log(data);
+                    $('#Loading').hide();
+                    $('#Success').show();
+                    // Refresh
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                    // Success
+                }
+            });
+        });
     </script>
+
+
 
     <script>
         function duplicateEmail(element){
@@ -179,7 +203,7 @@
                         if(data.exists){
                             $("#transID").val(data.transID);
                             if(confirm('Clear This Transaction? You cannot undo this process')){
-                                // 
+                                //
                                 $("#fetchAmount").val(data.amount);
                                 $.ajax({
                                     headers: {
@@ -191,7 +215,7 @@
                                     success: function (data) {
                                     //
                                     if(data.exists){
-                                      
+
                                           $('#transSuccess').show();
                                         }else{
                                             $('#transIDResponse').show();
@@ -199,8 +223,8 @@
                                     //
                                     }
                                 });
-                                // 
-                                
+                                //
+
                             }
                         }
                     }else{
@@ -211,7 +235,7 @@
                 error: function (jqXHR, exception) {
 
                 }
-                
+
             });
             element.stopImmediatePropagation();
             return false;

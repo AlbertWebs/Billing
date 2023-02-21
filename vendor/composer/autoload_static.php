@@ -619,6 +619,7 @@ class ComposerStaticInitd888a407d091002e3aeee2d7a481cb97
         'App\\Models\\MpesaTransactionB2C' => __DIR__ . '/../..' . '/app/Models/MpesaTransactionB2C.php',
         'App\\Models\\MpesaTransactionStatus' => __DIR__ . '/../..' . '/app/Models/MpesaTransactionStatus.php',
         'App\\Models\\Notify' => __DIR__ . '/../..' . '/app/Models/Notify.php',
+        'App\\Models\\Other' => __DIR__ . '/../..' . '/app/Models/Other.php',
         'App\\Models\\STKMpesaTransaction' => __DIR__ . '/../..' . '/app/Models/STKMpesaTransaction.php',
         'App\\Models\\STKRequest' => __DIR__ . '/../..' . '/app/Models/STKRequest.php',
         'App\\Models\\School' => __DIR__ . '/../..' . '/app/Models/School.php',

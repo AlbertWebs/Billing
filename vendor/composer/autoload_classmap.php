@@ -51,6 +51,7 @@ return array(
     'App\\Models\\MpesaTransactionB2C' => $baseDir . '/app/Models/MpesaTransactionB2C.php',
     'App\\Models\\MpesaTransactionStatus' => $baseDir . '/app/Models/MpesaTransactionStatus.php',
     'App\\Models\\Notify' => $baseDir . '/app/Models/Notify.php',
+    'App\\Models\\Other' => $baseDir . '/app/Models/Other.php',
     'App\\Models\\STKMpesaTransaction' => $baseDir . '/app/Models/STKMpesaTransaction.php',
     'App\\Models\\STKRequest' => $baseDir . '/app/Models/STKRequest.php',
     'App\\Models\\School' => $baseDir . '/app/Models/School.php',

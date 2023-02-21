@@ -62,7 +62,11 @@ Route::group(['prefix'=>'billings'], function(){
     Route::post('/income-statement-search', [App\Http\Controllers\BillingController::class, 'income_statement_search'])->name('income-statement-search');
 
 
-
+    Route::get('/edit-other-payments/{id}', [App\Http\Controllers\BillingController::class, 'edit_other_payments'])->name('edit-other-payments');
+    Route::post('/edit-other-payments/{id}', [App\Http\Controllers\BillingController::class, 'edit_other_payments_post'])->name('edit-other-payments-post');
+    Route::get('/record-other-payments', [App\Http\Controllers\BillingController::class, 'record_other_payments'])->name('record-other-payments');
+    Route::post('/record-other-payments', [App\Http\Controllers\BillingController::class, 'record_other_payments_post'])->name('record-other-payments');
+    Route::get('/other-payments', [App\Http\Controllers\BillingController::class, 'other_payments'])->name('other-payments');
     Route::get('/my-payments', [App\Http\Controllers\BillingController::class, 'my_payments'])->name('my-payments');
     Route::get('/my-payments/{ref}', [App\Http\Controllers\BillingController::class, 'my_payments_ref'])->name('my-payments-ref');
     Route::get('/editable-invoice', [App\Http\Controllers\BillingController::class, 'editable_invoice'])->name('editable-invoice');

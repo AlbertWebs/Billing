@@ -47,7 +47,9 @@
             <a href="#" class="nav-link"> <i class="icon-cash"></i> <span> Payments</span></a>
             <ul class="nav nav-group-sub" data-submenu-title="Basic components">
                 {{-- <li class="nav-item"><a href="{{url('/')}}/billings/create-bill" class="nav-link @if($Active == "create-bill") active @endif">Record Payment</a></li> --}}
-                <li class="nav-item"><a href="{{url('/')}}/billings/my-payments" class="nav-link @if($Active == "my-payments") active @endif">All Payments</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/my-payments" class="nav-link @if($Active == "my-payments") active @endif">All Fee Payments</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/record-other-payments" class="nav-link @if($Active == "record-other-payments") active @endif">Record Other Payments</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/other-payments" class="nav-link @if($Active == "other-payments") active @endif">Other Payments</a></li>
                 {{-- <li class="nav-item"><a href="{{url('/')}}/billings/m-pesa" class="nav-link @if($Active == "m-pesa") active @endif">M-PESA Payment</a></li> --}}
             </ul>
         </li>
