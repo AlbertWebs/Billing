@@ -122,6 +122,38 @@ class BillingController extends Controller
          }
     }
 
+    public function record_other_payments_post(Request $request){
+
+        $Student = Student::find($request->student_id);
+        activity()->log(''.$Student->name.' has made a payment for By '.$request->description.'');
+        $Other = new \App\Models\Other;
+        $Other->student_id = $request->student_id;
+        $Other->amount = $request->amount;
+        $Other->description = $request->description;
+        if($Other->save()){
+           Session::put('user', $Student->email);
+        }
+    }
+
+    public function edit_other_payments($id){
+        $Other = \App\Models\Other::find($id);
+        $Group = "billings";
+       $Title = "EditOther Payments";
+       $Active = "other-payments";
+       return view('billing.edit_other_payments', compact('Other','Group','Active','Title'));
+
+    }
+
+    public function edit_other_payments_post(Request $request, $id){
+        $updateDetails = array(
+            'student_id' => $request->student_id,
+            'amount' => $request->amount,
+            'description' => $request->description,
+        );
+        DB::table('others')->where('id',$id)->update($updateDetails);
+
+    }
+
     public function student($id){
        $Group = "students";
        $Title = "All Users";
@@ -408,6 +440,28 @@ class BillingController extends Controller
         // dd($Billings);
         return view('billing.payments',compact('Billings','Group','Title','Active'));
    }
+
+
+   public function other_payments(){
+    $Group = "billings";
+    $Title = "Other Payments";
+    $Active = "other-payments";
+    $Other = DB::table('others')->get();
+    // dd($Billings);
+    return view('billing.other_payments',compact('Other','Group','Title','Active'));
+}
+
+public function record_other_payments(){
+    $Group = "billings";
+    $Title = "Record Other Payments";
+    $Active = "record-other-payments";
+    $Other = DB::table('others')->get();
+    // dd($Billings);
+    return view('billing.record_other_payments',compact('Other','Group','Title','Active'));
+}
+
+
+
 
    public function my_payments_ref($ref){
     $Group = "billings";
