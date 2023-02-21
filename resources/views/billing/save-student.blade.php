@@ -129,6 +129,33 @@
                                 </div>
                                 <hr>
 
+                                <hr>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-2">Active Course</label>
+                                    <div class="col-lg-10">
+                                        <select name="course_id" class="form-control">
+                                            <?php
+                                               $ActiveCourse = App\Models\Course::find($Student->course_id);
+                                            ?>
+
+                                            <option selected="selected" value="{{$ActiveCourse->id}}">{{$ActiveCourse->title}}</option>
+
+
+                                            <?php
+                                                $OtherCourse = App\Models\Course::all();
+                                            ?>
+                                            @foreach($OtherCourse as $othercourse)
+                                            <option value="{{$othercourse->id}}">{{$othercourse->title}}</option>
+                                            @endforeach
+
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
+
 
 
                                 <div class="text-right">
@@ -157,9 +184,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                     $Millage = DB::table('millages')->where('student_id',$Student->id)->get();
+                                     $Millage = App\Models\Millage::where('student_id',$Student->id)->get();
                                 ?>
-                                @foreach ($Millage as $Miles)
+                                @foreach ($Millage->unique('course_id') as $Miles)
                                 <?php
                                     $CourseCurrent = DB::table('courses')->where('id',$Student->course_id)->get();
                                     $Course = DB::table('courses')->where('id',$Miles->course_id)->get();

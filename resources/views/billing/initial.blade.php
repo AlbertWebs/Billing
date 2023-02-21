@@ -68,13 +68,50 @@
                             <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-lg-2 col-form-label">Agreed Amount:</label>
-                        <div class="col-lg-10">
-                            <input type="number" class="form-control" name="agreed_amount"  placeholder="10000" autocomplete="student-name">
-                            <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price</strong></small>
-                        </div>
-                    </div>
+                    @if(Session::has('user'))
+                    <?php $u = Session::get('user'); $Studentz = DB::table('students')->where('email',$u)->get(); ?>
+                      @foreach ($Studentz as $studentz)
+                        <?php $collectionz = DB::table('courses')->where('id',$studentz->course_id)->get(); ?>
+                        @foreach ($collectionz as $itemz)
+                          <?php
+                              $SimilarBilling = App\Models\Billing::where('student',$studentz->id)->where('course_id',$studentz->course_id)->orderBy('id','DESC')->limit('1')->get();
+                          ?>
+                          @if($SimilarBilling->isEmpty())
+                          <div class="form-group row">
+                                <label class="col-lg-2 col-form-label">Agreed Amount:</label>
+                                <div class="col-lg-10">
+                                    <input type="number" class="form-control" name="agreed_amount"  placeholder="10000" autocomplete="student-name">
+                                    <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price</strong></small>
+                                </div>
+                            </div>
+                          @else
+                          @foreach ($SimilarBilling as $sim)
+                          @if($sim->agreed_amount == null OR $sim->agreed_amount == 0)
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Agreed Amount:</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" readonly title="You cannot set Agreed Amount After the payments have already been made" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  autocomplete="student-name">
+                                        <small style="color:#bbbbbb"><strong>You cannot set Agreed Amount After the payments have already been made <span style="color:#ff0000">Your Balance is {{$sim->balance}}</span></strong></small>
+                                        </div>
+                                </div>
+                                @else
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label">Agreed Amount:</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" readonly class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
+                                        <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price, <span style="color:#ff0000">Your Balance is {{$sim->balance}}</span></strong></small>
+                                        </div>
+                                </div>
+                                @endif
+                          @endforeach
+
+                          @endif
+
+                        @endforeach
+                        @endforeach
+                        @endif
+
+
                 </div>
             </div>
             <hr>
@@ -161,9 +198,21 @@
             <span class="fas fa-print mr-3"></span> Print Receipt <i class="icon-paperplane ml-2"></i>
         </a>
         @else
-        <button onclick="return confirm('You cannot undo the process')" type="submit" class="btn btn-primary">
-            <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
-        </button>
+            @if($SimilarBilling->isEmpty())
+                <button onclick="return confirm('You cannot undo the process')" type="submit" class="btn btn-primary">
+                    <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                </button>
+            @else
+                @if($sim->balance <= 0)
+                <button onclick="return confirm('This payment has been paid in full as per the agreed amount')" type="button" class="btn btn-primary">
+                    <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                </button>
+                @else
+                <button onclick="return confirm('You cannot undo the process')" type="submit" class="btn btn-primary">
+                    <span class="fas fa-save mr-3"></span>  Save and Print <i class="icon-paperplane ml-2"></i><img id="Loading" width="50" src="{{url('/')}}/icons/Spinner-1s-2000px.gif" />
+                </button>
+                @endif
+            @endif
         @endif
         <p id="Success" style="padding:10px" class="alert-success">Payment Has Been Recorded Successfully</p>
     </div>

@@ -186,6 +186,7 @@ class BillingController extends Controller
             'email' => $email,
             'mobile' => $mobile,
             'gender' => $gender,
+            'course_id' => $request->course_id,
             'email_address' =>  $request->email_address,
             'status' => $request->status
          );
@@ -623,6 +624,7 @@ public function delete_payment($id){
 }
 
 public function create_bill_post(Request $request){
+    $SimilarBilling = Billing::where('student',$request->user)->where('course_id',$request->course)->get();
     $Millage = new Millage;
     $Millage->course_id = $request->course;
     $Millage->student_id = $request->user;
