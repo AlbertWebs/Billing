@@ -94,7 +94,7 @@
 
                                       <a title="Delete this payment" onclick="return confirm('Do you wish to delete this payment? You cannot undo this process')" href="{{url('/')}}/billings/delete-other-payment/{{$Billing->id}}" class="list-icons-item text-danger"  title="Edit"><i class="icon-trash-alt mr-3 fa-2x"></i></a>
                                     @endif
-                                    <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item text-success" ><i class="fas fa-download mr-3 fa-2x"></i></a>
+                                    {{-- <a href="{{url('/')}}/billings/download/{{$Billing->id}}" title="Download" class="list-icons-item text-success" ><i class="fas fa-download mr-3 fa-2x"></i></a> --}}
 
                                 </div>
                             </td>

@@ -130,6 +130,27 @@ class BillingController extends Controller
         $Other->student_id = $request->student_id;
         $Other->amount = $request->amount;
         $Other->description = $request->description;
+        $Student = Student::find($request->student_id);
+
+        // Add To Cash
+        $IncomeBalance = Cash::latest()->first();
+        if($IncomeBalance == null){
+           $TheBalance = $request->amount;
+        }else{
+            $CurrentBalance = $IncomeBalance->balance;
+            $TheBalance = $CurrentBalance+$request->amount;
+        }
+        // Create Cases
+        $Cash = new Cash;
+        $Cash->amount = $request->amount;
+        $Cash->campus = Auth::User()->campus;
+        $Cash->reason = "Other Fees Paid By $Student->name, Paying For $request->description";
+        $Cash->user = Auth::user()->id;
+        $Cash->source = "Other Payment";
+        $Cash->code = "";
+        $Cash->balance = $TheBalance;
+        $Cash->save();
+
         if($Other->save()){
            Session::put('user', $Student->email);
         }
@@ -1403,7 +1424,7 @@ public function income_statement_search(Request $request){
     $Title = "Income Statement as of $request->date";
     $datef = date('Y-m-d', strtotime($date));
     $Cash = Cash::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->get();
-    $Total = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('amount');
+    $Total = Cash::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('amount');
     $Balance = Billing::whereDate('created_at', $datef)->where('campus' ,Auth::User()->campus)->sum('balance');
     return view('billing.income_statement_search_results', compact('Cash','Title','Total','Expense','Group','Active','Deposit'));
 }
