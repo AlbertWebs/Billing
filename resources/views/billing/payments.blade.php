@@ -121,15 +121,16 @@
                                     <span class="d-block font-size-sm text-muted font-weight-normal">
                                         @if($Billing->balance < 0)
                                              <span class="text-success">
-                                                Balance KES {{$Billing->balance}}
+                                                Balance KES {{str_replace('-','',$Billing->balance)}}
                                             </span>
                                         @else
-                                             Balance KES {{$Billing->balance}}
+                                             Balance KES {{str_replace('-','',$Billing->balance)}}
                                         @endif
                                         <br>
                                         @if($Billing->discount == null or $Billing->discount =="0")
 
                                         @else
+                                           {{-- <span class="text-danger"><strong>Discount</strong> -{{$Billing->discount}}</span> --}}
                                            <span class="text-danger"><strong>Discount</strong> -{{$Billing->discount}}</span>
                                         @endif
                                     </span>
