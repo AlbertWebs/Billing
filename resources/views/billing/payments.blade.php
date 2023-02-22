@@ -68,6 +68,13 @@
                                         <a target="new" href="{{url('/')}}/billings/student/{{$student->id}}">
                                             {{$student->name}}
                                         </a>
+                                        <br>
+                                        <small>
+                                        <?php
+                                           $Cour = \App\Models\Course::find($Billing->course_id);
+                                           echo $Cour->title;
+                                        ?>
+                                        </small>
                                     @endforeach
 
                                     <?php $Course = DB::table('courses')->where('id',$Billing->course_id)->get(); ?>
@@ -84,9 +91,11 @@
                                 <strong><small>{{$Month}} {{$date}}, {{$Year}} {{$Hour}}:{{$min}}:{{$Sec}}</small></strong>
                             </td>
                             <td>
+                                {{-- {{$Billing->status}} --}}
+                                {{-- <br> --}}
                                 @if($Billing->balance < 1)
                                   <span>
-                                    <a href="{{url('/')}}/billings/my-payments/{{$Billing->reference}}" class="btn btn-outline-success">
+                                    <a href="{{url('/')}}/billings/my-statements/{{$Billing->student}}" class="btn btn-outline-success">
                                         <?php $Instalments = DB::table('billings')->where('group_id',$Billing->reference)->get(); $counter = count($Instalments); $total = $counter+1; echo $total; ?> Instalment(s)
                                     </a>
                                   </span>
@@ -95,7 +104,7 @@
 
 
                                 @else
-                                  <span class="">
+                                  <span class="{{url('/')}}/billings/my-statements/{{$Billing->student}}">
                                     <?php
                                           $Instalments = DB::table('billings')->where('group_id',$Billing->original_payment)->get();
                                           $counter = count($Instalments);
@@ -107,13 +116,12 @@
                                             <?php echo $total; ?> Instalment(s)
                                         </a>
                                     @else
-                                        <a href="#" class="btn btn-outline-danger">
+                                        <a href="{{url('/')}}/billings/my-statements/{{$Billing->student}}" class="btn btn-outline-danger">
                                             <?php echo $total; ?> Instalment(s)
                                         </a>
                                     @endif
                                   </span>
-                                  {{-- <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$student->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
-                                  </a> --}}
+
                                 @endif
                             </td>
                             <td>

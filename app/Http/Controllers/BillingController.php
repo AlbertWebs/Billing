@@ -457,6 +457,7 @@ class BillingController extends Controller
         $Group = "billings";
         $Title = "All Users";
         $Active = "my-payments";
+        // $Billings = DB::table('billings')->where('campus' ,Auth::User()->campus)->get();
         $Billings = DB::table('billings')->where('group_id',null)->where('campus' ,Auth::User()->campus)->get();
         // dd($Billings);
         return view('billing.payments',compact('Billings','Group','Title','Active'));
@@ -767,10 +768,11 @@ public function create_bill_post(Request $request){
         $Course_price = $Course->price;
     }
 
-
+    // Default Status
+    $status = "open";
     $Amount_paid = $amount;
     // Check if payment exists
-    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->orderBy('id','DESC')->first();
+    $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->orderBy('id','DESC')->first();
     $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->orderBy('id','ASC')->first();
     if($Previous == null){
         //
@@ -795,12 +797,14 @@ public function create_bill_post(Request $request){
             $Balance = $NewBalance;
             $paid = "Paid";
             $group_role = "parent";
+            $status = "closed";
             // $group_id = $reference;
             $group_id = null;
             $original_payment = $Origin->original_payment;
             // Update the children
             $UpdateDetails = array(
                 'group_role' => 'child',
+                'status' => $status,
                 'group_id' => $reference,
             );
             DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->update($UpdateDetails);
@@ -856,6 +860,7 @@ public function create_bill_post(Request $request){
 
     $Billing = new Billing;
     $Billing->student = $user;
+    $Billing->status = $status;
     $Billing->type = $request->billType;
     $Billing->discount = $discount;
     $Billing->original_payment = $original_payment;
