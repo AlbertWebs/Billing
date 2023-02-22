@@ -90,7 +90,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
-                                        <input type="number" readonly title="You cannot set Agreed Amount After the payments have already been made" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  autocomplete="student-name">
+                                        <input type="number" title="You cannot set Agreed Amount After the payments have already been made" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  autocomplete="student-name">
                                         <small style="color:#bbbbbb"><strong>You cannot set Agreed Amount After the payments have already been made <span style="color:#ff0000">Your Balance is {{$sim->balance}}</span></strong></small>
                                         </div>
                                 </div>
@@ -98,7 +98,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
-                                        <input type="number" readonly class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
+                                        <input type="number" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
                                         <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price, <span style="color:#ff0000">Your Balance is {{$sim->balance}}</span></strong></small>
                                         </div>
                                 </div>
