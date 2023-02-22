@@ -112,6 +112,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/schools', [App\Http\Controllers\BillingController::class, 'schools'])->name('schools');
     Route::get('/add-school', [App\Http\Controllers\BillingController::class, 'add_school'])->name('add-school');
     Route::POST('/save-school-post/{id}', [App\Http\Controllers\BillingController::class, 'save_school_post'])->name('save-school-post');
+    Route::get('/schools-delete/{id}', [App\Http\Controllers\BillingController::class, 'school_student'])->name('delete-school');
 
     Route::get('/delete-student/{id}', [App\Http\Controllers\BillingController::class, 'delete_student'])->name('delete-student');
     Route::get('/edit-pic/{id}', [App\Http\Controllers\BillingController::class, 'edit_pic'])->name('edit-pic');

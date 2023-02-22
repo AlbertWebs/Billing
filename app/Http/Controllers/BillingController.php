@@ -1161,6 +1161,14 @@ public function delete_student($id){
     return Redirect::back();
 }
 
+public function school_student($id){
+    DB::table('schools')->where('id',$id)->where('campus' ,Auth::User()->campus)->delete();
+    Session::flash('message', "Deleted!");
+    return Redirect::back();
+}
+
+
+
 public function edit_pic($id){
     $Student = Student::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     $Group = "students";
