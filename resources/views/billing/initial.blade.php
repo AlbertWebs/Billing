@@ -106,8 +106,8 @@
                                 <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
-                                        <input type="number" readonlyS class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
-                                        <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price,
+                                        <input type="number" readonlys class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
+                                        <small style="color:#bbbbbb"><strong>This amount was agreed upon in the previous payment, You cannot changed the agreement
                                             @if($sim->balance == "0")
 
                                             @else

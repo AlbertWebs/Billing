@@ -137,7 +137,7 @@
                                     </td>
 
                                     <td>
-                                        <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}} </h6>
+                                        <h6 class="mb-0 font-weight-bold">KES {{$Billing->amount}}<br> <small>Agreed :{{$Billing->agreed_amount}}</small> </h6>
                                     </td>
                                     <td class="text-center">
                                         <h6 class="d-block">Balance: KES {{$Billing->balance}}</h6>

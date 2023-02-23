@@ -29,6 +29,7 @@
                             <th>Payment date</th>
                             <th style="min-width:300px;">Instalments</th>
                             <th>Amount</th>
+
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -140,9 +141,12 @@
                                         @else
                                            <span class="text-danger"><strong>Discount</strong> -{{$Billing->discount}}</span>
                                         @endif
+
+                                        Agreed :{{$Billing->agreed_amount}}
                                     </span>
                                 </h6>
                             </td>
+
                             <td class="text-center">
                                 <div class="list-icons list-icons-extended">
                                     @if(Auth::User()->role == "Super Admin")

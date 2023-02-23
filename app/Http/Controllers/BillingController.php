@@ -700,6 +700,7 @@ public function delete_payment($id){
 }
 
 public function create_bill_post(Request $request){
+    // dd($request->all());
     $SimilarBilling = Billing::where('student',$request->user)->where('course_id',$request->course)->get();
     $Millage = new Millage;
     $Millage->course_id = $request->course;
@@ -773,7 +774,7 @@ public function create_bill_post(Request $request){
     $Amount_paid = $amount;
     // Check if payment exists
     $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->orderBy('id','DESC')->first();
-    $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->orderBy('id','ASC')->first();
+    $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->orderBy('id','ASC')->first();
     if($Previous == null){
         //
         if($Amount_paid == $Course_price){
@@ -782,6 +783,7 @@ public function create_bill_post(Request $request){
             $group_id = null;
             $original_payment = $reference;
             $paid = "Paid";
+            $status = "closed";
         }else{
             $Balance = $Course_price-$Amount_paid;
             $group_role = "child";
