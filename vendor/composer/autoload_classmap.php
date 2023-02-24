@@ -60,6 +60,7 @@ return array(
     'App\\Models\\Student' => $baseDir . '/app/Models/Student.php',
     'App\\Models\\Tutor' => $baseDir . '/app/Models/Tutor.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\Wallet' => $baseDir . '/app/Models/Wallet.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

@@ -65,7 +65,18 @@
                     <div class="form-group row">
                         <label class="col-lg-2 col-form-label">Amount:</label>
                         <div class="col-lg-10">
-                            <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
+                            <?php
+                                 $Wallet = DB::table('wallets')->where('student_id',$studs->id)->where('status','1')->sum('amount');
+
+                            ?>
+                            @if($Wallet == "0")
+                                <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
+                            @else
+                                <input type="hidden" name="clear_wallet" value="{{$studs->id}}">
+                                <input type="number" readonly class="form-control" name="amount" value="{{$Wallet}}"  placeholder="10000" autocomplete="student-name" required>
+                                <small style="color:#4CAF50"><strong>Funds available in students Wallet, Clear it first!</strong></small>
+                            @endif
+
                         </div>
                     </div>
                     @if(Session::has('user'))
@@ -80,7 +91,7 @@
                           <div class="form-group row">
                                 <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                 <div class="col-lg-10">
-                                    <input type="number" class="form-control" name="agreed_amount"  placeholder="10000" autocomplete="student-name">
+                                    <input  onclick="return confirm('Do you wish to agree on a different amount from the base course amount?')" type="number" class="form-control" name="agreed_amount"  placeholder="10000" autocomplete="student-name">
                                     <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price</strong></small>
                                 </div>
                             </div>
@@ -90,7 +101,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
-                                        <input type="number" readonlyss title="You cannot set Agreed Amount After the payments have already been made" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  autocomplete="student-name">
+                                        <input onclick="return confirm('Do you wish to agree on a different amount from the base course amount?')" type="number" readonlyss title="You cannot set Agreed Amount After the payments have already been made" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  autocomplete="student-name">
                                         <small style="color:#bbbbbb">
                                             <strong>You cannot set Agreed Amount After the payments have already been made
                                                 @if($sim->balance == "0")
@@ -106,7 +117,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
-                                        <input type="number" readonlys class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
+                                        <input  onclick="return confirm('Do you wish to agree on a different amount from the base course amount?')" type="number" readonlys class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
                                         <small style="color:#bbbbbb"><strong>This amount was agreed upon in the previous payment, You cannot changed the agreement
                                             @if($sim->balance == "0")
 

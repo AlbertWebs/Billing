@@ -20,7 +20,6 @@ use App\Models\MpesaTransaction;
 use App\Models\STKMpesaTransaction;
 use Carbon\Carbon;
 use App\Models\SendMail;
-use App\Models\Wallet;
 use App\Models\Notify;
 use Session;
 use Auth;
@@ -699,25 +698,8 @@ public function delete_payment($id){
     $DeleteBilling = DB::table('billings')->where('id',$id)->delete();
     return Redirect::back();
 }
-public function addToWallet($user,$Excess){
-    //   Create Wallet Here
-    $Wallet = new Wallet;
-    $Wallet->student_id = $user;
-    $Wallet->amount = $Excess;
-    $Wallet->save();
-}
 
-public function clearWallet($user){
-    $updateDetails = array(
-        'status' => 0,
-    );
-    DB::table('wallets')->where('student_id',$user)->where('status','1')->update($updateDetails);
-}
 public function create_bill_post(Request $request){
-    // clear wallet
-    if($request->has('clear_wallet')){
-        $this->clearWallet($request->clear_wallet);
-    }
     // dd($request->all());
     $SimilarBilling = Billing::where('student',$request->user)->where('course_id',$request->course)->get();
     $Millage = new Millage;
@@ -803,32 +785,18 @@ public function create_bill_post(Request $request){
             $paid = "Paid";
             $status = "closed";
         }else{
-            if($Amount_paid > $Course_price){
-                $Excess = $Amount_paid-$Course_price;
-                $Balance = 0;
-                $group_role = "parent";
-                $group_id = null;
-                $original_payment = $reference;
-                $paid = "Paid";
-                $status = "closed";
-                $this->addToWallet($user,$Excess);
-            }else{
-                $Balance = $Course_price-$Amount_paid;
-                $group_role = "child";
-                $group_id = null;
-                $paid = "Partially Paid";
-                $original_payment = $reference;
-            }
-
+            $Balance = $Course_price-$Amount_paid;
+            $group_role = "child";
+            $group_id = null;
+            $paid = "Partially Paid";
+            $original_payment = $reference;
         }
         //
     }else{
         $Bal = $Previous->balance;
         $NewBalance =$Bal-$Amount_paid;
-        if($NewBalance<0){
-            $Excess = str_replace('-', '', $NewBalance);
-            $this->addToWallet($user,$Excess);
-            $Balance = 0;
+        if($NewBalance<1){
+            $Balance = $NewBalance;
             $paid = "Paid";
             $group_role = "parent";
             $status = "closed";
@@ -848,12 +816,10 @@ public function create_bill_post(Request $request){
             $Balance = $Bal-$Amount_paid;
             $paid = "Partially Paid";
             $group_role = "child";
-            $status = "open";
             $group_id = null;
             $original_payment = $Origin->original_payment;
             $UpdateDetails = array(
                 'group_role' => 'child',
-                'status' => $status,
                 'group_id' => $original_payment,
             );
             DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->update($UpdateDetails);
