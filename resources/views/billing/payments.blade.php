@@ -142,7 +142,7 @@
                                            <span class="text-danger"><strong>Discount</strong> -{{$Billing->discount}}</span>
                                         @endif
 
-                                        Agreed :{{$Billing->agreed_amount}}
+                                        {{-- Agreed :{{$Billing->agreed_amount}} --}}
                                     </span>
                                 </h6>
                             </td>
