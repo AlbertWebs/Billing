@@ -26,7 +26,6 @@ use Session;
 use Auth;
 use PDF;
 use Hash;
-
 use DB;
 use Redirect;
 
