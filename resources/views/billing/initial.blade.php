@@ -69,13 +69,14 @@
                                  $Wallet = DB::table('wallets')->where('student_id',$studs->id)->where('status','1')->sum('amount');
 
                             ?>
-                            @if($Wallet == "0")
+                            <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
+                            {{-- @if($Wallet == "0")
                                 <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
                             @else
                                 <input type="hidden" name="clear_wallet" value="{{$studs->id}}">
                                 <input type="number" readonly class="form-control" name="amount" value="{{$Wallet}}"  placeholder="10000" autocomplete="student-name" required>
                                 <small style="color:#4CAF50"><strong>Funds available in students Wallet, Clear it first!</strong></small>
-                            @endif
+                            @endif --}}
 
                         </div>
                     </div>
@@ -216,6 +217,20 @@
                 </div>
             </div>
             <hr>
+
+
+            <div class="form-group row">
+                <label class="col-form-label col-lg-2">Send Confirmation SMS</label>
+                <div class="col-lg-10">
+                    <div class="custom-control custom-checkbox mb-2">
+                        <input type="checkbox" name="sms" class="custom-control-input" id="cc_ls_c" checked="">
+                        <label class="custom-control-label" for="cc_ls_c"></label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+
 
     <div class="text-right">
         @if(Session::has('billing'))

@@ -108,7 +108,7 @@
                                         <h6 class="mb-0">
                                             <?php $Student = DB::table('students')->where('id',$Billing->student)->get(); ?>
                                             @foreach ($Student as $student)
-                                            <a target="new" href="{{url('/')}}/billings/profile/{{$student->id}}">
+                                            <a target="new" href="{{url('/')}}/billings/student/{{$student->id}}">
                                                 {{$student->name}}
                                             </a>
                                             @endforeach
