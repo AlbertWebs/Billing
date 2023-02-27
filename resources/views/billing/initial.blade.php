@@ -89,17 +89,17 @@
                               $SimilarBilling = App\Models\Billing::where('student',$studentz->id)->where('status','open')->where('course_id',$studentz->course_id)->orderBy('id','DESC')->limit('1')->get();
                           ?>
                           @if($SimilarBilling->isEmpty())
-                          <div class="form-group row">
+                          {{-- <div class="form-group row">
                                 <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                 <div class="col-lg-10">
                                     <input  onclick="return confirm('Do you wish to agree on a different amount from the base course amount?')" type="number" class="form-control" name="agreed_amount"  placeholder="10000" autocomplete="student-name">
                                     <small style="color:#bbbbbb"><strong>Set This Amount if the price is Different from the set base price</strong></small>
                                 </div>
-                            </div>
+                            </div> --}}
                           @else
                           @foreach ($SimilarBilling as $sim)
                           @if($sim->agreed_amount == null OR $sim->agreed_amount == 0)
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
                                         <input onclick="return confirm('Do you wish to agree on a different amount from the base course amount?')" type="number" readonlyss title="You cannot set Agreed Amount After the payments have already been made" class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  autocomplete="student-name">
@@ -113,9 +113,9 @@
                                             </strong>
                                         </small>
                                         </div>
-                                </div>
+                                </div> --}}
                                 @else
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-lg-2 col-form-label">Agreed Amount:</label>
                                     <div class="col-lg-10">
                                         <input  onclick="return confirm('Do you wish to agree on a different amount from the base course amount?')" type="number" readonlys class="form-control" name="agreed_amount" value="{{$sim->agreed_amount}}"  placeholder="10000" autocomplete="student-name">
@@ -127,7 +127,7 @@
                                             @endif
                                         </strong></small>
                                         </div>
-                                </div>
+                                </div> --}}
                                 @endif
                           @endforeach
 
