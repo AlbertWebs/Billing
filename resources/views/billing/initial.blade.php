@@ -212,7 +212,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-lg-2">Note</label>
                 <div class="col-lg-10">
-                    <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="note" required>Thank you for choosing Atlas Educational Center</textarea>
+                    <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="note" required>Thank you for choosing Global Technical Training College</textarea>
                 </div>
             </div>
             <hr>
