@@ -782,11 +782,8 @@ public function newBilling($user,$status,$billType,$discount,$EnterTransaction,$
         //
 
         Session::put('billing', $Billing->id);
-        // $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
-        if (isset($request->sms)) {
-            $this->sendSMSs($Message,$phoneNumber);
-        }
-
+        $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
+        $this->sendSMSs($Message,$phoneNumber);
     }
 }
 public function create_bill_post(Request $request){
