@@ -875,6 +875,7 @@ public function create_bill_post(Request $request){
             $paid = "Paid";
             $status = "closed";
             $Excess = $Amount_paid-$Course_price;
+            $amount = $Course_price;
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
             $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             if($Excess == $Course_price){
@@ -884,9 +885,10 @@ public function create_bill_post(Request $request){
                 $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
                 $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             }else{
-                $Balance = $Course_price-$Amount_paid;
+                $Balance = $Course_price-$Excess;
                 $paid = "Paid";
                 $status = "open";
+                $amount = $Excess;
                 $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             }
         }
@@ -903,7 +905,8 @@ public function create_bill_post(Request $request){
             $Balance = 0;
             $paid = "Paid";
             $status = "closed";
-            $Excess = $Amount_paid-$Previous->balance;
+            $Excess = $Amount_paid-$Previous->balance; //to be carried forward
+            $amount = $Previous->balance;
             $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
             if($Excess == $Course_price){
@@ -927,100 +930,6 @@ public function create_bill_post(Request $request){
             $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
         }
     }
-    // if($Previous == null){
-    //     //
-    //     if($Amount_paid == $Course_price){
-    //         $Balance = 0;
-    //         $group_role = "parent";
-    //         $group_id = null;
-    //         $original_payment = $reference;
-    //         $paid = "Paid";
-    //         $status = "closed";
-    //         $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-    //     }else{
-    //         if($Amount_paid > $Course_price){
-    //             $Excess = $Amount_paid-$Course_price;
-    //             $Balance = 0;
-    //             $group_role = "parent";
-    //             $group_id = null;
-    //             $original_payment = $reference;
-    //             $paid = "Paid";
-    //             $status = "closed";
-
-    //             // CreateBill
-    //             // 1st payment(Clear The Balance)
-    //             $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-    //             // 2nd Payment, New Registration/New Month
-    //             $Balance = $Course_price-$Excess;
-
-    //             $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-
-
-    //         }else{
-    //             $Balance = $Course_price-$Amount_paid;
-    //             $group_role = "child";
-    //             $group_id = null;
-    //             $paid = "Partially Paid";
-    //             $original_payment = $reference;
-    //             $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-    //         }
-
-    //     }
-    //     //
-    // }else{
-    //     $Bal = $Previous->balance;
-    //     $NewBalance =$Bal-$Amount_paid;
-    //     if($NewBalance<0){
-    //         $Excess = str_replace('-', '', $NewBalance);
-    //         $this->addToWallet($user,$Excess);
-    //         $Balance = 0;
-    //         $paid = "Paid";
-    //         $group_role = "parent";
-    //         $status = "closed";
-    //         // $group_id = $reference;
-    //         $group_id = null;
-    //         $original_payment = $Origin->original_payment;
-    //         // Update the children
-    //         $UpdateDetails = array(
-    //             'group_role' => 'child',
-    //             'status' => $status,
-    //             'group_id' => $reference,
-    //         );
-    //         DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->update($UpdateDetails);
-
-    //         // 1st payment(Clear The Balance)
-    //         $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-    //         // 2nd Payment, New Registration/New Month
-
-    //         $Balance = $Course_price-$Excess;
-    //         if($Balance <= 0){
-    //             $status = "closed";
-    //         }else{
-    //             $status = "open";
-    //         }
-
-    //         $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-
-    //     }
-    //     else
-    //     {
-    //         $Balance = $Bal-$Amount_paid;
-    //         $paid = "Partially Paid";
-    //         $group_role = "child";
-    //         $status = "open";
-    //         $group_id = null;
-    //         $original_payment = $Origin->original_payment;
-    //         $UpdateDetails = array(
-    //             'group_role' => 'child',
-    //             'status' => $status,
-    //             'group_id' => $original_payment,
-    //         );
-    //         DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->update($UpdateDetails);
-    //         $this->newBilling($user,$status,$request->billType,$discount,$original_payment,$group_id,$group_role,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-    //     }
-    // }
-
-
 
     Session::forget('billing');
     Session::save();

@@ -69,17 +69,19 @@
                                  $Wallet = DB::table('wallets')->where('student_id',$studs->id)->where('status','1')->sum('amount');
 
                             ?>
-                            <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
-                            @if(Session::has('user'))
-                            <?php $u = Session::get('user'); $Studentz = DB::table('students')->where('email',$u)->get(); ?>
+                              @if(Session::has('user'))
+                              <?php $u = Session::get('user'); $Studentz = DB::table('students')->where('email',$u)->get(); ?>
+                            {{-- <input type="text" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required> --}}
+
                             @foreach ($Studentz as $studentz)
                                     <?php
                                         $SimilarBilling = App\Models\Billing::where('student',$studentz->id)->where('status','open')->where('course_id',$studentz->course_id)->orderBy('id','DESC')->limit('1')->get();
                                     ?>
                                     @if($SimilarBilling->isEmpty())
-
+                                    <input type="text" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
                                     @else
                                         @foreach ($SimilarBilling as $sim)
+                                        <input type="text" class="form-control" name="amount" value=""   autocomplete="student-name" required>
                                         <small style="color:#ff0000"><strong>Your Balance is {{$sim->balance}}</strong></small>
                                         @endforeach
                                     @endif
