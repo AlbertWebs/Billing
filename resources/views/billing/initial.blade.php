@@ -80,7 +80,7 @@
 
                                     @else
                                         @foreach ($SimilarBilling as $sim)
-                                        <span style="color:#ff0000">Your Balance is {{$sim->balance}}</span>
+                                        <small style="color:#ff0000">Your Balance is {{$sim->balance}}</small>
                                         @endforeach
                                     @endif
                             @endforeach
