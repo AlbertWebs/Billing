@@ -70,6 +70,21 @@
 
                             ?>
                             <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
+                            @if(Session::has('user'))
+                            <?php $u = Session::get('user'); $Studentz = DB::table('students')->where('email',$u)->get(); ?>
+                            @foreach ($Studentz as $studentz)
+                                    <?php
+                                        $SimilarBilling = App\Models\Billing::where('student',$studentz->id)->where('status','open')->where('course_id',$studentz->course_id)->orderBy('id','DESC')->limit('1')->get();
+                                    ?>
+                                    @if($SimilarBilling->isEmpty())
+
+                                    @else
+                                        @foreach ($SimilarBilling as $sim)
+                                        <span style="color:#ff0000">Your Balance is {{$sim->balance}}</span>
+                                        @endforeach
+                                    @endif
+                            @endforeach
+                            @endif
                             {{-- @if($Wallet == "0")
                                 <input type="number" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
                             @else
