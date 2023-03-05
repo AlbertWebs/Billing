@@ -35,11 +35,11 @@
                             <td>
                                 <a href="{{url('/')}}/billings/edit-pic/{{$item->id}}">
                                     <img style="border:3px solid #000000;" src="{{url('/')}}/uploads/students/{{$item->avatar}}" class="rounded-circle" width="42" height="42" alt=""><br>
-                                    {{-- <center>Edit({{$item->id}})</center> --}}
+
                                 </a>
                             </td>
                             <td>
-                                {{$item->name}} <span style="visibility: visible; line-height:0px !important;">: {{$item->email}}</span><br>
+                                {{$item->name}} <span style="visibility: visible; line-height:0px !important;">: {{$item->email}}</span><span style="font-size:0px; line-height:0px; padding:0; margin:0">({{$item->mobile}})</span><br>
 
                                 <small>
                                     @if($item->course_id == null)
