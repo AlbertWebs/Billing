@@ -11,6 +11,7 @@ use App\Models\Expense;
 use App\Models\Millage;
 use App\Models\Billing;
 use App\Models\Enrolment;
+use App\Models\Download;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\Activity;
@@ -747,6 +748,7 @@ public function addEnrolment($user,$course){
     }
 }
 
+
 public function newBilling($user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
     $TheStudent = Student::find($user);
     $Billing = new Billing;
@@ -767,6 +769,32 @@ public function newBilling($user,$status,$billType,$discount,$EnterTransaction,$
     $Billing->title = $Course_title;
     $Billing->campus = Auth::User()->campus;
     $Billing->paid = $paid;
+     $Billing->save();
+
+}
+
+public function newDownload($user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
+    $TheStudent = Student::find($user);
+    $Billing = new Download;
+    $Billing->student = $user;
+    $Billing->status = $status;
+    $Billing->type = $billType;
+    $Billing->discount = $discount;
+
+    $Billing->m_pesa = $EnterTransaction;
+    $Billing->note = $note;
+    $Billing->agreed_amount = $agreed_amount;
+    $Billing->reference = $reference;
+    $Billing->balance_temp = $balance_temp;
+    $Billing->balance = $Balance;
+    $Billing->course_id = $course_id;
+    $Billing->amount = $amount;
+    $Billing->description = $description;
+    $Billing->title = $Course_title;
+    $Billing->campus = Auth::User()->campus;
+    $Billing->paid = $paid;
+    // $Billing->save();
+
 
     $Course  = Course::find($course_id);
     $Stude = Student::find($user);
@@ -786,6 +814,7 @@ public function newBilling($user,$status,$billType,$discount,$EnterTransaction,$
         $this->sendSMSs($Message,$phoneNumber);
     }
 }
+
 public function create_bill_post(Request $request){
 
     // clear wallet
@@ -836,6 +865,11 @@ public function create_bill_post(Request $request){
     $Cash->balance = $TheBalance;
     $Cash->save();
 
+    // Add Receipt here
+
+
+
+
     if(isset($request->agreed_amount)){
         $Course_price = $request->agreed_amount;
     }else{
@@ -855,6 +889,7 @@ public function create_bill_post(Request $request){
     // Check if payment exists
     $Previous = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->orderBy('id','DESC')->first();
     $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->orderBy('id','ASC')->first();
+
 
     // dd($request->all());
     if($Previous == null){
@@ -931,6 +966,9 @@ public function create_bill_post(Request $request){
         }
     }
 
+    // new Download
+    $this->newDownload($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$request->amount,$description,$Course->title,$paid);
+
     Session::forget('billing');
     Session::save();
     Session::forget('user');
@@ -949,7 +987,7 @@ public function create_bill_post(Request $request){
     }
 
     $Billing = DB::table('billings')->orderBy('created_at', 'desc')->where('campus' ,Auth::User()->campus)->first();
-    return $this->download($Billing->id);
+    return $this->downloads();
 }
 
 public function sendEmail($Message,$email,$name){
@@ -1031,11 +1069,11 @@ public function sendSMSs($Message,$TheStudent){
 
         curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            echo $response;
-        }
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        // } else {
+        //     echo $response;
+        // }
 }
 
 public function create_bill_partial($id){
@@ -1065,6 +1103,17 @@ public function download($id) {
     $Title = "All Students";
     $Active = "m-pesa";
     $Billing = Billing::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
+    // $Billing = Download::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
+    return view('billing.download', compact('Billing','Group','Title','Active'));
+}
+
+public function downloads() {
+    $Group = "billings";
+    $Title = "All Students";
+    $Active = "m-pesa";
+    // $Billing = Billing::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
+    $Billing = Download::orderBy('id','DESC')->limit('1')->get();
+    // dd($Billing);
     return view('billing.download', compact('Billing','Group','Title','Active'));
 }
 
@@ -1310,6 +1359,21 @@ public function my_statements($id){
     return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total'));
 
 }
+
+public function my_statements_credit_debit($id){
+    $Student = Student::find($id);
+    $name = $Student->name;
+    $Group = "income";
+    $Title = "Statements For ".$name."";
+    $Active = "m-pesa";
+    $Student = Student::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
+    $Billings = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->get();
+    $Total = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('amount');
+    return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total'));
+
+}
+
+
 
 public function user($id){
     $User = User::where('id',$id)->where('campus' ,Auth::User()->campus)->get();

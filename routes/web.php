@@ -75,6 +75,7 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/infos/{id}', [App\Http\Controllers\BillingController::class, 'getInfo'])->name('get-info');
     Route::get('/employee/pdf', [BillingController::class, 'createPDF']);
     Route::get('/download/{id}', [BillingController::class, 'download']);
+    Route::get('/downloads/{id}', [BillingController::class, 'downloads']);
     Route::get('/edit/{id}', [BillingController::class, 'download_edit']);
 
     Route::get('/edit-bill/{id}', [App\Http\Controllers\BillingController::class, 'edit_bill'])->name('edit-bill');
@@ -118,7 +119,9 @@ Route::group(['prefix'=>'billings'], function(){
     Route::get('/edit-pic/{id}', [App\Http\Controllers\BillingController::class, 'edit_pic'])->name('edit-pic');
     Route::post('/save-pic/{id}', [App\Http\Controllers\BillingController::class, 'save_pic'])->name('save-pic');
 
-    Route::get('/my-statements/{id}', [App\Http\Controllers\BillingController::class, 'my_statements'])->name('edit-pic');
+    Route::get('/my-statements/{id}', [App\Http\Controllers\BillingController::class, 'my_statements'])->name('my-statements');
+    Route::get('/my-statements-credit-debit/{id}', [App\Http\Controllers\BillingController::class, 'my_statements_credit_debit'])->name('credit-debit');
+
     Route::get('/my-courses/{id}', [App\Http\Controllers\BillingController::class, 'my_courses'])->name('my-courses');
 
     Route::get('/users', [App\Http\Controllers\BillingController::class, 'users'])->name('users');
