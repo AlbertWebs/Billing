@@ -84,10 +84,10 @@
                                 ?>
 
                                    @if(isset($BillingLatest->balance))
-                                        <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-print"></i>Statement (<?php echo count($Billings); ?>)
+                                        <a href="{{url('/')}}/billings/my-statements-credit-debit/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-print"></i>Statement (<?php echo count($Billings); ?>)
                                         </a>
                                    @else
-                                   <a href="{{url('/')}}/billings/my-statements/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i>Statement (<?php echo count($Billings); ?>)
+                                   <a href="{{url('/')}}/billings/my-statements-credit-debit/{{$item->id}}" class="btn btn-outline-primary"> <i class="fas fa-print"></i>Statement (<?php echo count($Billings); ?>)
                                    </a>
                                    @endif
 
@@ -95,8 +95,8 @@
                                 </a> --}}
                                 {{-- <a href="{{url('/')}}/billings/record-c2b/{{$item->email}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> C2B
                                 </a> --}}
-                                <a href="{{url('/')}}/billings/my-statements-credit-debit/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> Debit Credit
-                                </a>
+                                {{-- <a href="{{url('/')}}/billings/my-statements-credit-debit/{{$item->id}}" class="btn btn-outline-success"> <i class="fas fa-money-bill-alt"></i> Debit Credit
+                                </a> --}}
                                 <a title="Record Payment" href="{{url('/')}}/billings/create-bill/{{$item->email}}" class="btn btn-outline-danger">  <i class="fas fa-pen-square"></i> Cash
                                 </a>
                                 {{-- <?php $Billings = DB::table('billings')->where('student',$item->id)->get(); ?>

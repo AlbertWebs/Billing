@@ -81,9 +81,9 @@
                                     <th>Issued to</th>
                                     <th>For</th>
                                     <th>Date</th>
-                                    <th>Amount</th>
+                                    <th>Credit</th>
                                     <th class="text-center">
-
+                                     Debit
                                     </th>
                                 </tr>
 							</thead>
@@ -147,7 +147,8 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
+                            </tbody>
+                                <tbody>
                                 <tr>
 
                                     <td>
@@ -163,11 +164,11 @@
 
                                     </td>
 
-                                    <td>
-
-                                    </td>
                                     <td class="text-center">
                                         <h6 class="d-block"><strong><u>Total: {{$Total}}</u></strong></h6>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="d-block"><strong><u>Total: {{$Balance}}</u></strong></h6>
                                     </td>
                                 </tr>
                             </tbody>

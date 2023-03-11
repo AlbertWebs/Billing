@@ -1369,7 +1369,8 @@ public function my_statements_credit_debit($id){
     $Student = Student::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     $Billings = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->get();
     $Total = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('amount');
-    return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total'));
+    $Balance = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('balance');
+    return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total','Balance'));
 
 }
 
