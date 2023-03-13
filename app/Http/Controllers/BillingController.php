@@ -1675,8 +1675,8 @@ public function total_receivable(){
     $Active = "receivable";
     // Clear Session
     Session::forget('search');
-    $Billings = DB::table('downloads')->where('campus' ,Auth::User()->campus)->where('balance','>',0)->get();
-    $Balance = DB::table('downloads')->where('campus' ,Auth::User()->campus)->sum('balance');
+    $Billings = DB::table('downloads')->where('campus' ,Auth::User()->campus)->where('status','open')->where('balance','>',0)->get();
+    $Balance = DB::table('downloads')->where('campus' ,Auth::User()->campus)->where('status','open')->sum('balance');
     $Title = "Total Reciveble";
     return view('billing.total_receivable', compact('Title','Billings','Group','Active','Balance'));
 }
