@@ -774,6 +774,12 @@ public function newBilling($user,$status,$billType,$discount,$EnterTransaction,$
 }
 
 public function newDownload($user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
+    if($Balance<1)
+    {
+        $newBalance = 0;
+    }else{
+        $newBalance = $Balance;
+    }
     $TheStudent = Student::find($user);
     $Billing = new Download;
     $Billing->student = $user;
@@ -786,7 +792,7 @@ public function newDownload($user,$status,$billType,$discount,$EnterTransaction,
     $Billing->agreed_amount = $agreed_amount;
     $Billing->reference = $reference;
     $Billing->balance_temp = $balance_temp;
-    $Billing->balance = $Balance;
+    $Billing->balance = $newBalance;
     $Billing->course_id = $course_id;
     $Billing->amount = $amount;
     $Billing->description = $description;
@@ -810,8 +816,8 @@ public function newDownload($user,$status,$billType,$discount,$EnterTransaction,
         //
 
         Session::put('billing', $Billing->id);
-        $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
-        $this->sendSMSs($Message,$phoneNumber);
+        // $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
+        // $this->sendSMSs($Message,$phoneNumber);
     }
 }
 
