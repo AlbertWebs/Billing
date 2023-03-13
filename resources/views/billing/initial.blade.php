@@ -75,7 +75,7 @@
 
                             @foreach ($Studentz as $studentz)
                                     <?php
-                                        $SimilarBilling = App\Models\Billing::where('student',$studentz->id)->where('status','open')->where('course_id',$studentz->course_id)->orderBy('id','DESC')->limit('1')->get();
+                                        $SimilarBilling = App\Models\Download::where('student',$studentz->id)->where('status','open')->where('course_id',$studentz->course_id)->orderBy('id','DESC')->limit('1')->get();
                                     ?>
                                     @if($SimilarBilling->isEmpty())
                                     <input type="text" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
