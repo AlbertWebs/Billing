@@ -1356,7 +1356,7 @@ public function my_statements($id){
     $Student = Student::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     $Billings = Billing::where('student',$id)->where('campus' ,Auth::User()->campus)->get();
     $Total = Billing::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('amount');
-    $Balance = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('balance');
+    $Balance = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->orderby('id','ASC')->first();
     return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total','Balance'));
 
 }
@@ -1370,7 +1370,7 @@ public function my_statements_credit_debit($id){
     $Student = Student::where('id',$id)->where('campus' ,Auth::User()->campus)->get();
     $Billings = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->get();
     $Total = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('amount');
-    $Balance = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->sum('balance');
+    $Balance = Download::where('student',$id)->where('campus' ,Auth::User()->campus)->orderby('id','ASC')->first();
     return view('billing.statements', compact('Billings','Student','Group','Title','Active','Total','Balance'));
 
 }
