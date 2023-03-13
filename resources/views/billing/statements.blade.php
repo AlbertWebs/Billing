@@ -168,7 +168,7 @@
                                         <h6 class="d-block"><strong><u>Total: {{$Total}}</u></strong></h6>
                                     </td>
                                     <td class="text-center">
-                                        <h6 class="d-block"><strong><u>Total: {{$Balance->balance}}</u></strong></h6>
+                                        <h6 class="d-block"><strong><u>Balance: {{$Balance->balance}}</u></strong></h6>
                                     </td>
                                 </tr>
                             </tbody>
