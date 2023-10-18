@@ -5,11 +5,11 @@
 [![codecov](https://codecov.io/gh/kitloong/laravel-migrations-generator/branch/6.x/graph/badge.svg?token=U6ZRDPY6QZ)](https://codecov.io/gh/kitloong/laravel-migrations-generator)
 [![Latest Stable Version](https://poser.pugx.org/kitloong/laravel-migrations-generator/v/stable.png)](https://packagist.org/packages/kitloong/laravel-migrations-generator)
 [![Total Downloads](http://poser.pugx.org/kitloong/laravel-migrations-generator/downloads)](https://packagist.org/packages/kitloong/laravel-migrations-generator)
-[![License](https://poser.pugx.org/kitloong/laravel-migrations-generator/license.png)](https://packagist.org/packages/kitloong/laravel-migrations-generator)
+[![License](https://poser.pugx.org/kitloong/laravel-migrations-generator/license.png)](LICENSE)
 
 Generate Laravel Migrations from an existing database, including indexes and foreign keys!
 
-This package is cloned from https://github.com/Xethron/migrations-generator and updated to support Laravel 5.6 and above, with more features.
+This package is a modified version of https://github.com/Xethron/migrations-generator that has been updated to support Laravel 5.6 and beyond, along with additional features.
 
 ## Supported Database
 
@@ -69,6 +69,7 @@ Add following line into the `Register Service Providers` section.
 ```php
 $app->register(\KitLoong\MigrationsGenerator\MigrationsGeneratorServiceProvider::class);
 ```
+
 </details>
 
 ## Usage
@@ -105,7 +106,7 @@ php artisan migrate:generate --connection="connection_name"
 
 ### Squash Migrations
 
-By default, Generator will generate multiple migration files for each table. 
+By default, Generator will generate multiple migration files for each table.
 
 You can squash all migrations into a single file with:
 
@@ -134,6 +135,7 @@ Run `php artisan help migrate:generate` for a list of options.
 | --default-fk-names                   | Don\'t use DB foreign key names for migrations                                                                                                                |
 | --use-db-collation                   | Generate migrations with existing DB collation                                                                                                                |
 | --skip-log                           | Don\'t log into migrations table                                                                                                                              |
+| --skip-vendor                        | Don\'t generate vendor migrations                                                                                                                             |
 | --skip-views                         | Don\'t generate views                                                                                                                                         |
 | --skip-proc                          | Don\'t generate stored procedures                                                                                                                             |
 | --squash                             | Generate all migrations into a single file                                                                                                                    |
@@ -162,16 +164,14 @@ public function up()
 
 Note that the new `column` is always added at the end of the created `table` which means the ordering of the column generated in migration will differ from what we have from the schema.
 
-Supported DB:
+Supported database with custom types:
 
 - [x] PostgreSQL
 - [x] SQL Server
 
 ## Thank You
 
-Thanks to Bernhard Breytenbach for his great work. This package is cloned from https://github.com/Xethron/migrations-generator.
-
-Thanks to Jeffrey Way for his amazing Laravel-4-Generators package. This package depends greatly on his work.
+Thanks to Bernhard Breytenbach for his great work. This package is based on https://github.com/Xethron/migrations-generator.
 
 ## Contributors
 
@@ -179,4 +179,4 @@ Thanks to Jeffrey Way for his amazing Laravel-4-Generators package. This package
 
 ## License
 
-The Laravel Migrations Generator is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The Laravel Migrations Generator is open-sourced software licensed under the [MIT license](LICENSE)

@@ -114,7 +114,10 @@
 
                                     @if($counter == 1)
                                         <a href="{{url('/')}}/billings/my-payments/{{$Billing->original_payment}}" class="btn btn-outline-danger">
-                                            <?php echo $total; ?> Instalment(s)
+                                            <?php
+                                                //  echo $total;
+                                            ?>
+                                            Instalment(s)
                                         </a>
                                     @else
                                         <a href="{{url('/')}}/billings/my-statements/{{$Billing->student}}" class="btn btn-outline-danger">

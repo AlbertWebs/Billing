@@ -11,6 +11,9 @@ use KitLoong\MigrationsGenerator\Support\IndexNameHelper;
 
 class IndexGenerator
 {
+    /**
+     * @var \KitLoong\MigrationsGenerator\Support\IndexNameHelper
+     */
     private $indexNameHelper;
 
     public function __construct(IndexNameHelper $indexNameHelper)
@@ -18,11 +21,6 @@ class IndexGenerator
         $this->indexNameHelper = $indexNameHelper;
     }
 
-    /**
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Index  $index
-     * @return \KitLoong\MigrationsGenerator\Migration\Blueprint\Method
-     */
     public function generate(Table $table, Index $index): Method
     {
         $columns = $this->getColumns($index);
@@ -42,7 +40,7 @@ class IndexGenerator
      * $table->integer('id')->primary();
      *
      * @param  string  $name  Table name
-     * @param  \Illuminate\Support\Collection<\KitLoong\MigrationsGenerator\Schema\Models\Index>  $indexes
+     * @param  \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Schema\Models\Index>  $indexes
      * @return \Illuminate\Support\Collection<string, \KitLoong\MigrationsGenerator\Schema\Models\Index> Key is the column name.
      */
     public function getChainableIndexes(string $name, Collection $indexes): Collection
@@ -95,9 +93,9 @@ class IndexGenerator
      * $table->index(['col1', 'col2'], 'not_chainable_index');
      * $table->integer(['col1', 'col2'])->primary();
      *
-     * @param  \Illuminate\Support\Collection<\KitLoong\MigrationsGenerator\Schema\Models\Index>  $indexes
+     * @param  \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Schema\Models\Index>  $indexes
      * @param  \Illuminate\Support\Collection<string, \KitLoong\MigrationsGenerator\Schema\Models\Index>  $chainableIndexes  Key is column name.
-     * @return \Illuminate\Support\Collection<string, \KitLoong\MigrationsGenerator\Schema\Models\Index>  Key is index name.
+     * @return \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Schema\Models\Index>
      */
     public function getNotChainableIndexes(Collection $indexes, Collection $chainableIndexes): Collection
     {
@@ -113,7 +111,6 @@ class IndexGenerator
     /**
      * Get column names with length.
      *
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Index  $index
      * @return array<string|\Illuminate\Database\Query\Expression>
      */
     private function getColumns(Index $index): array

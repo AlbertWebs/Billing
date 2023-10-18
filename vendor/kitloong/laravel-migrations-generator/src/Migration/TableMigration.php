@@ -29,11 +29,34 @@ class TableMigration
     use CheckMigrationMethod;
     use TableName;
 
+    /**
+     * @var \KitLoong\MigrationsGenerator\Migration\Generator\ColumnGenerator
+     */
     private $columnGenerator;
+
+    /**
+     * @var \KitLoong\MigrationsGenerator\Support\MigrationNameHelper
+     */
     private $migrationNameHelper;
+
+    /**
+     * @var \KitLoong\MigrationsGenerator\Migration\Generator\IndexGenerator
+     */
     private $indexGenerator;
+
+    /**
+     * @var \KitLoong\MigrationsGenerator\Migration\Writer\MigrationWriter
+     */
     private $migrationWriter;
+
+    /**
+     * @var \KitLoong\MigrationsGenerator\Setting
+     */
     private $setting;
+
+    /**
+     * @var \KitLoong\MigrationsGenerator\Migration\Writer\SquashWriter
+     */
     private $squashWriter;
 
     public function __construct(
@@ -55,7 +78,6 @@ class TableMigration
     /**
      * Create table migration.
      *
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
      * @return string The migration file path.
      */
     public function write(Table $table): string
@@ -85,8 +107,6 @@ class TableMigration
 
     /**
      * Write table migration into temporary file.
-     *
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
      */
     public function writeToTemp(Table $table): void
     {
@@ -106,9 +126,6 @@ class TableMigration
 
     /**
      * Generates `up` schema for table.
-     *
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
-     * @return \KitLoong\MigrationsGenerator\Migration\Blueprint\SchemaBlueprint
      */
     private function up(Table $table): SchemaBlueprint
     {
@@ -152,7 +169,6 @@ class TableMigration
     /**
      * Generate custom statements.
      *
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
      * @return \KitLoong\MigrationsGenerator\Migration\Blueprint\DBStatementBlueprint[]
      */
     private function upAdditionalStatements(Table $table): array
@@ -170,9 +186,6 @@ class TableMigration
 
     /**
      * Generates `down` schema for table.
-     *
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
-     * @return \KitLoong\MigrationsGenerator\Migration\Blueprint\SchemaBlueprint
      */
     private function down(Table $table): SchemaBlueprint
     {
@@ -183,7 +196,6 @@ class TableMigration
      * Makes class name for table migration.
      *
      * @param  string  $table  Table name.
-     * @return string
      */
     private function makeMigrationClassName(string $table): string
     {
@@ -198,22 +210,19 @@ class TableMigration
      * Makes file path for table migration.
      *
      * @param  string  $table  Table name.
-     * @return string
      */
     private function makeMigrationPath(string $table): string
     {
         $withoutPrefix = $this->stripTablePrefix($table);
         return $this->migrationNameHelper->makeFilename(
             $this->setting->getTableFilename(),
-            $this->setting->getDate()->format('Y_m_d_His'),
+            $this->setting->getDateForMigrationFilename(),
             $withoutPrefix
         );
     }
 
     /**
      * Checks should set charset into table.
-     *
-     * @return bool
      */
     private function shouldSetCharset(): bool
     {
@@ -224,11 +233,6 @@ class TableMigration
         return $this->setting->isUseDBCollation();
     }
 
-    /**
-     * @param  \KitLoong\MigrationsGenerator\Migration\Blueprint\TableBlueprint  $blueprint
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
-     * @return \KitLoong\MigrationsGenerator\Migration\Blueprint\TableBlueprint
-     */
     private function setTableCharset(TableBlueprint $blueprint, Table $table): TableBlueprint
     {
         $blueprint->setProperty(
@@ -236,17 +240,16 @@ class TableMigration
             $collation = $table->getCollation()
         );
 
+        if ($collation === null) {
+            return $blueprint;
+        }
+
         $charset = Str::before($collation, '_');
         $blueprint->setProperty(TableProperty::CHARSET(), $charset);
 
         return $blueprint;
     }
 
-    /**
-     * @param  \KitLoong\MigrationsGenerator\Schema\Models\Table  $table
-     * @param  \KitLoong\MigrationsGenerator\Enum\Migrations\Method\SchemaBuilder  $schemaBuilder
-     * @return \KitLoong\MigrationsGenerator\Migration\Blueprint\SchemaBlueprint
-     */
     private function getSchemaBlueprint(Table $table, SchemaBuilder $schemaBuilder): SchemaBlueprint
     {
         return new SchemaBlueprint(

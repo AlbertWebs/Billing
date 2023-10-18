@@ -14,7 +14,6 @@ class PgSQLRepository extends Repository
      *
      * @param  string  $table  Table name.
      * @param  string  $column  Column name.
-     * @return string|null
      */
     public function getTypeByColumnName(string $table, string $column): ?string
     {
@@ -42,7 +41,6 @@ class PgSQLRepository extends Repository
      *
      * @param  string  $table  Table name.
      * @param  string  $column  Column name.
-     * @return string|null
      */
     public function getDefaultByColumnName(string $table, string $column): ?string
     {
@@ -72,7 +70,6 @@ class PgSQLRepository extends Repository
      *
      * @param  string  $table  Table name.
      * @param  string  $column  Column name.
-     * @return string|null
      */
     public function getCheckConstraintDefinition(string $table, string $column): ?string
     {
@@ -100,7 +97,7 @@ class PgSQLRepository extends Repository
      * Get a list of spatial indexes.
      *
      * @param  string  $table  Table name.
-     * @return \Illuminate\Support\Collection<\KitLoong\MigrationsGenerator\Repositories\Entities\PgSQL\IndexDefinition>
+     * @return \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Repositories\Entities\PgSQL\IndexDefinition>
      */
     public function getSpatialIndexes(string $table): Collection
     {
@@ -133,7 +130,7 @@ class PgSQLRepository extends Repository
      * Get a list of fulltext indexes.
      *
      * @param  string  $table  Table name.
-     * @return \Illuminate\Support\Collection<\KitLoong\MigrationsGenerator\Repositories\Entities\PgSQL\IndexDefinition>
+     * @return \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Repositories\Entities\PgSQL\IndexDefinition>
      */
     public function getFulltextIndexes(string $table): Collection
     {
@@ -143,7 +140,8 @@ class PgSQLRepository extends Repository
                        indexdef
                 FROM pg_indexes
                 WHERE tablename = '$table'
-                    AND indexdef LIKE '%to_tsvector(%'"
+                    AND indexdef LIKE '%to_tsvector(%'
+                ORDER BY indexname"
         );
         $definitions = new Collection();
 
@@ -166,7 +164,7 @@ class PgSQLRepository extends Repository
      * Get a list of custom data types.
      *
      * @source https://stackoverflow.com/questions/3660787/how-to-list-custom-types-using-postgres-information-schema
-     * @return \Illuminate\Support\Collection<string>
+     * @return \Illuminate\Support\Collection<int, string>
      */
     public function getCustomDataTypes(): Collection
     {
@@ -194,7 +192,7 @@ class PgSQLRepository extends Repository
     /**
      * Get a list of stored procedures.
      *
-     * @return \Illuminate\Support\Collection<\KitLoong\MigrationsGenerator\Repositories\Entities\ProcedureDefinition>
+     * @return \Illuminate\Support\Collection<int, \KitLoong\MigrationsGenerator\Repositories\Entities\ProcedureDefinition>
      */
     public function getProcedures(): Collection
     {

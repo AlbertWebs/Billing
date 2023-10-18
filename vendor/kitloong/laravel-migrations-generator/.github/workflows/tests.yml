@@ -1,0 +1,154 @@
+name: "Run tests"
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    services:
+      mysql57:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: migration
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+      mysql8:
+        image: mysql:8
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: migration
+        ports:
+          - 33062:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+      postgres:
+        image: postgis/postgis:13-3.3
+        env:
+          POSTGRES_DB: migration
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: "!QAZ2wsx"
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      sqlsrv:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: "!QAZ2wsx"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "echo quit | /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -l 1 -U sa -P '!QAZ2wsx'"
+
+      mariadb:
+        image: mariadb:10
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: "migration"
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    strategy:
+      matrix:
+        php: [ 8.1, 8.2 ]
+        laravel: [ 9.*, 10.* ]
+        dbal: [ 3.* ]
+        sqlsrv_extension: [ pdo_sqlsrv ]
+        include:
+          - php: 7.1
+            laravel: 5.7.*
+            dbal: 2.*
+          - php: 7.2
+            laravel: 5.8.*
+            dbal: 2.*
+          - php: 7.3
+            laravel: 6.*
+            dbal: 2.*
+          - php: 7.4
+            laravel: 7.*
+            dbal: 2.*
+          - php: 8.0
+            laravel: 8.*
+            dbal: 2.*
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Alter MySQL 8 root plugin
+        run: |
+          mysql --version
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql8.ports['3306'] }} -u root -e "ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY ''"
+
+      - name: SQL Server Create Database
+        run: |
+          # Create DB
+          sqlcmd -S 127.0.0.1 -U sa -P '!QAZ2wsx' -Q 'CREATE DATABASE migration' -b
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached, ${{matrix.sqlsrv_extension}}
+          tools: composer:v2
+          coverage: pcov
+
+      - name: Install dependencies
+        run: |
+          composer config --no-plugins allow-plugins.kylekatarnls/update-helper true
+          composer require "laravel/framework:${{ matrix.laravel }}" "doctrine/dbal:${{ matrix.dbal }}" --no-interaction --no-update
+          composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+      - name: Setup PCOV
+        if: ${{ matrix.laravel == '5.7.*' }}
+        run: |
+          composer require pcov/clobber
+          vendor/bin/pcov clobber
+
+      - name: Setup .env
+        run: |
+          mkdir ./database
+          composer run action-env-setup
+
+      - name: Execute tests with PHPUnit 8 or below
+        if: ${{ matrix.laravel == '5.7.*' || matrix.laravel == '5.8.*' }}
+        run: vendor/bin/phpunit -c ./phpunit8.xml --coverage-clover=coverage.xml
+
+      - name: Execute tests
+        if: ${{ matrix.laravel != '5.7.*' && matrix.laravel != '5.8.*' }}
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Upload to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+          files: coverage.xml

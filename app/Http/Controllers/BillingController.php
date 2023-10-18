@@ -781,12 +781,12 @@ public function newDownload($user,$status,$billType,$discount,$EnterTransaction,
         $newBalance = $Balance;
     }
     $TheStudent = Student::find($user);
+
     $Billing = new Download;
     $Billing->student = $user;
     $Billing->status = $status;
     $Billing->type = $billType;
     $Billing->discount = $discount;
-
     $Billing->m_pesa = $EnterTransaction;
     $Billing->note = $note;
     $Billing->agreed_amount = $agreed_amount;
@@ -801,7 +801,6 @@ public function newDownload($user,$status,$billType,$discount,$EnterTransaction,
     $Billing->paid = $paid;
     // $Billing->save();
 
-
     $Course  = Course::find($course_id);
     $Stude = Student::find($user);
 
@@ -814,10 +813,9 @@ public function newDownload($user,$status,$billType,$discount,$EnterTransaction,
         $phoneNumbers = str_replace(' ', '', $TheStudent->mobile);
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
-
         Session::put('billing', $Billing->id);
         $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
-        $this->sendSMSs($Message,$phoneNumber);
+        // $this->sendSMSs($Message,$phoneNumber);
     }
 }
 
@@ -836,7 +834,6 @@ public function create_bill_post(Request $request){
     $this->assignCourse($request->user,$request->course);
 
     $this->addEnrolment($request->user,$request->course);
-
 
     //
     $course_id = $request->course;
@@ -857,7 +854,7 @@ public function create_bill_post(Request $request){
        $TheBalance = $amount;
     }else{
         $CurrentBalance = $IncomeBalance->balance;
-        $TheBalance = $CurrentBalance+$amount;
+        $TheBalance = $CurrentBalance-$amount;
     }
 
     // Add Cash
@@ -868,14 +865,10 @@ public function create_bill_post(Request $request){
     $Cash->user = Auth::user()->id;
     $Cash->source = "Fees Payment";
     $Cash->code = $request->transID;
-    $Cash->balance = $TheBalance;
+    // $Cash->balance = $TheBalance;
     $Cash->save();
 
     // Add Receipt here
-
-
-
-
     if(isset($request->agreed_amount)){
         $Course_price = $request->agreed_amount;
     }else{
@@ -897,7 +890,7 @@ public function create_bill_post(Request $request){
     $Origin = DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->orderBy('id','ASC')->first();
 
 
-    // dd($request->all());
+    //Process This
     if($Previous == null){
         // New Student
         if($Amount_paid == $Course_price){
@@ -919,21 +912,7 @@ public function create_bill_post(Request $request){
             $amount = $Course_price;
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
             $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-            if($Excess == $Course_price){
-                $Balance = 0;
-                $paid = "Paid";
-                $status = "closed";
-                $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
-                $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-            }else{
-                $Balance = $Course_price-$Excess;
-                $paid = "Paid";
-                $status = "open";
-                $amount = $Excess;
-                $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-            }
         }
-
     }else{
         $Balance = $Previous->balance;
         if($Amount_paid == $Balance){
@@ -950,20 +929,6 @@ public function create_bill_post(Request $request){
             $amount = $Previous->balance;
             $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
-            if($Excess == $Course_price){
-                $Balance = 0;
-                $paid = "Paid";
-                $status = "closed";
-                $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-                $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
-            }else{
-                $Balance = $Course_price-$Excess;
-                $amount = $Excess;
-                $paid = "Paid";
-                $status = "open";
-                $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
-                $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
-            }
         }else{
             $Balance = $Previous->balance-$Amount_paid;
             $paid = "Paid";
@@ -971,6 +936,7 @@ public function create_bill_post(Request $request){
             $this->newBilling($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
         }
     }
+
 
     // new Download
     $this->newDownload($user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$request->amount,$description,$Course->title,$paid);
