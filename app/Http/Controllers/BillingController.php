@@ -815,7 +815,7 @@ public function newDownload($user,$status,$billType,$discount,$EnterTransaction,
         //
         Session::put('billing', $Billing->id);
         $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
-        // $this->sendSMSs($Message,$phoneNumber);
+        $this->sendSMSs($Message,$phoneNumber);
     }
 }
 
