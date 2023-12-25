@@ -71,9 +71,10 @@
                     <b class="cs-primary_color">Pay To:</b>
                     <p>
                         {{$set->name}} <br>
-                        {{$set->location}} <br>Nairobi,Kenya<br>
+                        {{$set->location}}, Nairobi,Kenya<br>
 
-                    {{$set->email}}
+                    {{$set->email}}<br>
+                    {{$set->mobile}}
                     </p>
                 </div>
                 </div>

@@ -16,9 +16,14 @@ class SendMail extends Model
             'email'=>$email,
             'content'=>$content,
         );
-        $subject = "Payment Received";
-        $appName = "School Billing System";
-        $appEmail = "smis.system.mailer@gmail.com";
+
+        $Settings = DB::table('settings')->where('id','1')->get();
+        foreach ($Settings as $set){
+            $subject = "Payment Received";
+            $appName = $set->name;
+            $appEmail = "smis.system.mailer@gmail.com";
+        }
+
 
         $FromVariable = $appEmail;
         $FromVariableName = $appName;

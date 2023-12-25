@@ -915,7 +915,7 @@ kbd {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #eaeaea;
 }
 

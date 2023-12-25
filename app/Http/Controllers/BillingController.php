@@ -405,7 +405,7 @@ class BillingController extends Controller
 
 
     public function course_delete($id){
-        $Course = Course::find(id);
+        $Course = Course::find($id);
         $UserSession = Auth::User()->name;
         activity()->log('Course:'.$Course->title.' has been Deleted By '.$UserSession.'');
 
