@@ -158,6 +158,19 @@
                 </div>
             </div>
             <hr>
+            @if(Session::has('mpesa'))
+            <div class="col-lg-12">
+                <div class="form-group" data-select2-id="207">
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">M-PESA Reference:</label>
+                        <div class="col-lg-10">
+                            <input style="text-transform: uppercase !important" type="text" class="form-control"  name="mpesa_reference" value="" placeholder="M-PESA CODE"  autocomplete="student-name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            @endif
             {{-- <div class="col-lg-12">
                 <div class="form-group" data-select2-id="207">
                     <div class="form-group row">

@@ -90,6 +90,20 @@
                                         </div>
                                         <hr>
 
+                                        <hr>
+                                        <input type="hidden" name="initial_value" value="{{$bill->balance}}">
+                                        <div class="col-lg-12">
+                                            <div class="form-group" data-select2-id="207">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-2 col-form-label">Balance:</label>
+                                                    <div class="col-lg-10">
+                                                        <input type="number" class="form-control" name="balance" value="{{$bill->balance}}" placeholder="10000" autocomplete="student-name" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+
                                         <input type="hidden" name="billType" value="0">
                                         <div class="row">
                                             <div class="col-lg-12">
