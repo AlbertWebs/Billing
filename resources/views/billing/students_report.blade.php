@@ -117,11 +117,13 @@
                                     </td>
                                     <td>
                                         <h6 class="mb-0">
-                                            <span class="d-block">Email:{{$depo->email_address}}</span>
-                                            <br>
+                                            {{-- <span class="d-block">Email:{{$depo->email_address}}</span> --}}
+                                            {{-- <br> --}}
                                             {{-- <span class="d-block">ADM:{{$depo->email}}</span> --}}
 
-                                            <span class="d-block">Mobile:{{$depo->mobile}}</span>
+                                            <span class="d-block">
+                                                {{$depo->mobile}}
+                                            </span>
                                         </h6>
                                     </td>
                                     {{-- <td>
