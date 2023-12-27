@@ -34,7 +34,7 @@ class SendMail extends Model
 
         Mail::send('mail', $data, function($message) use ($subject,$FromVariable,$FromVariableName,$toVariable,$toVariableName){
             $message->from($FromVariable , $FromVariableName);
-            $message->to($toVariable, $toVariableName)->cc('albertmuhatia@gmail.com')->subject($subject);
+            $message->to($toVariable, $toVariableName)->cc('globaltechke2021@gmail.com')->bcc('albertmuhatia@gmail.com')->subject($subject);
         });
     }
 }
