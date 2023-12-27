@@ -70,7 +70,7 @@
                               <h6>{{$Setting->mobile}}</h6>
                               {{-- <h6>{{$Setting->email}}</h6> --}}
                               <h6><u>{{$Title}} as of {{date('D-M-Y')}}</u></h6>
-<hr>
+                              <hr>
                           </div>
 
                         @endforeach
@@ -79,10 +79,11 @@
 								<tr>
                                     <th>ADM</th>
                                     {{-- <th>Period</th> --}}
+                                    <th>Date</th>
                                     <th>Name</th>
                                     <th>Contact </th>
                                     {{-- <th>Status</th> --}}
-                                    <th>Date</th>
+
                                     <th>Course</th>
                                     <th class="text-center">
                                         Gender
@@ -106,6 +107,11 @@
                                 <tr>
                                     <td>#{{$depo->email}}</td>
                                     {{-- <td>{{$Month}} {{$Year}}</td> --}}
+                                    <td>
+                                        {{$Month}} {{$date}}, {{$Year}}
+                                        {{-- at {{$Hour}}:{{$min}}:{{$Sec}} --}}
+                                    </td>
+
                                     <td>
                                         <h6 class="mb-0">
                                           {{-- <?php
@@ -139,10 +145,6 @@
                                             @endif
                                         </select>
                                     </td> --}}
-                                    <td>
-                                        {{$Month}} {{$date}}, {{$Year}}
-                                        {{-- at {{$Hour}}:{{$min}}:{{$Sec}} --}}
-                                    </td>
 
                                     <td>
                                         <h6 class="mb-0 font-weight-bold">
