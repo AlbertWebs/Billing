@@ -64,10 +64,11 @@
                         <?php $Settings = DB::table('settings')->where('id',Auth::User()->campus)->get(); ?>
                         @foreach ($Settings as $Setting)
                           <div class="header">
-                              <img width="200" src="{{url('/')}}/uploads/logo/{{$Setting->logo}}" alt="Atlas">
+                              <img width="160" src="{{url('/')}}/uploads/logo/{{$Setting->logo}}" alt="Atlas">
+                              <br><br>
                               <h2>{{$Setting->name}}</h2>
                               <h5>{{$Setting->address}}</h5>
-                              <h6>{{$Setting->mobile}}</h6>
+                              <h6>Tel: {{$Setting->mobile}}</h6>
                               {{-- <h6>{{$Setting->email}}</h6> --}}
                               <h6><u>{{$Title}} as of {{date('D-M-Y')}}</u></h6>
                               <hr>
