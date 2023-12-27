@@ -104,7 +104,13 @@
                                     $Sec = date('s',$FormatDate);
                                 ?>
                                 <tr>
-                                    <td>#{{$Billing->reference}}</td>
+                                    <td>
+                                        #{{$Billing->reference}}<br>
+                                        @if($Billing->transID == null)
+                                        @else M-PESA Reference: <span style="text-transform: uppercase">{{$Billing->transID}}</span>
+                                        @endif
+                                       {{--  --}}
+                                    </td>
                                     {{-- <td>{{$Month}} {{$Year}}</td> --}}
                                     <td>
                                         <h6 class="mb-0">
