@@ -105,7 +105,7 @@
                                     $Sec = date('s',$FormatDate);
                                 ?>
                                 <tr>
-                                    <td>#{{$depo->email}}</td>
+                                    <td>{{$depo->email}}</td>
                                     {{-- <td>{{$Month}} {{$Year}}</td> --}}
                                     <td>
                                         {{$Month}} {{$date}}, {{$Year}}
