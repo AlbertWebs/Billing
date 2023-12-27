@@ -67,7 +67,9 @@
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-this-week" class="nav-link @if($Active == "week") active @endif">Weekly Fees Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-this-month" class="nav-link @if($Active == "month") active @endif">Monthly Fees Income</a></li>
                 <li class="nav-item"><a href="{{url('/')}}/billings/income-search" class="nav-link @if($Active == "search") active @endif">Search Date</a></li>
-                <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link @if($Active == "search-r") active @endif">Search Date Range</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range" class="nav-link @if($Active == "search-r") active @endif">Search Date Range Cash</a></li>
+                <li class="nav-item"><a href="{{url('/')}}/billings/income-search-range-mpesa" class="nav-link @if($Active == "search-r") active @endif">Search Date Range M-Pesa</a></li>
+
                 <li class="nav-item"><a href="{{url('/')}}/billings/total-receivable" class="nav-link @if($Active == "receivable") active @endif">Balance</a></li>
                 {{-- <li class="nav-item"><a href="{{url('/')}}/billings/total-overpayed" class="nav-link @if($Active == "overpayed") active @endif">Total Overpayed</a></li> --}}
                 <li class="nav-item"><a href="{{url('/')}}/billings/bank-deposit" class="nav-link @if($Active == "deposits") active @endif">Bank Deposits</a></li>

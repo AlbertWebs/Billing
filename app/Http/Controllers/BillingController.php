@@ -1630,6 +1630,19 @@ public function income_search_range(){
     return view('billing.income_search_range', compact('Title','Billings','Group','Active'));
 }
 
+
+
+public function income_search_range_mpesa(){
+    $Group = "reports";
+    $Active = "search";
+    // Clear Session
+    Session::forget('search');
+    $Billings = Billing::where('campus' ,Auth::User()->campus)->whereNotNull('transID')->get();
+    $Title = "Search Income Date";
+    return view('billing.income_search_range_mpesa', compact('Title','Billings','Group','Active'));
+}
+
+
 public function income_x_days_range(Request $request){
     $Group = "reports";
     $Active = "search-r";
@@ -1647,6 +1660,25 @@ public function income_x_days_range(Request $request){
     $Total = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::User()->campus)->sum('amount');
     $Balance = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::User()->campus)->sum('balance');
     return view('billing.income_search_range', compact('Billings','Title','Total','Balance','Group','Active'));
+}
+
+public function income_x_days_range_mpesa(Request $request){
+    $Group = "reports";
+    $Active = "search-r";
+    Session::forget('search');
+    $date = $request->date;
+    $Range = $request->date;
+    $dates = explode(' - ' ,$Range);
+    $Start = $dates[0];
+    $Stop = $dates[1];
+    $StartF = date('Y-m-d', strtotime($Start));
+    $StopF = date('Y-m-d', strtotime($Stop));
+    $Title = "Income on $StartF - $StopF";
+    $Billings = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::User()->campus)->whereNotNull('transID')->get();
+    Session::put('search', $date);
+    $Total = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::User()->campus)->whereNotNull('transID')->sum('amount');
+    $Balance = Billing::whereBetween('created_at', [$StartF,$StopF])->where('campus' ,Auth::User()->campus)->whereNotNull('transID')->sum('balance');
+    return view('billing.income_search_range_mpesa', compact('Billings','Title','Total','Balance','Group','Active'));
 }
 
 public function total_receivable(){
