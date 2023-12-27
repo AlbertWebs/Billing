@@ -95,7 +95,7 @@
                         <tbody>
                         <tr class="details">
                             <td class="cs-width_3">{{$Billing->title}}</td>
-                            <td class="cs-width_4">{{$Billing->description}}</td>
+                            <td class="cs-width_4">{{$Billing->description}} @if($Billing->transID == null) @else With M-PESA Reference is <span style="text-transform: uppercase">{{$Billing->transID}}</span> @endif</td>
                             <td class="cs-width_2 cs-text_right">KES {{$Billing->amount}}</td>
                         </tr>
                         </tbody>
