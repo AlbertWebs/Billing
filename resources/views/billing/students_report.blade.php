@@ -80,7 +80,7 @@
                                     <th>ADM</th>
                                     {{-- <th>Period</th> --}}
                                     <th>Name</th>
-                                    <th>Contact Infomation</th>
+                                    <th>Contact </th>
                                     {{-- <th>Status</th> --}}
                                     <th>Date</th>
                                     <th>Course</th>
@@ -140,7 +140,8 @@
                                         </select>
                                     </td> --}}
                                     <td>
-                                        {{$Month}} {{$date}}, {{$Year}} at {{$Hour}}:{{$min}}:{{$Sec}}
+                                        {{$Month}} {{$date}}, {{$Year}}
+                                        {{-- at {{$Hour}}:{{$min}}:{{$Sec}} --}}
                                     </td>
 
                                     <td>
