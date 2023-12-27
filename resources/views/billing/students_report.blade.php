@@ -77,7 +77,7 @@
 						<table class="table datatable-button-print-basic">
 							<thead>
 								<tr>
-                                    <th>Ref</th>
+                                    <th>ADM</th>
                                     {{-- <th>Period</th> --}}
                                     <th>Name</th>
                                     <th>Contact Infomation</th>
@@ -104,7 +104,7 @@
                                     $Sec = date('s',$FormatDate);
                                 ?>
                                 <tr>
-                                    <td>#{{$depo->id}}</td>
+                                    <td>#{{$depo->email}}</td>
                                     {{-- <td>{{$Month}} {{$Year}}</td> --}}
                                     <td>
                                         <h6 class="mb-0">
@@ -119,7 +119,9 @@
                                         <h6 class="mb-0">
                                             <span class="d-block">Email:{{$depo->email_address}}</span>
                                             <br>
-                                            <span class="d-block">ADM:{{$depo->email}}</span>
+                                            {{-- <span class="d-block">ADM:{{$depo->email}}</span> --}}
+
+                                            <span class="d-block">Nobile:{{$depo->mobile}}</span>
                                         </h6>
                                     </td>
                                     {{-- <td>

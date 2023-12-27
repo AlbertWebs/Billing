@@ -77,6 +77,8 @@ class BillingController extends Controller
         return view('billing.students', compact('Student','Group','Title','Active'));
     }
 
+    // Show Date Range For Student Left, Active and Graduated
+
     public function students_reports($status){
         Session::forget('billing');
         Session::forget('user');
