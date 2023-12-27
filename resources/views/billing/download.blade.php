@@ -53,7 +53,7 @@
                     <p class="cs-invoice_date cs-primary_color cs-m0"><b class="cs-primary_color">Date: </b>{{date('d-M-Y')}}</p>
                 </div>
                 <div class="cs-invoice_right cs-text_right">
-                    <div class="cs-logo cs-mb5"><img width="200" src="{{url('/')}}/uploads/logo/{{$set->logo}}" alt="Atlas"></div>
+                    <div class="cs-logo cs-mb5"><img style="max-height:70px" src="{{url('/')}}/uploads/logo/{{$set->logo}}" alt="Atlas"></div>
                 </div>
                 </div>
 
