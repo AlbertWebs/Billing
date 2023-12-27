@@ -81,7 +81,7 @@
                                     <input type="text" class="form-control" name="amount"  placeholder="10000" autocomplete="student-name" required>
                                     @else
                                         @foreach ($SimilarBilling as $sim)
-                                        <input type="text" class="form-control" name="amount" value=""   autocomplete="student-name" required>
+                                        <input type="text" class="form-control" name="amount" value=""   autocomplete="student-names" required>
                                         {{-- <small style="color:#ff0000"><strong>Your Balance is {{$sim->balance}}</strong></small> --}}
                                         @endforeach
                                     @endif
