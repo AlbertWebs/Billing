@@ -232,11 +232,34 @@
             </div>
 
             <hr>
-            <div class="form-group row">
+            {{-- <div class="form-group row">
                 <label class="col-form-label col-lg-2">Description</label>
                 <div class="col-lg-10">
                     <textarea rows="3" cols="3" class="form-control" placeholder="Default textarea" name="description" required>Fee Payment</textarea>
                 </div>
+            </div> --}}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group row">
+                        <label class="col-lg-2 col-form-label">Description:</label>
+                        <div class="col-lg-10">
+                            <div class="form-group" data-select2-id="207">
+                                <select name="description" class="form-control select-minimum select2-hidden-accessible" data-fouc="" data-select2-id="66" tabindex="-1" aria-hidden="true" required>
+                                    <optgroup label="Students" data-select2-id="208">
+
+                                        <option value="Tution Fee" data-select2-id="681">Tution Fee </option>
+                                        <option value="Exam Fee" data-select2-id="682">Exam Fee </option>
+                                        <option value="Text Books" data-select2-id="683">Text Books </option>
+
+
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <hr>
             <hr>
