@@ -66,9 +66,9 @@
                           <div class="header">
                               <img width="160" src="{{url('/')}}/uploads/logo/{{$Setting->logo}}" alt="Atlas">
                               <br><br>
-                              <h2>{{$Setting->name}}</h2>
-                              <h5>{{$Setting->address}}</h5>
-                              <h6>Tel: {{$Setting->mobile}}</h6>
+                              <h2 style="padding-bottom: 5px;">{{$Setting->name}}</h2>
+                              <h5 style="padding-bottom: 5px;">{{$Setting->address}}</h5>
+                              <h6 style="padding-bottom: 5px;">Tel: {{$Setting->mobile}}</h6>
                               {{-- <h6>{{$Setting->email}}</h6> --}}
                               <h6><u>{{$Title}} as of {{date('D-M-Y')}}</u></h6>
                               <hr>
