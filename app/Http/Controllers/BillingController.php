@@ -818,8 +818,8 @@ public function newDownload($mpesa_reference, $user,$status,$billType,$discount,
         $phoneNumber = str_replace('+', '', $phoneNumbers);
         //
         Session::put('billing', $Billing->id);
-        // $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
-        // $this->sendSMSs($Message,$phoneNumber);
+        $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
+        $this->sendSMSs($Message,$phoneNumber);
     }
 }
 
