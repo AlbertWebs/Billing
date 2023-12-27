@@ -121,7 +121,7 @@
                                             <br>
                                             {{-- <span class="d-block">ADM:{{$depo->email}}</span> --}}
 
-                                            <span class="d-block">Nobile:{{$depo->mobile}}</span>
+                                            <span class="d-block">Mobile:{{$depo->mobile}}</span>
                                         </h6>
                                     </td>
                                     {{-- <td>
