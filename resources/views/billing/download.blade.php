@@ -158,7 +158,11 @@
 
                     <p class="cs-m0 additional">This receipt was generated on {{date('Y-M-d')}} at {{date('H:i:s')}} for the above listed bill(s), should you have issues with the information herein, Feel free to call us on <strong>{{$set->mobile}}</strong>, Or write us an email at <strong>{{$set->email}}</strong>, Or Visit us at <strong>{{$set->location}}</strong><br><br></p>
 
-                    <center>Thank You For Choosing {{$set->name}}</center>
+                    <center>
+                        <span style="font-size: 10px">
+                            Thank You For Choosing {{$set->name}}
+                        </span>
+                    </center>
                 </div>
                 </div><!-- .cs-note -->
             </div>
