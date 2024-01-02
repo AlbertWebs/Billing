@@ -1089,7 +1089,7 @@ public function sendSMSs($Message,$TheStudent){
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=ATLAS&msgType=text&duplicatecheck=true&output=json",
+            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=GTC-COLLEGE&msgType=text&duplicatecheck=true&output=json",
             CURLOPT_HTTPHEADER => array(
                 "apikey: 8de95877f8773706e77a9be719a7f0e218c0bafd",
                 "cache-control: no-cache",
