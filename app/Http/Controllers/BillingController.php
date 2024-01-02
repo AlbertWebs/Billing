@@ -981,7 +981,7 @@ public function sendEmail($Message,$email,$name){
     SendMail::Send($Message,$email,$name);
 }
 
-public function sendSMS($Message,$TheStudent){
+public function sendSMS32($Message,$TheStudent){
     $message = $Message;
     $phone =$TheStudent;
     $senderid = "DESIGNEKTA";
@@ -1017,6 +1017,52 @@ public function sendSMS($Message,$TheStudent){
     curl_close($ch);
     // print_r($response);
 }
+
+public function sendSMS33($Message,$TheStudent){
+    $message = $Message;
+    $phone =$TheStudent;
+    $senderid = "ATLAS";
+    //
+    $url = 'https://portal.zettatel.com/SMSApi/send';
+    $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYnVsay5jbG91ZHJlYnVlLmNvLmtlXC8iLCJhdWQiOiJodHRwczpcL1wvYnVsay5jbG91ZHJlYnVlLmNvLmtlXC8iLCJpYXQiOjE2NTM5Nzc0NTEsImV4cCI6NDgwOTczNzQ1MSwiZGF0YSI6eyJlbWFpbCI6ImluZm9AZGVzaWduZWt0YS5jb20iLCJ1c2VyX2lkIjoiMTQiLCJ1c2VySWQiOiIxNCJ9fQ.N3y4QhqTApKi46YSiHmkaoEctO9z6Poc4k1g44ToyjA";
+
+        $post_data=array(
+        'sender'=>$senderid,
+        'phone'=>$phone,
+        'correlator'=>'Whatever',
+        'link_id'=>null,
+        'message'=>$message
+        );
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://portal.zettatel.com/SMSApi/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=GTC-COLLEGE&msgType=text&duplicatecheck=true&output=json",
+            CURLOPT_HTTPHEADER => array(
+                "apikey: 8de95877f8773706e77a9be719a7f0e218c0bafd",
+                "cache-control: no-cache",
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        // } else {
+        //     echo $response;
+        // }
+}
+
 
 public function sendSMSs($Message,$TheStudent){
     $message = $Message;
