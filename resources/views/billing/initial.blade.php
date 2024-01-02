@@ -24,7 +24,7 @@
                     <div class="form-group row">
                         <label class="col-lg-2 col-form-label">Receipt Number:</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="reference"  placeholder="Computer Technology" value="" autocomplete="student-name" required>
+                            <input type="text" class="form-control" name="reference"  placeholder="" value="" autocomplete="student-name" required>
                             {{-- <input type="text" class="form-control" readonly name="reference"  placeholder="Computer Technology" value="{{$item->aka}}-0{{$newOrder}}" autocomplete="student-name" required> --}}
                         </div>
                     </div>
