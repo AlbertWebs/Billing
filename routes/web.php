@@ -23,6 +23,11 @@ Auth::routes(['register' => false]);
 Route::get('/', [App\Http\Controllers\BillingController::class, 'students'])->name('admin.home')->middleware('is_admin');
 Route::get('/email/{campus}', [App\Http\Controllers\BillingController::class, 'email'])->name('admin.email')->middleware('is_admin');
 
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode2 = Artisan::call('config:clear');
+    echo "Done";
+});
 //Group
 // Products
 Route::group(['prefix'=>'billings'], function(){
