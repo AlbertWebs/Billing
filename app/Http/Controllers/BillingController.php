@@ -1021,7 +1021,7 @@ public function sendSMS($Message,$TheStudent){
 public function sendSMSs($Message,$TheStudent){
     $message = $Message;
     $phone =$TheStudent;
-    $senderid = "DESIGNEKTA";
+    $senderid = "ATLAS";
     //
     $url = 'https://portal.zettatel.com/SMSApi/send';
     $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYnVsay5jbG91ZHJlYnVlLmNvLmtlXC8iLCJhdWQiOiJodHRwczpcL1wvYnVsay5jbG91ZHJlYnVlLmNvLmtlXC8iLCJpYXQiOjE2NTM5Nzc0NTEsImV4cCI6NDgwOTczNzQ1MSwiZGF0YSI6eyJlbWFpbCI6ImluZm9AZGVzaWduZWt0YS5jb20iLCJ1c2VyX2lkIjoiMTQiLCJ1c2VySWQiOiIxNCJ9fQ.N3y4QhqTApKi46YSiHmkaoEctO9z6Poc4k1g44ToyjA";
@@ -1043,7 +1043,7 @@ public function sendSMSs($Message,$TheStudent){
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=GTC-COLLEGE&msgType=text&duplicatecheck=true&output=json",
+            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=ATLAS&msgType=text&duplicatecheck=true&output=json",
             CURLOPT_HTTPHEADER => array(
                 "apikey: 8de95877f8773706e77a9be719a7f0e218c0bafd",
                 "cache-control: no-cache",
