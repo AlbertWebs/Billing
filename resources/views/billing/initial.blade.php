@@ -5,12 +5,12 @@
         $Billing = DB::table('billings')->where('campus' ,Auth::user()->campus)->orderBy('id','DESC')->first();
 
             if($Billing == null){
-            $newOrder = 1;
+                 $newOrder = 1800;
+                 $ref_number = 1800;
             }else{
-                $order = 1;
-                $Current = $Billing->id;
-                $newOrder = $order+$Current;
-
+                $Current = $Billing->ref_number;
+                $newOrder = $Current+1;
+                $ref_number = $newOrder;
             }
 
     ?>
@@ -24,14 +24,15 @@
                     <div class="form-group row">
                         <label class="col-lg-2 col-form-label">Receipt Number:</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="reference"  placeholder="" value="" autocomplete="student-name" required>
-                            {{-- <input type="text" class="form-control" readonly name="reference"  placeholder="Computer Technology" value="{{$item->aka}}-0{{$newOrder}}" autocomplete="student-name" required> --}}
+                            {{-- <input type="text" class="form-control" name="reference"  placeholder="" value="" autocomplete="student-name" required> --}}
+                            <input type="text" class="form-control" readonly name="reference"  placeholder="Computer Technology" value="{{$item->aka}}-{{$newOrder}}" autocomplete="student-name" required>
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
             @endforeach
+            <input type="hidden" name="ref_number" value="{{$ref_number}}">
 
             <div class="row">
                 <div class="col-lg-12">

@@ -524,6 +524,7 @@ public function create_bill_posts(Request $request){
     $course_id = $request->course;
     $reference = $request->reference;
     $group_id = $request->group_id;
+    $ref_number = $request->ref_number;
 
     $Course = Course::find($course_id);
     $TheStudent = Student::find($user);
@@ -753,14 +754,14 @@ public function addEnrolment($user,$course){
 }
 
 
-public function newBilling($mpesa_reference, $user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
+public function newBilling($ref_number, $mpesa_reference, $user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
     $TheStudent = Student::find($user);
     $Billing = new Billing;
     $Billing->student = $user;
     $Billing->status = $status;
     $Billing->type = $billType;
     $Billing->discount = $discount;
-
+    $Billing->ref_number = $ref_number;
     $Billing->m_pesa = $EnterTransaction;
     $Billing->note = $note;
     $Billing->agreed_amount = $agreed_amount;
@@ -778,7 +779,7 @@ public function newBilling($mpesa_reference, $user,$status,$billType,$discount,$
 
 }
 
-public function newDownload($mpesa_reference, $user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
+public function newDownload($ref_number, $mpesa_reference, $user,$status,$billType,$discount,$EnterTransaction,$note,$agreed_amount,$reference,$balance_temp,$Balance,$course_id,$amount,$description,$Course_title,$paid){
     if($Balance<1)
     {
         $newBalance = 0;
@@ -789,6 +790,7 @@ public function newDownload($mpesa_reference, $user,$status,$billType,$discount,
 
     $Billing = new Download;
     $Billing->student = $user;
+    $Billing->ref_number = $ref_number;
     $Billing->status = $status;
     $Billing->type = $billType;
     $Billing->discount = $discount;
@@ -821,7 +823,7 @@ public function newDownload($mpesa_reference, $user,$status,$billType,$discount,
         //
         Session::put('billing', $Billing->id);
         $this->sendEmail($Message,$TheStudent->email_address,$TheStudent->name);
-        $this->sendSMSs($Message,$phoneNumber);
+        // $this->sendSMSs($Message,$phoneNumber);
     }
 }
 
@@ -860,6 +862,7 @@ public function create_bill_post(Request $request){
     $title = $request->title;
     $reference = $request->reference;
     $group_id = $request->group_id;
+    $ref_number = $request->ref_number;
 
     $TheStudent = Student::find($user);
 
@@ -912,12 +915,12 @@ public function create_bill_post(Request $request){
             $paid = "Paid";
             $status = "closed";
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
-            $this->newBilling($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
+            $this->newBilling($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
         }else if($Amount_paid < $Course_price){
             $Balance = $Course_price-$Amount_paid;
             $paid = "Paid";
             $status = "open";
-            $this->newBilling($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
+            $this->newBilling($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
         }else{
             $Balance = 0;
             $paid = "Paid";
@@ -925,7 +928,7 @@ public function create_bill_post(Request $request){
             $Excess = $Amount_paid-$Course_price;
             $amount = $Course_price;
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
-            $this->newBilling($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
+            $this->newBilling($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
         }
     }else{
         $Balance = $Previous->balance;
@@ -933,7 +936,7 @@ public function create_bill_post(Request $request){
             $Balance = 0;
             $paid = "Paid";
             $status = "closed";
-            $this->newBilling($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
+            $this->newBilling($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
         }else if($Amount_paid>$Balance){
             $Balance = 0;
@@ -941,19 +944,19 @@ public function create_bill_post(Request $request){
             $status = "closed";
             $Excess = $Amount_paid-$Previous->balance; //to be carried forward
             $amount = $Previous->balance;
-            $this->newBilling($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
+            $this->newBilling($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
             $updateStatus = array('status'=>$status);  DB::table('billings')->where('student',$user)->where('course_id',$course_id)->where('campus' ,Auth::User()->campus)->where('status','open')->update($updateStatus);
         }else{
             $Balance = $Previous->balance-$Amount_paid;
             $paid = "Paid";
             $status = "open";
-            $this->newBilling($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
+            $this->newBilling($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$amount,$description,$Course->title,$paid);
         }
     }
 
 
     // new Download
-    $this->newDownload($mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$request->amount,$description,$Course->title,$paid);
+    $this->newDownload($ref_number, $mpesa_reference, $user,$status,$request->billType,$discount,$EnterTransaction,$note,$request->agreed_amount,$reference,$request->balance_temp,$Balance,$course_id,$request->amount,$description,$Course->title,$paid);
 
     Session::forget('billing');
     Session::save();
@@ -1089,7 +1092,7 @@ public function sendSMSs($Message,$TheStudent){
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=GTC-COLLEGE&msgType=text&duplicatecheck=true&output=json",
+            CURLOPT_POSTFIELDS => "userid=ABDUL&password=wYr6Wgn9&sendMethod=quick&mobile=+$phone&msg=$message&senderid=ATLAS&msgType=text&duplicatecheck=true&output=json",
             CURLOPT_HTTPHEADER => array(
                 "apikey: 8de95877f8773706e77a9be719a7f0e218c0bafd",
                 "cache-control: no-cache",
